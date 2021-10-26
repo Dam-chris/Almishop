@@ -6,8 +6,9 @@
   .site-header a {
     color: #999;
     transition: ease-in-out color .15s;
+    text-decoration: none !important;
   }
-  .site-header a:hover {
+  .site-header a:hover  {
     color: #fff;
-    text-decoration: none;
+    text-decoration: none !important;
   }
