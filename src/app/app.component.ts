@@ -9,9 +9,4 @@ import { Router } from '@angular/router';
 export class AppComponent {
   title = 'Almishop';
 
-  constructor(private router:Router) { }
-
-  onInit() {
-    if (localStorage.getItem('rol') == "2") {this.router.navigateByUrl('/login')} 
-  }
 }
