@@ -14,7 +14,8 @@ export class HeaderComponent implements OnInit {
   }
 
   isSessionStarted(): boolean {
-    if (sessionStorage.getItem('rol') == '2') {
+    if (sessionStorage.getItem('role') == 'ROLE_ADMIN') 
+    {
       return true;
     }
     return false;

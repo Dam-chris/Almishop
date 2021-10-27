@@ -1,8 +1,16 @@
 <div class="wrapper fadeInDown">
     <div id="formContent">
       <form (submit)="onSubmit()">
-        <input ngModel [(ngModel)]="user" id="user" name="user" type="text" class="form-control fadeIn first" (keydown.enter)="onSubmit()" placeholder="Usuario" [email]="true" required>
-        <input ngModel [(ngModel)]="password" name="password" type="password" class="form-control fadeIn second" (keydown.enter)="onSubmit()" placeholder="Contraseña" required>
+        <input ngModel [(ngModel)]="userData.email" id="email" class="form-control fadeIn first" type="text" name="email" placeholder="email" email required #email="ngModel">
+        <div class="alert alert-danger" *ngIf="email.invalid && (email.dirty || email.touched)">
+          <div *ngIf="email.errors.required">
+              El email es requerido
+          </div>
+          <div *ngIf="email.errors.email">
+              El email debe tener formato valido.
+        </div>
+      </div>
+        <input ngModel [(ngModel)]="userData.password" name="password" type="password" class="form-control fadeIn second" (keydown.enter)="onSubmit()" placeholder="Contraseña" required>
         <button type="button" id="button" class="fadeIn thrid btn btn-primary" (click)="onSubmit()">Acceder</button>
       </form>
 

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { Login } from 'src/app/login';
 import swal from 'sweetalert';
 
 @Component({
@@ -9,24 +10,28 @@ import swal from 'sweetalert';
 })
 export class LoginComponent implements OnInit {
 
-  user: string = ""
-  password: string = ""
+  public userData:Login = {email: "", password: ""};
+  //public allowedAccess:boolean;
 
   constructor(private router: Router) { }
 
-  ngOnInit(): void {
-    if (sessionStorage.getItem('rol') == '2') {
-      this.router.navigateByUrl('/home')
-    }
+  ngOnInit(): void 
+  {
+    sessionStorage.getItem('role') == 'ROLE_ADMIN' && this.router.navigateByUrl('/home');  
   }
 
+ 
+
   onSubmit() {
-    console.log(this.user, this.password)
+    console.log(this.userData)
     //  Login sin BK
-    if (this.user == "a" && this.password == "a") {
-      sessionStorage.setItem('rol', '2')
-      this.router.navigateByUrl('')
-    } else {
+    if (this.userData.email == "a@gmail.com" && this.userData.password == "a") 
+    {
+      sessionStorage.setItem('role', 'ROLE_ADMIN')
+      this.router.navigateByUrl('/home')
+    } 
+    else 
+    {
       swal({
         title: 'Datos inválidos',
         text: 'Inserta datos válidos.',

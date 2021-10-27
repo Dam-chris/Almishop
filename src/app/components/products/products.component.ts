@@ -10,8 +10,18 @@ export class ProductsComponent implements OnInit {
 
   constructor(private router:Router) { }
 
-  ngOnInit() {
-    if (localStorage.getItem('rol') == "2") {this.router.navigateByUrl('/login')}
+  ngOnInit() 
+  {
+    console.log(sessionStorage.getItem('role'));
+    
+   /* if (sessionStorage.getItem('role') != 'ROLE_ADMIN') 
+    { 
+      this.router.navigateByUrl('/login')
+    }
+    */
+    //condicionales simples en una linea (ternary operators en  js por si te interesa)
+
+    sessionStorage.getItem('role') != 'ROLE_ADMIN' && this.router.navigateByUrl('/login');
   }
 
 }
