@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-products',
@@ -7,9 +8,10 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ProductsComponent implements OnInit {
 
-  constructor() { }
+  constructor(private router:Router) { }
 
-  ngOnInit(): void {
+  ngOnInit() {
+    if (localStorage.getItem('rol') == "2") {this.router.navigateByUrl('/login')}
   }
 
 }

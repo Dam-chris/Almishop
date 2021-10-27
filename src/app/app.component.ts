@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -7,4 +8,10 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'Almishop';
+
+  constructor(private router:Router) { }
+
+  onInit() {
+    if (localStorage.getItem('rol') == "2") {this.router.navigateByUrl('/login')} 
+  }
 }
