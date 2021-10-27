@@ -1,9 +1,9 @@
 <div class="wrapper fadeInDown">
     <div id="formContent">
-      <form  (submit)="onSubmit()">
-        <input [(ngModel)]="user" type="text" id="login" class="fadeIn second" name="login" placeholder="Usuario" (keydown.enter)="onSubmit()">
-        <input [(ngModel)]="password" type="password" id="password" class="fadeIn third" name="login" placeholder="Contraseña" (keydown.enter)="onSubmit()">
-        <button type="button" id="button" class="fadeIn fourth btn btn-primary" (click)="onSubmit()">Acceder</button>
+      <form (submit)="onSubmit()">
+        <input ngModel [(ngModel)]="user" id="user" name="user" type="text" class="form-control fadeIn first" (keydown.enter)="onSubmit()" placeholder="Usuario" [email]="true" required>
+        <input ngModel [(ngModel)]="password" name="password" type="password" class="form-control fadeIn second" (keydown.enter)="onSubmit()" placeholder="Contraseña" required>
+        <button type="button" id="button" class="fadeIn thrid btn btn-primary" (click)="onSubmit()">Acceder</button>
       </form>
 
 
