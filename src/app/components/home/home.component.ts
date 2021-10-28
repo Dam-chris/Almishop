@@ -11,11 +11,7 @@ export class HomeComponent implements OnInit {
   constructor(private router: Router) { }
 
   ngOnInit(): void {
-    if (sessionStorage.getItem('role') != 'ROLE_ADMIN') 
-    {
-      this.router.navigateByUrl('/login')
-    }
-    
+    sessionStorage.getItem('role') != 'ROLE_ADMIN' && this.router.navigateByUrl('/login')
   }
 
 }

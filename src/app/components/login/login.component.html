@@ -9,6 +9,7 @@
           <li *ngIf="email.errors.email">
               El email debe tener formato valido.
           </li>
+          <!-- https://getbootstrap.com/docs/5.0/forms/validation/ - Validacion de forms Bootstrap -->
       </ul>
         <input ngModel [(ngModel)]="userData.password" class="form-control fadeIn second" (keydown.enter)="onSubmit()"  name="password" type="password" placeholder="Contraseña" required #password="ngModel">
         <ul class="alert alert-danger" *ngIf="password.invalid && (password.dirty || password.touched)">
