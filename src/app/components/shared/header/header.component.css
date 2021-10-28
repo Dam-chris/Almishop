@@ -10,7 +10,7 @@
     transition: ease-in-out color .15s;
     text-decoration: none;
   }
-  .site-header a:hover 
+  .site-header a:hover  
   {
     color: #fff;
   }

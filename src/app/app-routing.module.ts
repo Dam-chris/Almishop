@@ -1,11 +1,15 @@
 import { NgModule } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
 import { RouterModule, Routes } from '@angular/router';
-import { ProductsComponent } from './products/products.component';
+import { AuthGuard } from './auth-guard.service';
+import { HomeComponent } from './components/home/home.component';
+import { LoginComponent } from './components/login/login.component';
+import { ProductsComponent } from './components/products/products.component';
 
 const routes: Routes = [
-  {path:'', redirectTo:'/products', pathMatch:'full'},
-  {path:'products', component:ProductsComponent}
+  {path:'', redirectTo:'/home', pathMatch:'full'},
+  {path:'login', component:LoginComponent},
+  {path:'home', component:HomeComponent, canActivate:[AuthGuard]},
+  {path:'products', component:ProductsComponent, canActivate:[AuthGuard]}
 ];
 
 @NgModule({
