@@ -1,0 +1,11 @@
+#cb
+{
+  display: inline-block;
+}
+
+#btn
+{
+  float: right;
+  padding-top:3px;
+  margin-top: 6px;
+}
