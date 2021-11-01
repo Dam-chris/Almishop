@@ -8,9 +8,9 @@
           close
       </mat-icon>
   </button>
-  <a class="py-6 my-6 d-none d-md-inline-block" routerLink="home">
-    <img src="assets/img/almicuadrado.png" style="height: 35px; margin: 5px 5px 5px 15px;">
-  </a>
+    <a class="py-6 my-6 d-none d-md-inline-block" routerLink="home">
+      <img class="logoAlmi" src="assets/img/almicuadrado.png">
+    </a>
 </mat-toolbar>
 <mat-sidenav-container>
   <mat-sidenav #sidenav="matSidenav" class="mat-elevation-z8">
@@ -48,11 +48,4 @@
       <router-outlet></router-outlet>
     </div>
 </mat-sidenav-content>
-<footer class="text-center rounded-top">
-  <div class="container py-2">
-    <p class="text-white my-2">
-      &copy; AlmiShop
-    </p>
-  </div>
-</footer>
 </mat-sidenav-container>

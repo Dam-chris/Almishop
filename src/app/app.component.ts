@@ -20,11 +20,11 @@ export class AppComponent
     return status;
   }
   
-  logOut(sidenav) 
+  logOut(menu) 
   {
     console.log('logout');
     sessionStorage.clear();
     this.router.navigateByUrl('/login');
-    sidenav.close();
+    menu.close();
   }
 }
