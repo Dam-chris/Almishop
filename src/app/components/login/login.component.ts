@@ -20,10 +20,11 @@ export class LoginComponent implements OnInit {
     sessionStorage.getItem('role') == 'ROLE_ADMIN' && this.router.navigateByUrl('/home');
   }
 
-  onSubmit() {
-
+  onSubmit() 
+  {
     sessionStorage.setItem('role', 'ROLE_ADMIN');
-    this.loginService.proveLogin(this.userData)
+    this.router.navigateByUrl('/home');
+    /*this.loginService.proveLogin(this.userData)
                     .subscribe(
                       res => 
                       {
@@ -31,6 +32,6 @@ export class LoginComponent implements OnInit {
                         sessionStorage.setItem('role', 'ROLE_ADMIN');
                       },
                       err => console.log(err)
-                      );
+                      );*/
   }
 }

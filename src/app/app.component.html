@@ -1,6 +1,6 @@
 
 <mat-toolbar class="mat-elevation-z8">
-  <button mat-icon-button *ngIf="sidenav.mode === 'over'" (click)="sidenav.toggle()">
+  <button mat-icon-button *ngIf="sidenav.mode === 'over'" (click)="sidenav.toggle()" [disabled]="isDisabledMenu()">
       <mat-icon *ngIf="!sidenav.opened">
           menu
       </mat-icon>
@@ -37,9 +37,9 @@
 
       <mat-divider></mat-divider>
 
-      <button mat-button class="menu-button">
-          <mat-icon>help</mat-icon>
-          <span>Help</span>
+      <button mat-button class="menu-button" (click)="logOut(sidenav)">
+          <mat-icon>exit_to_app</mat-icon>
+          <span>Cerrar Session</span>
       </button>
 
   </mat-sidenav>
