@@ -20,12 +20,10 @@ export class HeaderComponent implements OnInit {
 
 
 
-  isSessionStarted(): boolean {
-    if (sessionStorage.getItem('role') == 'ROLE_ADMIN') 
-    {
-      return true;
-    }
-    return false;
+  isSessionStarted(): boolean 
+  {
+    let status = sessionStorage.getItem('role') == 'ROLE_ADMIN';
+    return status;
   }
 
   logOut() {
