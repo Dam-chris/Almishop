@@ -13,9 +13,9 @@
 </mat-toolbar>
 <mat-sidenav-container>
   <mat-sidenav #sidenav="matSidenav" class="mat-elevation-z8">
-
+      
       <img class="avatar mat-elevation-z8" src="assets/img/shitfuck.jpeg" />
-
+      
       <h4 class="name">Alberto (ShitFuck)</h4>
       <p class="designation">Esclavo De AlmiShop</p>
 
@@ -35,6 +35,10 @@
       </button>
 
       <mat-divider></mat-divider>
+      <button mat-button class="menu-button" (click)="settings()">
+        <mat-icon>edit</mat-icon>
+        <span>Ajustes</span>
+    </button>
 
       <button mat-button class="menu-button" (click)="logOut(sidenav)">
           <mat-icon>exit_to_app</mat-icon>

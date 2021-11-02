@@ -20,6 +20,11 @@ export class AppComponent
     return status;
   }
   
+  settings()
+  {
+    console.log("ajustes!!!");
+    
+  }
   logOut(menu) 
   {
     console.log('logout');
