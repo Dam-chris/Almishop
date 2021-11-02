@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { data } from 'jquery';
 import { ProductService } from 'src/app/services/product.service';
+import { Language_ES } from '../data-tables-config/language_ES';
 
 
 @Component({
@@ -11,17 +11,30 @@ import { ProductService } from 'src/app/services/product.service';
 })
 export class ProductsComponent implements OnInit
 {
-
+  dtOptions: DataTables.Settings = {};
+  private language_ES:Language_ES;
 
   constructor(private router:Router, private productService: ProductService) { }
   allProducts = []
   shownProducts = []
   filteredProducts = []
+
+ 
   ngOnInit()
   {
     //## LLAMAR A PRODUCTSERVICE ##
     this.allProducts = this.productService.getAllProducts();
     this.shownProducts = this.allProducts
+    
+    this.dtOptions = {
+      pagingType: 'full_numbers',
+      pageLength: 25,
+      info:false,
+      ordering:false,
+      processing: true,
+      language:this.language_ES,
+      lengthChange:true 
+    };
 
   }
 

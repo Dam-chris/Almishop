@@ -8,12 +8,13 @@
 
 <button routerLink="add" class="btn btn-outline-primary" id="btn">Añadir Producto</button>
 <button class="btn btn-outline-secondary" id="btn">Productos Archivados</button>
-<table class="table">
+<table class="table table-striped table-bordered table-sm"  datatable [dtOptions]="dtOptions" cellspacing="0" width="100%">
   <thead>
     <tr>
-      <th scope="col">#</th>
-      <th scope="col">Nombre</th>
-      <!--<th scope="col">Tipo</th>-->
+      <th scope="col" class="th-sm">#</th>
+      <th scope="col" class="th-sm">Nombre</th>
+      <th scope="col">Editar</th>
+      <th scope="col" class="th-sm">Borrar</th>
     </tr>
   </thead>
   <tbody>
