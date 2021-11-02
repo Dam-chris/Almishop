@@ -20,24 +20,84 @@
     <!-- DISTINTOS DIVS PARA DISTINTOS TIPOS DE DATOS -->
     <!-- smartphone -->
     <div *ngIf="smartphoneSelected">
-
       <label for="storageInputS" class="col-form-label">Capacidad</label>
       <div class="input-group">
-        <input type="text" id="storageInputS" class="form-control">
+        <input type="number" id="storageInputS" class="form-control">
         <span class="input-group-text">GB</span>
       </div>
 
       <label for="ramInputS" class="col-form-label">RAM</label>
       <div class="input-group">
-        <input type="text" id="ramInputS" class="form-control">
+        <input type="number" id="ramInputS" class="form-control">
         <span class="input-group-text">GB</span>
       </div>
 
+      <label for="inchesInputS" class="col-form-label">Tamaño</label>
+      <div class="input-group">
+        <input type="text" id="inchesInputS" class="form-control">
+        <span class="input-group-text">"</span>
+      </div>
+
+      <label for="batteryInputS" class="col-form-label">Batería</label>
+      <div class="input-group">
+        <input type="number" id="batteryInputS" class="form-control">
+        <span class="input-group-text">mAH</span>
+      </div>
+
+      <label for="cameraInputS" class="col-form-label">Cámara</label>
+      <div class="input-group">
+        <input type="text" id="cameraInputS" class="form-control">
+        <span class="input-group-text">Mpx</span>
+      </div>
+
+      <div class="form-check"style="margin-top: 10px;" >
+        <input class="form-check-input" type="checkbox" value="" id="sdInputS">
+        <label class="form-check-label user-select-none" for="sdInputS">SD</label>
+      </div>
+
+      <label for="colorInputS" class="col-form-label">Color</label>
+      <input type="text" id="colorInputS" class="form-control">
     </div>
 
     <!-- tablet -->
     <div *ngIf="tabletSelected">
+      <label for="storageInputT" class="col-form-label">Capacidad</label>
+      <div class="input-group">
+        <input type="number" id="storageInputT" class="form-control">
+        <span class="input-group-text">GB</span>
+      </div>
 
+      <label for="ramInputT" class="col-form-label">RAM</label>
+      <div class="input-group">
+        <input type="number" id="ramInputT" class="form-control">
+        <span class="input-group-text">GB</span>
+      </div>
+
+      <label for="inchesInputT" class="col-form-label">Tamaño</label>
+      <div class="input-group">
+        <input type="text" id="inchesInputT" class="form-control">
+        <span class="input-group-text">"</span>
+      </div>
+
+      <label for="batteryInputT" class="col-form-label">Batería</label>
+      <div class="input-group">
+        <input type="number" id="batteryInputT" class="form-control">
+        <span class="input-group-text">mAH</span>
+      </div>
+
+      <label for="cameraInputT" class="col-form-label">Cámara</label>
+      <div class="input-group">
+        <input type="text" id="cameraInputT" class="form-control">
+        <span class="input-group-text">Mpx</span>
+      </div>
+
+      <div class="form-check"style="margin-top: 10px;" >
+        <input class="form-check-input" type="checkbox" value="" id="sdInputT">
+        <label class="form-check-label user-select-none" for="sdInputT">SD</label>
+      </div>
+
+      <label for="colorInputT" class="col-form-label">Color</label>
+      <input type="text" id="colorInputT" class="form-control">
     </div>
 
     <!-- console -->
@@ -47,7 +107,7 @@
 
     <!-- videogame -->
     <div *ngIf="videogameSelected">
-
+      <input type="date">
     </div>
 
 
@@ -55,13 +115,13 @@
 </label>
 
 <!--
-  {
+{
   id: 0,
   name: '',
   stock_sale: 0,
   stock_rent: null,
   brand: '',
-  type: 'smartphone',
+  type: 'videogame',
   price: 0,
   discount: 0.0,
   images: [
@@ -72,14 +132,12 @@
     },
   ],
   info: {
-    id_smartphone: 0,
-    storage: '',
-    ram: '',
-    inches: 0.0,
-    battery: 0,
-    camera: 0.0,
-    sd: false,
-    color: ''
+    id_videojuego: 0,
+    realease_date: 0/0/0,
+    pegi: 0,
+    platform: '',
+    genere: '',
+    developer: ''
   }
 }
 -->

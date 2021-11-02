@@ -252,6 +252,34 @@ export class ProductService {
   stock_sale: 0,
   stock_rent: null,
   brand: '',
+  type: 'videogame',
+  price: 0,
+  discount: 0.0,
+  images: [
+    {
+      id_image: 0,
+      name: '',
+      path: ''
+    },
+  ],
+  info: {
+    id_videojuego: 0,
+    realease_date: 0/0/0,
+    pegi: 0,
+    platform: '',
+    genere: '',
+    developer: ''
+  }
+}
+  #############
+  ## CONSOLA ##
+  #############
+{
+  id: 0,
+  name: '',
+  stock_sale: 0,
+  stock_rent: null,
+  brand: '',
   type: 'console',
   price: 0,
   discount: 0.0,
@@ -263,7 +291,12 @@ export class ProductService {
     },
   ],
   info: {
-
+    id_console: 0,
+    storage: '',
+    cd: false,
+    ram: '',
+    cpu: '',
+    gpu: ''
   }
 }
 */

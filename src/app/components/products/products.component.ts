@@ -25,7 +25,7 @@ export class ProductsComponent implements OnInit
     //## LLAMAR A PRODUCTSERVICE ##
     this.allProducts = this.productService.getAllProducts();
     this.shownProducts = this.allProducts
-    
+
     this.dtOptions = {
       pagingType: 'full_numbers',
       pageLength: 25,
@@ -33,7 +33,7 @@ export class ProductsComponent implements OnInit
       ordering:false,
       processing: true,
       language:this.language_ES,
-      lengthChange:true 
+      lengthChange:true
     };
 
   }
