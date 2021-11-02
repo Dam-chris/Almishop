@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { data } from 'jquery';
+import { ProductService } from 'src/app/services/product.service';
 
 
 @Component({
@@ -7,9 +9,9 @@ import { data } from 'jquery';
   templateUrl: './products.component.html',
   styleUrls: ['./products.component.css']
 })
-export class ProductsComponent implements OnInit 
+export class ProductsComponent implements OnInit
 {
- 
+
 
   constructor(private router:Router, private productService: ProductService) { }
   allProducts = []
