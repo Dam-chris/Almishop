@@ -15,11 +15,11 @@ export class ProductsComponent implements OnInit
   private language_ES:Language_ES;
 
   constructor(private router:Router, private productService: ProductService) { }
+
   allProducts = []
   shownProducts = []
   filteredProducts = []
 
- 
   ngOnInit()
   {
     //## LLAMAR A PRODUCTSERVICE ##
@@ -37,7 +37,6 @@ export class ProductsComponent implements OnInit
     };
 
   }
-
 
   optionChanged(value) {
     this.shownProducts = []
