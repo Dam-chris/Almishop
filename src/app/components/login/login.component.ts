@@ -20,10 +20,11 @@ export class LoginComponent implements OnInit {
     sessionStorage.getItem('role') == 'ROLE_ADMIN' && this.router.navigateByUrl('/home');
   }
 
-  onSubmit() {
-
+  onSubmit() 
+  {
     sessionStorage.setItem('role', 'ROLE_ADMIN');
-    this.router.navigate(['']);
+
+    this.router.navigateByUrl('/home');
     /*this.loginService.proveLogin(this.userData)
                     .subscribe(
                       res =>

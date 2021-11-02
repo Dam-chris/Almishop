@@ -8,17 +8,17 @@
     position: relative;
     min-height: 100%;
   }
-  body
-  {
-    padding: 10px;
-  }
-
   footer 
   {
-    position: absolute;
+    position: fixed;
     left: 0;
     bottom: 0;
     height: 60px;
     width: 100%;
     overflow:hidden;
+    background: #004a9f;
   }
+
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
