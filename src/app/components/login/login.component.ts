@@ -23,14 +23,15 @@ export class LoginComponent implements OnInit {
   onSubmit() {
 
     sessionStorage.setItem('role', 'ROLE_ADMIN');
-    this.loginService.proveLogin(this.userData)
+    this.router.navigate(['']);
+    /*this.loginService.proveLogin(this.userData)
                     .subscribe(
-                      res => 
+                      res =>
                       {
                         console.log(res);
                         sessionStorage.setItem('role', 'ROLE_ADMIN');
                       },
                       err => console.log(err)
-                      );
+                      );*/
   }
 }

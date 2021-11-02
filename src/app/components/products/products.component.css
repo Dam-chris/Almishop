@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 table.dataTable thead .sorting:after,
 table.dataTable thead .sorting:before,
 table.dataTable thead .sorting_asc:after,
@@ -10,3 +11,16 @@ table.dataTable thead .sorting_desc_disabled:after,
 table.dataTable thead .sorting_desc_disabled:before {
   bottom: .5em;
 }
+=======
+#cb
+{
+  display: inline-block;
+}
+
+#btn
+{
+  float: right;
+  padding-top:3px;
+  margin-top: 6px;
+}
+>>>>>>> merge2

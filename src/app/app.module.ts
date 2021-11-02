@@ -10,6 +10,8 @@ import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { UsersComponent } from './users/users.component';
 import { DataTablesModule } from 'angular-datatables';
+import { AddProductComponent } from './components/add-product/add-product.component';
+import { EditProductComponent } from './components/edit-product/edit-product.component';
 
 @NgModule({
   declarations: [
@@ -18,7 +20,9 @@ import { DataTablesModule } from 'angular-datatables';
     ProductsComponent,
     LoginComponent,
     HomeComponent,
-    UsersComponent
+    UsersComponent,
+    AddProductComponent,
+    EditProductComponent
   ],
   imports: [
     BrowserModule,
