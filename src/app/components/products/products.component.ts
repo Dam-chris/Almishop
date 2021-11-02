@@ -25,6 +25,7 @@ export class ProductsComponent implements OnInit
 
   }
 
+
   optionChanged(value) {
     this.shownProducts = []
     value == 'all' ? this.shownProducts = this.allProducts : this.shownProducts = this.productFilter(value)
