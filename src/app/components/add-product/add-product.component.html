@@ -2,20 +2,38 @@
   <select (change)="optionChanged(selector.value)" #selector id="selector" class="form-select form-select mb-3" style="width: 22%;" aria-label=".form-select-lg example">
     <option value="smartphone">Smartphone</option>
     <option value="tablet">Tablet</option>
-    <option value="videogame">Videojuego</option>
+    <option value="videogame" selected>Videojuego</option>
     <option value="console">Consola</option>
   </select>
   <label for="selector">Selecciona una..</label>
 </div>
 
-<label>
-  <form>
+<label class="formu">
+  <form >
 
     <label for="nameInput" class="col-form-label">Nombre</label>
     <input type="text" id="nameInput" class="form-control">
 
-    <label for="brandInput" class="col-form-label">Marca</label>
-    <input type="text" id="brandInput" class="form-control">
+    <div class="form-check form-check-inline mt-2">
+      <input class="form-check-input" type="radio" [value]="1" [(ngModel)]="sh1" name="sh1" type="radio" [checked]="rb1" id="rb1a" checked>
+      <label class="form-check-label" for="rb1a">Marca existente</label>
+    </div>
+    <div class="form-check form-check-inline">
+      <input class="form-check-input" type="radio" [value]="0" [(ngModel)]="sh1" name="sh1" type="radio" [checked]="!rb1" id="rb1b">
+      <label class="form-check-label" for="rb1b">Nueva marca</label>
+    </div>
+
+    <div>
+      <div *ngIf="sh1 == 1">
+        <select name="" id="" class="mt-2 fieldSelector"></select>
+      </div>
+      <div *ngIf="sh1 == 0">
+        <input type="text" id="brandInput" class="form-control">
+      </div>
+    </div>
+
+    <label for="stockAInput" class="col-form-label">Stock inicial</label>
+    <input type="number" id="stockAInput" class="form-control">
 
     <!-- DISTINTOS DIVS PARA DISTINTOS TIPOS DE DATOS -->
     <!-- smartphone -->
@@ -55,8 +73,23 @@
         <label class="form-check-label user-select-none" for="sdInputS">SD</label>
       </div>
 
-      <label for="colorInputS" class="col-form-label">Color</label>
-      <input type="text" id="colorInputS" class="form-control">
+      <div class="form-check form-check-inline mt-2">
+        <input class="form-check-input" type="radio" [value]="1" [(ngModel)]="sh2" name="sh2" type="radio" [checked]="rb2" id="rb2a" checked>
+        <label class="form-check-label" for="rb2a">Color existente</label>
+      </div>
+      <div class="form-check form-check-inline">
+        <input class="form-check-input" type="radio" [value]="0" [(ngModel)]="sh2" name="sh2" type="radio" [checked]="!rb2" id="rb2b">
+        <label class="form-check-label" for="rb2b">Nuevo color</label>
+      </div>
+
+      <div class="mt-2">
+        <div *ngIf="sh2 == 1">
+          <select name="" id="" class="mt-2 fieldSelector"></select>
+        </div>
+        <div *ngIf="sh2 == 0">
+          <input type="text" id="colorInputS" class="form-control mt-3">
+        </div>
+      </div>
     </div>
 
     <!-- tablet -->
@@ -96,48 +129,142 @@
         <label class="form-check-label user-select-none" for="sdInputT">SD</label>
       </div>
 
-      <label for="colorInputT" class="col-form-label">Color</label>
-      <input type="text" id="colorInputT" class="form-control">
+      <div>
+        <div class="form-check form-check-inline mt-2">
+          <input class="form-check-input" type="radio" [value]="1" [(ngModel)]="sh3" name="sh3" type="radio" [checked]="rb3" id="rb3a" checked>
+          <label class="form-check-label" for="rb3a">Color existente</label>
+        </div>
+        <div class="form-check form-check-inline">
+          <input class="form-check-input" type="radio" [value]="0" [(ngModel)]="sh3" name="sh3" type="radio" [checked]="!rb3" id="rb3b">
+          <label class="form-check-label" for="rb3b">Nuevo color</label>
+        </div>
+
+        <div class="mt-2">
+          <div *ngIf="sh2 == 1">
+            <select name="" id="" class="mt-2 fieldSelector"></select>
+          </div>
+          <div *ngIf="sh2 == 0">
+            <input type="text" id="colorInputT" class="form-control mt-3">
+          </div>
+        </div>
+      </div>
     </div>
+
+<!--
+  info: {
+    storage: '',
+    cd: false,
+    ram: '',
+    cpu: '',
+    gpu: ''
+  }
+-->
 
     <!-- console -->
     <div *ngIf="consoleSelected">
+      <label for="storageInputc" class="col-form-label">Capacidad</label>
+      <div class="input-group">
+        <input type="number" id="storageInputc" class="form-control">
+        <span class="input-group-text">GB</span>
+      </div>
+
+      <div class="form-check"style="margin-top: 10px;" >
+        <input class="form-check-input" type="checkbox" value="" id="CdInputS">
+        <label class="form-check-label user-select-none" for="CdInputS">CD</label>
+      </div>
+
+      <label for="ramInputC" class="col-form-label">RAM</label>
+      <div class="input-group">
+        <input type="number" id="ramInputC" class="form-control">
+        <span class="input-group-text">GB</span>
+      </div>
+
+      <label for="cpuInputC" class="col-form-label">CPU</label>
+      <input type="number" id="cpuInputC" class="form-control">
+
+      <label for="gpuInputC" class="col-form-label">GPU</label>
+      <input type="number" id="gpuInputC" class="form-control">
 
     </div>
 
     <!-- videogame -->
     <div *ngIf="videogameSelected">
-      <input type="date">
+      <label for="stockBInputV" class="col-form-label">Stock de alquiler</label>
+      <input type="text" id="stockBInputV" class="form-control">
+
+      <label for="descriptionInputC" class="col-form-label">Descripción</label>
+      <input type="text" id="descriptionInputC" class="form-control">
+
+      <label for="dateInputV" class="col-form-label">Fecha de salida</label>
+      <input type="date" id="dateInputV" class="form-control">
+
+      <label for="pegiInputV" class="col-form-label">PEGI</label>
+      <input type="number" id="pegiInputV" class="form-control">
+
+      <!-- DIV de checkbox -->
+      <div class="mt-3">
+        <div class="form-check form-check-inline">
+          <input class="form-check-input" type="radio" [value]="1" [(ngModel)]="sh4" name="sh4" type="radio" [checked]="rb4" id="rb4a" selec>
+          <label class="form-check-label" for="rb4a">Plataforma existente</label>
+        </div>
+        <div class="form-check form-check-inline">
+          <input class="form-check-input" type="radio" [value]="0" [(ngModel)]="sh4" name="sh4" type="radio" [checked]="!rb4" id="rb4b">
+          <label class="form-check-label" for="rb4b">Nuevo plataforma</label>
+        </div>
+
+        <div>
+          <div *ngIf="sh4 == 1">
+            <select name="" id="" class="mt-3 fieldSelector"></select>
+          </div>
+          <div *ngIf="sh4 == 0">
+            <input type="text" id="colorInputT" class="form-control mt-3">
+          </div>
+        </div>
+      </div>
+
+      <div class="mt-3">
+        <div class="form-check form-check-inline">
+          <input class="form-check-input" type="radio" [value]="1" [(ngModel)]="sh5" name="sh5" type="radio" [checked]="rb5" id="rb5a" selec>
+          <label class="form-check-label" for="rb5a">Género existente</label>
+        </div>
+        <div class="form-check form-check-inline">
+          <input class="form-check-input" type="radio" [value]="0" [(ngModel)]="sh5" name="sh5" type="radio" [checked]="!rb4" id="rb5b">
+          <label class="form-check-label" for="rb5b">Nuevo Género</label>
+        </div>
+
+        <div>
+          <div *ngIf="sh5 == 1">
+            <select name="" id="" class="mt-3 fieldSelector"></select>
+          </div>
+          <div *ngIf="sh5 == 0">
+            <input type="text" id="colorInputT" class="form-control mt-3">
+          </div>
+        </div>
+      </div>
+
+      <div class="mt-3">
+        <div class="form-check form-check-inline">
+          <input class="form-check-input" type="radio" [value]="1" [(ngModel)]="sh6" name="sh6" type="radio" [checked]="rb6" id="rb6a" selec>
+          <label class="form-check-label" for="rb6a">Desarrollador existente</label>
+        </div>
+        <div class="form-check form-check-inline">
+          <input class="form-check-input" type="radio" [value]="0" [(ngModel)]="sh6" name="sh6" type="radio" [checked]="!rb6" id="rb6b">
+          <label class="form-check-label" for="rb6b">Nuevo Desarrollador</label>
+        </div>
+
+        <div>
+          <div *ngIf="sh6 == 1">
+            <select name="" id="" class="mt-3 fieldSelector"></select>
+          </div>
+          <div *ngIf="sh6 == 0">
+            <input type="text" id="colorInputT" class="form-control mt-3">
+          </div>
+        </div>
+      </div>
+
     </div>
 
-
+    <button type="button" class="btn btn-danger">Cancelar</button>
+    <button type="button" class="btn btn-success">Añadir</button>
   </form>
 </label>
-
-<!--
-{
-  id: 0,
-  name: '',
-  stock_sale: 0,
-  stock_rent: null,
-  brand: '',
-  type: 'videogame',
-  price: 0,
-  discount: 0.0,
-  images: [
-    {
-      id_image: 0,
-      name: '',
-      path: ''
-    },
-  ],
-  info: {
-    id_videojuego: 0,
-    realease_date: 0/0/0,
-    pegi: 0,
-    platform: '',
-    genere: '',
-    developer: ''
-  }
-}
--->

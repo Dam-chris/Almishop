@@ -12,13 +12,27 @@ export class AddProductComponent implements OnInit {
   consoleSelected: boolean
   videogameSelected: boolean
 
+  sh1: any = 1
+  sh2: any = 1
+  sh3: any = 1
+  sh4: any = 1
+  sh5: any = 1
+  sh6: any = 1
+
+  rb1: boolean = true
+  rb2: boolean = true
+  rb3: boolean = true
+  rb4: boolean = true
+  rb5: boolean = true
+  rb6: boolean = true
+
   constructor() { }
 
   ngOnInit(): void {
-    this.smartphoneSelected = true
+    this.smartphoneSelected = false
     this.tabletSelected = false
     this.consoleSelected = false
-    this.videogameSelected = false
+    this.videogameSelected = true
   }
 
   optionChanged(value) {
