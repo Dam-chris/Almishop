@@ -20,6 +20,7 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatDividerModule } from '@angular/material/divider';
+import { SettingsComponent } from './settings/settings.component';
 
 @NgModule({
   declarations: [
@@ -30,7 +31,8 @@ import { MatDividerModule } from '@angular/material/divider';
     HomeComponent,
     UsersComponent,
     AddProductComponent,
-    EditProductComponent
+    EditProductComponent,
+    SettingsComponent
   ],
   imports: [
     BrowserModule,
