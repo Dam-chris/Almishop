@@ -1,31 +1,55 @@
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Brand } from '../models/brand';
+import { Color } from '../models/color';
+import { Developer } from '../models/developer';
+import { Genre } from '../models/genre';
+import { Platform } from '../models/platform';
 
+const httpOptions = {
+  headers: new HttpHeaders({'Content-Type': 'application/json'})
+};
+const url: string = 'https://gatitoz.duckdns.org'
 @Injectable({
   providedIn: 'root'
 })
 export class ProductService {
 
-  /*productObject: object =  {
-    id: 1,
-    type: 'Smartphone',
-    name: 'Movil 1',
-    stock_sale: 120,
-    stock_rent: 15,
-    brand: 'Marca genérica',
-    info: {
-      id: 1,
-      storage: '256',
-      ram: '8',
-      inches: 6.4,
-      battery: 2100,
-      camera: 8.6,
-      sd: true,
-      color: 'Rojo',
-      id_product: 1
-    }
-  }*/
 
-  constructor() { }
+  constructor(private httpClient: HttpClient) { }
+
+  getAllProducts() {
+    return this.products
+  }
+
+  getProductById(id) {
+    for (let i = 0; i < this.products.length; i++) {
+      if (this.products[i].id == id) {
+        return this.products[i]
+      }
+    }
+    return null;
+  }
+
+  getBrands() {
+    return this.httpClient.get<Brand>(url + '/brand')
+  }
+
+  getColors() {
+    return this.httpClient.get<Color>(url + '/color')
+  }
+
+  getPlatforms () {
+    return this.httpClient.get<Platform>(url + '/platform')
+  }
+
+  getGenres() {
+    return this.httpClient.get<Genre>(url + '/genre')
+  }
+
+  getDevelopers() {
+    return this.httpClient.get<Developer>(url + '/developer')
+  }
 
   products = [
     {
@@ -162,18 +186,7 @@ export class ProductService {
   ]
   filteredProducts = []
 
-  getAllProducts() {
-    return this.products
-  }
 
-  getProductById(id) {
-    for (let i = 0; i < this.products.length; i++) {
-      if (this.products[i].id == id) {
-        return this.products[i]
-      }
-    }
-    return null;
-  }
 }
 
 /*

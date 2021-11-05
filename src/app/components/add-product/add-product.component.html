@@ -1,9 +1,9 @@
 <div class="form-floating">
   <select (change)="optionChanged(selector.value)" #selector id="selector" class="form-select form-select mb-3" style="width: 22%;" aria-label=".form-select-lg example">
-    <option value="smartphone">Smartphone</option>
+    <option value="smartphone" selected>Smartphone</option>
     <option value="tablet">Tablet</option>
-    <option value="videogame" selected>Videojuego</option>
     <option value="console">Consola</option>
+    <option value="videogame">Videojuego</option>
   </select>
   <label for="selector">Selecciona una..</label>
 </div>
@@ -25,7 +25,10 @@
 
     <div>
       <div *ngIf="sh1 == 1">
-        <select name="" id="" class="mt-2 fieldSelector"></select>
+        <select name="" id="" class="mt-2 fieldSelector">
+          <option disabled selected hidden>Seleccione una opción</option>
+          <option *ngFor="let i of brands" value="{{ i.id }}">{{ i.name }}</option>
+        </select>
       </div>
       <div *ngIf="sh1 == 0">
         <input type="text" id="brandInput" class="form-control">
@@ -33,7 +36,7 @@
     </div>
 
     <label for="stockAInput" class="col-form-label">Stock inicial</label>
-    <input type="number" id="stockAInput" class="form-control">
+    <input type="number" value="0" id="stockAInput" class="form-control">
 
     <!-- DISTINTOS DIVS PARA DISTINTOS TIPOS DE DATOS -->
     <!-- smartphone -->
@@ -84,7 +87,10 @@
 
       <div class="mt-2">
         <div *ngIf="sh2 == 1">
-          <select name="" id="" class="mt-2 fieldSelector"></select>
+          <select name="" id="" class="mt-2 fieldSelector">
+            <option disabled selected hidden>Seleccione una opción</option>
+            <option *ngFor="let i of colors" value="{{ i.id }}">{{ i.name }}</option>
+          </select>
         </div>
         <div *ngIf="sh2 == 0">
           <input type="text" id="colorInputS" class="form-control mt-3">
@@ -141,7 +147,11 @@
 
         <div class="mt-2">
           <div *ngIf="sh2 == 1">
-            <select name="" id="" class="mt-2 fieldSelector"></select>
+
+            <select name="" id="" class="mt-2 fieldSelector">
+              <option disabled selected hidden>Seleccione una opción</option>
+              <option *ngFor="let i of colors" value="{{ i.id }}">{{ i.name }}</option>
+            </select>
           </div>
           <div *ngIf="sh2 == 0">
             <input type="text" id="colorInputT" class="form-control mt-3">
@@ -149,16 +159,6 @@
         </div>
       </div>
     </div>
-
-<!--
-  info: {
-    storage: '',
-    cd: false,
-    ram: '',
-    cpu: '',
-    gpu: ''
-  }
--->
 
     <!-- console -->
     <div *ngIf="consoleSelected">
@@ -214,7 +214,10 @@
 
         <div>
           <div *ngIf="sh4 == 1">
-            <select name="" id="" class="mt-3 fieldSelector"></select>
+            <select name="" id="" class="mt-3 fieldSelector">
+              <option disabled selected hidden>Seleccione una opción</option>
+              <option *ngFor="let i of platforms" value="{{ i.id }}">{{ i.name }}</option>
+            </select>
           </div>
           <div *ngIf="sh4 == 0">
             <input type="text" id="colorInputT" class="form-control mt-3">
@@ -234,7 +237,7 @@
 
         <div>
           <div *ngIf="sh5 == 1">
-            <select name="" id="" class="mt-3 fieldSelector"></select>
+            <!-- meter desplegable o swal? -->
           </div>
           <div *ngIf="sh5 == 0">
             <input type="text" id="colorInputT" class="form-control mt-3">
@@ -254,17 +257,20 @@
 
         <div>
           <div *ngIf="sh6 == 1">
-            <select name="" id="" class="mt-3 fieldSelector"></select>
+            <select name="" id="" class="mt-3 fieldSelector">
+              <option disabled selected hidden>Seleccione una opción</option>
+              <option *ngFor="let i of developers" value="{{ i.id }}">{{ i.name }}</option>
+              <option value=""></option>
+            </select>
           </div>
           <div *ngIf="sh6 == 0">
             <input type="text" id="colorInputT" class="form-control mt-3">
           </div>
         </div>
       </div>
-
     </div>
 
-    <button type="button" class="btn btn-danger">Cancelar</button>
+    <button type="button" class="btn btn-danger" (click)="cancel()">Cancelar</button>
     <button type="button" class="btn btn-success">Añadir</button>
   </form>
 </label>

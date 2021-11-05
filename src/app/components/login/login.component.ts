@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { Login } from 'src/app/components/login/login';
+import { Login } from 'src/app/models/login';
 import { LoginService } from 'src/app/services/login.service';
 import swal from 'sweetalert';
 
@@ -20,7 +20,7 @@ export class LoginComponent implements OnInit {
     sessionStorage.getItem('role') == 'ROLE_ADMIN' && this.router.navigateByUrl('/home');
   }
 
-  onSubmit() 
+  onSubmit()
   {
     sessionStorage.setItem('role', 'ROLE_ADMIN');
 
