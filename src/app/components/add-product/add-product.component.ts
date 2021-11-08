@@ -1,6 +1,7 @@
 import { ThrowStmt } from '@angular/compiler';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { data } from 'jquery';
 import { ProductService } from 'src/app/services/product.service';
 import swal from 'sweetalert';
 
@@ -98,7 +99,10 @@ export class AddProductComponent implements OnInit {
     })
   }
 
-  submit(type: string) {
+  async submit(type: string) {
+
+    var product = {}
+    var idBrand: number
     switch (type) {
       case 'smartphone':
 
@@ -107,34 +111,89 @@ export class AddProductComponent implements OnInit {
 
       break
       case 'console':
-        if (this.sh1 == 0) {
-          //  crear marca y que devuelva la id
-          // this.brandInput == id
-        }
-
-        //validacion
         if (this.validation(type) >= 1) {
           this.validationError()
           break
         }
+        if (this.sh1 == 0) {
+          //  crear marca y que devuelva la id
+          var brandName =  this.brandInput
+          await this.productService.addBrand({name: brandName}).subscribe(data => {
+            idBrand = data.id
+            var storage = this.storageInputC.toString()
+            var ram = this.ramInputC.toString()
+            var price = this.priceInput.toString()
+            console.log('idbrand'+idBrand)
+            product = {
+              id_product_type: 4,
+              storage: storage,
+              has_cd: this.cdInputC,
+              ram: ram,
+              cpu: this.cpuInputC,
+              gpu: this.gpuInputC,
+              name: this.nameInput,
+              price: price,
+              stock_sale: this.stockInput,
+              id_brand: idBrand
+            }
+            this.productService.addProduct(product).subscribe(data => {
+              console.log(data)
+              swal({
+                title: 'Producto añadido',
+                icon: 'success'
+              })
+            }, error => {
+                swal({
+                  title: 'Error',
+                  text: error,
+                  icon: 'error'
+                })
+            })
+              }, error => {
+                swal('Error', 'Error al añadir marca, ' + error, 'error')
+                return null
+            })
+        } else {idBrand = parseInt(this.brandInput)}
 
-        var obj = {
+        var storage = this.storageInputC.toString()
+        var ram = this.ramInputC.toString()
+        var price = this.priceInput.toString()
+        console.log('idbrand'+idBrand)
+        product = {
           id_product_type: 4,
-          storage: this.storageInputC,
+          storage: storage,
           has_cd: this.cdInputC,
-          ram: this.ramInputC,
+          ram: ram,
           cpu: this.cpuInputC,
           gpu: this.gpuInputC,
           name: this.nameInput,
-          price: this.priceInput,
+          price: price,
           stock_sale: this.stockInput,
-          id_brand: this.brandInput
+          id_brand: idBrand
         }
-        console.log(obj)
-        this.router.navigateByUrl('add')
+        this.productService.addProduct(product).subscribe(data => {
+          console.log(data)
+          swal({
+            title: 'Producto añadido',
+            icon: 'success'
+          })
+        }, error => {
+            swal({
+              title: 'Error',
+              text: error,
+              icon: 'error'
+            })
+        })
       break
       case 'videogame':
 
+      break
+      default:
+        swal({
+          title: 'Error',
+          text: 'Ha habido un error, inténtelo más tarde',
+          icon: 'error'
+        })
       break
     }
   }
@@ -163,8 +222,6 @@ export class AddProductComponent implements OnInit {
     }
     return errors
   }
-
-
 
   optionChanged(value: string) {
     switch (value) {

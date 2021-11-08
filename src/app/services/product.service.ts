@@ -1,5 +1,8 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Observable, throwError } from 'rxjs';
+import { catchError } from 'rxjs/operators';
+import swal from 'sweetalert';
 import { Brand } from '../models/brand';
 import { Color } from '../models/color';
 import { Developer } from '../models/developer';
@@ -9,7 +12,8 @@ import { Platform } from '../models/platform';
 const httpOptions = {
   headers: new HttpHeaders({'Content-Type': 'application/json'})
 };
-const url: string = 'https://gatitoz.duckdns.org'
+const urlEndPoint: string = 'https://gatitoz.duckdns.org/'
+
 @Injectable({
   providedIn: 'root'
 })
@@ -22,7 +26,7 @@ export class ProductService {
     return this.products
   }
 
-  getProductById(id) {
+  getProductById(id: number) {
     for (let i = 0; i < this.products.length; i++) {
       if (this.products[i].id == id) {
         return this.products[i]
@@ -31,24 +35,33 @@ export class ProductService {
     return null;
   }
 
+  addProduct(product: object)  {
+    return this.httpClient.post<Object>(urlEndPoint + 'product/add', product, httpOptions)
+  }
+
   getBrands() {
-    return this.httpClient.get<Brand>(url + '/brand')
+    return this.httpClient.get<Brand>(urlEndPoint + 'brand')
   }
 
   getColors() {
-    return this.httpClient.get<Color>(url + '/color')
+    return this.httpClient.get<Color>(urlEndPoint + 'color')
   }
 
   getPlatforms () {
-    return this.httpClient.get<Platform>(url + '/platform')
+    return this.httpClient.get<Platform>(urlEndPoint + 'platform')
   }
 
   getGenres() {
-    return this.httpClient.get<Genre>(url + '/genre')
+    return this.httpClient.get<Genre>(urlEndPoint + 'genre')
   }
 
   getDevelopers() {
-    return this.httpClient.get<Developer>(url + '/developer')
+    return this.httpClient.get<Developer>(urlEndPoint + 'developer')
+  }
+
+  addBrand(brandName: string) {
+
+    return this.httpClient.post<Brand>(urlEndPoint + 'brand/add', brand, httpOptions)
   }
 
   products = [
