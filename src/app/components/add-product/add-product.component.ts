@@ -1,4 +1,4 @@
-import { ThrowStmt } from '@angular/compiler';
+  import { ThrowStmt } from '@angular/compiler';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { data } from 'jquery';
@@ -39,11 +39,29 @@ export class AddProductComponent implements OnInit {
 
   errorString: string
 
+  // INPUTS
   nameInput: string
   brandInput: any
   priceInput: number
   stockInput: number
 
+  //Smartphone
+  storageInputS: string
+  ramInputS: string
+  inchesInputS: string
+  batteryInputS: string
+  cameraInputS: string
+  sdInputS: boolean = false
+  colorInputS: string
+  //Tablet
+  storageInputT: string
+  ramInputT: string
+  inchesInputT: string
+  batteryInputT: string
+  cameraInputT: string
+  sdInputT: boolean = false
+  colorInputT: string
+  //Console
   storageInputC: number
   cdInputC: boolean = false
   ramInputC: number

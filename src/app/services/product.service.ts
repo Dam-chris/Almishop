@@ -35,7 +35,8 @@ export class ProductService {
     return null;
   }
 
-  addProduct(product: object)  {
+  addProduct(type: string, brand: any,product: object)  {
+    if ()
     return this.httpClient.post<Object>(urlEndPoint + 'product/add', product, httpOptions)
   }
 

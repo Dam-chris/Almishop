@@ -49,36 +49,36 @@
     <div *ngIf="smartphoneSelected">
       <label for="storageInputS" class="col-form-label">Capacidad</label>
       <div class="input-group">
-        <input type="number" id="storageInputS" class="form-control">
+        <input type="number" id="storageInputS" class="form-control" name="storageInputS" [(ngModel)]="storageInputS">
         <span class="input-group-text">GB</span>
       </div>
 
       <label for="ramInputS" class="col-form-label">RAM</label>
       <div class="input-group">
-        <input type="number" id="ramInputS" class="form-control">
+        <input type="number" id="ramInputS" class="form-control" name="ramInputS" [(ngModel)]="ramInputS">
         <span class="input-group-text">GB</span>
       </div>
 
       <label for="inchesInputS" class="col-form-label">Tamaño</label>
       <div class="input-group">
-        <input type="text" id="inchesInputS" class="form-control">
+        <input type="text" id="inchesInputS" class="form-control" name="inchesInputS" [(ngModel)]="inchesInputS">
         <span class="input-group-text">"</span>
       </div>
 
       <label for="batteryInputS" class="col-form-label">Batería</label>
       <div class="input-group">
-        <input type="number" id="batteryInputS" class="form-control">
+        <input type="number" id="batteryInputS" class="form-control" name="batteryInputS" [(ngModel)]="batteryInputS">
         <span class="input-group-text">mAH</span>
       </div>
 
       <label for="cameraInputS" class="col-form-label">Cámara</label>
       <div class="input-group">
-        <input type="text" id="cameraInputS" class="form-control">
+        <input type="text" id="cameraInputS" class="form-control" name="cameraInputS" [(ngModel)]="cameraInputS">
         <span class="input-group-text">Mpx</span>
       </div>
 
       <div class="form-check"style="margin-top: 10px;" >
-        <input class="form-check-input" type="checkbox" value="" id="sdInputS">
+        <input class="form-check-input" type="checkbox" value="" id="sdInputS" name="sdInputS" [(ngModel)]="sdInputS">
         <label class="form-check-label user-select-none" for="sdInputS">SD</label>
       </div>
 
@@ -93,13 +93,13 @@
 
       <div class="mt-2">
         <div *ngIf="sh2 == 1">
-          <select name="" id="" class="mt-2 fieldSelector">
+          <select name="" id="" class="mt-2 fieldSelector" name="colorInputS" [(ngModel)]="colorInputS">
             <option disabled selected hidden>Seleccione una opción</option>
             <option *ngFor="let i of colors" value="{{ i.id }}">{{ i.name }}</option>
           </select>
         </div>
         <div *ngIf="sh2 == 0">
-          <input type="text" id="colorInputS" class="form-control mt-3">
+          <input type="text" id="colorInputS" class="form-control mt-3" name="colorInputS" [(ngModel)]="colorInputS">
         </div>
       </div>
     </div>
@@ -108,36 +108,36 @@
     <div *ngIf="tabletSelected">
       <label for="storageInputT" class="col-form-label">Capacidad</label>
       <div class="input-group">
-        <input type="number" id="storageInputT" class="form-control">
+        <input type="number" id="storageInputT" class="form-control" name="storageInputT" [(ngModel)]="storageInputT">
         <span class="input-group-text">GB</span>
       </div>
 
       <label for="ramInputT" class="col-form-label">RAM</label>
       <div class="input-group">
-        <input type="number" id="ramInputT" class="form-control">
+        <input type="number" id="ramInputT" class="form-control" name="ramInputT" [(ngModel)]="ramInputT">
         <span class="input-group-text">GB</span>
       </div>
 
       <label for="inchesInputT" class="col-form-label">Tamaño</label>
       <div class="input-group">
-        <input type="text" id="inchesInputT" class="form-control">
+        <input type="text" id="inchesInputT" class="form-control" name="inchesInputT" [(ngModel)]="inchesInputT">
         <span class="input-group-text">"</span>
       </div>
 
       <label for="batteryInputT" class="col-form-label">Batería</label>
       <div class="input-group">
-        <input type="number" id="batteryInputT" class="form-control">
+        <input type="number" id="batteryInputT" class="form-control" name="batteryInputT" [(ngModel)]="batteryInputT">
         <span class="input-group-text">mAH</span>
       </div>
 
       <label for="cameraInputT" class="col-form-label">Cámara</label>
       <div class="input-group">
-        <input type="text" id="cameraInputT" class="form-control">
+        <input type="text" id="cameraInputT" class="form-control" name="cameraInputT" [(ngModel)]="cameraInputT">
         <span class="input-group-text">Mpx</span>
       </div>
 
       <div class="form-check"style="margin-top: 10px;" >
-        <input class="form-check-input" type="checkbox" value="" id="sdInputT">
+        <input class="form-check-input" type="checkbox" value="" id="sdInputT" name="sdInputT" [(ngModel)]="sdInputT">
         <label class="form-check-label user-select-none" for="sdInputT">SD</label>
       </div>
 
@@ -154,13 +154,13 @@
         <div class="mt-2">
           <div *ngIf="sh2 == 1">
 
-            <select name="" id="" class="mt-2 fieldSelector">
+            <select name="" id="" name="colorInputT" class="mt-2 fieldSelector" name="colorInput" [(ngModel)]="colorInputT">
               <option disabled selected hidden>Seleccione una opción</option>
               <option *ngFor="let i of colors" value="{{ i.id }}">{{ i.name }}</option>
             </select>
           </div>
           <div *ngIf="sh2 == 0">
-            <input type="text" id="colorInputT" class="form-control mt-3">
+            <input type="text" name="colorInputT" id="colorInputT" class="form-control mt-3" name="colorInputT" [(ngModel)]="colorInputT">
           </div>
         </div>
       </div>
