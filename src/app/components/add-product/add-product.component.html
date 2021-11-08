@@ -12,7 +12,7 @@
   <form >
 
     <label for="nameInput" class="col-form-label">Nombre</label>
-    <input type="text" id="nameInput" class="form-control">
+    <input type="text" id="nameInput" class="form-control" [(ngModel)]="nameInput" name="nameInput">
 
     <div class="form-check form-check-inline mt-2">
       <input class="form-check-input" type="radio" [value]="1" [(ngModel)]="sh1" name="sh1" type="radio" [checked]="rb1" id="rb1a" checked>
@@ -25,18 +25,24 @@
 
     <div>
       <div *ngIf="sh1 == 1">
-        <select name="" id="" class="mt-2 fieldSelector">
-          <option disabled selected hidden>Seleccione una opción</option>
+        <select id="brandInput" class="mt-2 fieldSelector" [(ngModel)]="brandInput" name="brandInput">
+          <option hidden selected>Seleccione una opción</option>
           <option *ngFor="let i of brands" value="{{ i.id }}">{{ i.name }}</option>
         </select>
       </div>
       <div *ngIf="sh1 == 0">
-        <input type="text" id="brandInput" class="form-control">
+        <input type="text" id="brandInput" class="form-control" [(ngModel)]="brandInput" name="brandInput">
       </div>
     </div>
 
     <label for="stockAInput" class="col-form-label">Stock inicial</label>
-    <input type="number" value="0" id="stockAInput" class="form-control">
+    <input type="number" value="0" id="stockAInput" class="form-control" [(ngModel)]="stockInput" name="stockInput">
+
+    <label for="priceInput" class="col-form-label">Precio Inicial</label>
+    <div class="input-group">
+      <input type="number" id="priceInput" class="form-control" [(ngModel)]="priceInput" name="priceInput">
+      <span class="input-group-text">€</span>
+    </div>
 
     <!-- DISTINTOS DIVS PARA DISTINTOS TIPOS DE DATOS -->
     <!-- smartphone -->
@@ -164,26 +170,26 @@
     <div *ngIf="consoleSelected">
       <label for="storageInputc" class="col-form-label">Capacidad</label>
       <div class="input-group">
-        <input type="number" id="storageInputc" class="form-control">
+        <input type="number" id="storageInputc" class="form-control" [(ngModel)]="storageInputC" name="storageInputc" >
         <span class="input-group-text">GB</span>
       </div>
 
       <div class="form-check"style="margin-top: 10px;" >
-        <input class="form-check-input" type="checkbox" value="" id="CdInputS">
-        <label class="form-check-label user-select-none" for="CdInputS">CD</label>
+        <input class="form-check-input" type="checkbox" value="" id="cdInputS" [(ngModel)]="cdInputC" name="cdInputC">
+        <label class="form-check-label user-select-none" for="cdInputS">CD</label>
       </div>
 
       <label for="ramInputC" class="col-form-label">RAM</label>
       <div class="input-group">
-        <input type="number" id="ramInputC" class="form-control">
+        <input type="number" id="ramInputC" class="form-control" [(ngModel)]="ramInputC" name="ramInputC">
         <span class="input-group-text">GB</span>
       </div>
 
       <label for="cpuInputC" class="col-form-label">CPU</label>
-      <input type="number" id="cpuInputC" class="form-control">
+      <input type="text" id="cpuInputC" class="form-control" [(ngModel)]="cpuInputC" name="cpuInputC">
 
       <label for="gpuInputC" class="col-form-label">GPU</label>
-      <input type="number" id="gpuInputC" class="form-control">
+      <input type="text" id="gpuInputC" class="form-control" [(ngModel)]="gpuInputC" name="gpuInputC">
 
     </div>
 
@@ -271,6 +277,6 @@
     </div>
 
     <button type="button" class="btn btn-danger" (click)="cancel()">Cancelar</button>
-    <button type="button" class="btn btn-success">Añadir</button>
+    <button type="button" class="btn btn-success" (click)="submit(selector.value)">Añadir</button>
   </form>
 </label>

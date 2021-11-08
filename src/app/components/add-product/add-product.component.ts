@@ -36,6 +36,20 @@ export class AddProductComponent implements OnInit {
   genres: any = []
   developers: any = []
 
+  errorString: string
+
+  nameInput: string
+  brandInput: any
+  priceInput: number
+  stockInput: number
+
+  storageInputC: number
+  cdInputC: boolean = false
+  ramInputC: number
+  cpuInputC: string
+  gpuInputC: string
+
+
   constructor(private productService: ProductService, private router: Router) { }
 
   ngOnInit(): void {
@@ -44,7 +58,7 @@ export class AddProductComponent implements OnInit {
     this.consoleSelected = false
     this.videogameSelected = false
     this.loadData()
-
+    this.errorString = ''
   }
 
   loadData() {
@@ -84,34 +98,75 @@ export class AddProductComponent implements OnInit {
     })
   }
 
-  notLoading() {
-    console.warn('01 - Cannot load product data.')
-    swal({
-      title: 'Error al cargar datos',
-      text: 'Por favor, inténtelo más tarde.',
-      icon: 'error'
-    }).then((val) => {
-      this.router.navigateByUrl('products')
-    })
+  submit(type: string) {
+    switch (type) {
+      case 'smartphone':
 
+      break
+      case 'tablet':
+
+      break
+      case 'console':
+        if (this.sh1 == 0) {
+          //  crear marca y que devuelva la id
+          // this.brandInput == id
+        }
+
+        //validacion
+        if (this.validation(type) >= 1) {
+          this.validationError()
+          break
+        }
+
+        var obj = {
+          id_product_type: 4,
+          storage: this.storageInputC,
+          has_cd: this.cdInputC,
+          ram: this.ramInputC,
+          cpu: this.cpuInputC,
+          gpu: this.gpuInputC,
+          name: this.nameInput,
+          price: this.priceInput,
+          stock_sale: this.stockInput,
+          id_brand: this.brandInput
+        }
+        console.log(obj)
+        this.router.navigateByUrl('add')
+      break
+      case 'videogame':
+
+      break
+    }
   }
 
-  cancel() {
-    swal({
-      title: '¿Estás seguro?',
-      text: 'Todos los campos escritos se borrarán',
-      icon: 'warning',
-      buttons: ['Cancelar', true],
-      dangerMode: true,
-    })
-    .then((willDelete) => {
-      if (willDelete) {
-        this.router.navigateByUrl('products')
-      }
-    });
+  validation(type: string): number {
+    var errors = 0
+    if (this.nameInput == undefined || this.brandInput == undefined || this.priceInput == undefined || this.stockInput == undefined) {
+      errors++
+    }
+
+    switch (type) {
+      case 'smartphone':
+
+      break
+      case 'tablet':
+
+      break
+      case 'console':
+        if (this.storageInputC == undefined || this.ramInputC == undefined || this.cpuInputC == undefined || this.gpuInputC == undefined) {
+          errors++
+        }
+      break
+      case 'videogame':
+
+      break
+    }
+    return errors
   }
 
-  optionChanged(value) {
+
+
+  optionChanged(value: string) {
     switch (value) {
       case 'smartphone':
         this.smartphoneSelected = true
@@ -138,5 +193,39 @@ export class AddProductComponent implements OnInit {
         this.videogameSelected = true
       break
     }
+  }
+
+  notLoading() {
+    console.warn('01 - Cannot load product data.')
+    swal({
+      title: 'Error al cargar datos',
+      text: 'Por favor, inténtelo más tarde.',
+      icon: 'error'
+    }).then((val) => {
+      //this.router.navigateByUrl('products')
+    })
+  }
+
+  validationError() {
+    swal({
+      title: 'Error de datos',
+      text: 'Revise los datos y vuelva a insertarlos.',
+      icon: 'error'
+    })
+  }
+
+  cancel() {
+    swal({
+      title: '¿Estás seguro?',
+      text: 'Todos los campos escritos se borrarán',
+      icon: 'warning',
+      buttons: ['Cancelar', true],
+      dangerMode: true,
+    })
+    .then((willDelete) => {
+      if (willDelete) {
+        this.router.navigateByUrl('products')
+      }
+    });
   }
 }
