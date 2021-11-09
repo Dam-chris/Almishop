@@ -9,11 +9,13 @@
 </div>
 
 <label class="formu">
-  <form >
+  <form>
 
     <label for="nameInput" class="col-form-label">Nombre</label>
     <input type="text" id="nameInput" class="form-control" [(ngModel)]="nameInput" name="nameInput">
 
+    <label class="form-check-label" for="rb1a">Marca existente</label>
+    <!--
     <div class="form-check form-check-inline mt-2">
       <input class="form-check-input" type="radio" [value]="1" [(ngModel)]="sh1" name="sh1" type="radio" [checked]="rb1" id="rb1a" checked>
       <label class="form-check-label" for="rb1a">Marca existente</label>
@@ -24,16 +26,16 @@
     </div>
 
     <div>
-      <div *ngIf="sh1 == 1">
+      <div *ngIf="sh1 == 1">-->
         <select id="brandInput" class="mt-2 fieldSelector" [(ngModel)]="brandInput" name="brandInput">
           <option hidden selected>Seleccione una opción</option>
           <option *ngFor="let i of brands" value="{{ i.id }}">{{ i.name }}</option>
         </select>
-      </div>
+     <!-- </div>
       <div *ngIf="sh1 == 0">
         <input type="text" id="brandInput" class="form-control" [(ngModel)]="brandInput" name="brandInput">
       </div>
-    </div>
+    </div>-->
 
     <label for="stockAInput" class="col-form-label">Stock inicial</label>
     <input type="number" value="0" id="stockAInput" class="form-control" [(ngModel)]="stockInput" name="stockInput">
@@ -61,7 +63,7 @@
 
       <label for="inchesInputS" class="col-form-label">Tamaño</label>
       <div class="input-group">
-        <input type="text" id="inchesInputS" class="form-control" name="inchesInputS" [(ngModel)]="inchesInputS">
+        <input type="number" id="inchesInputS" class="form-control" name="inchesInputS" [(ngModel)]="inchesInputS">
         <span class="input-group-text">"</span>
       </div>
 
@@ -82,7 +84,10 @@
         <label class="form-check-label user-select-none" for="sdInputS">SD</label>
       </div>
 
-      <div class="form-check form-check-inline mt-2">
+
+      <label class="form-check-label" for="rb2a">Color existente</label>
+
+      <!--<div class="form-check form-check-inline mt-2">
         <input class="form-check-input" type="radio" [value]="1" [(ngModel)]="sh2" name="sh2" type="radio" [checked]="rb2" id="rb2a" checked>
         <label class="form-check-label" for="rb2a">Color existente</label>
       </div>
@@ -92,16 +97,16 @@
       </div>
 
       <div class="mt-2">
-        <div *ngIf="sh2 == 1">
+        <div *ngIf="sh2 == 1">-->
           <select name="" id="" class="mt-2 fieldSelector" name="colorInputS" [(ngModel)]="colorInputS">
             <option disabled selected hidden>Seleccione una opción</option>
             <option *ngFor="let i of colors" value="{{ i.id }}">{{ i.name }}</option>
           </select>
-        </div>
+        <!--</div>
         <div *ngIf="sh2 == 0">
           <input type="text" id="colorInputS" class="form-control mt-3" name="colorInputS" [(ngModel)]="colorInputS">
         </div>
-      </div>
+      </div>-->
     </div>
 
     <!-- tablet -->
@@ -140,8 +145,13 @@
         <input class="form-check-input" type="checkbox" value="" id="sdInputT" name="sdInputT" [(ngModel)]="sdInputT">
         <label class="form-check-label user-select-none" for="sdInputT">SD</label>
       </div>
-
-      <div>
+      <!--Color temporal-->
+      <label class="form-check-label" for="rb3a">Color existente</label>
+      <select name="" id="" name="colorInputT" class="mt-2 fieldSelector" name="colorInput" [(ngModel)]="colorInputT">
+        <option disabled selected hidden>Seleccione una opción</option>
+        <option *ngFor="let i of colors" value="{{ i.id }}">{{ i.name }}</option>
+      </select>
+      <!--<div>
         <div class="form-check form-check-inline mt-2">
           <input class="form-check-input" type="radio" [value]="1" [(ngModel)]="sh3" name="sh3" type="radio" [checked]="rb3" id="rb3a" checked>
           <label class="form-check-label" for="rb3a">Color existente</label>
@@ -163,7 +173,7 @@
             <input type="text" name="colorInputT" id="colorInputT" class="form-control mt-3" name="colorInputT" [(ngModel)]="colorInputT">
           </div>
         </div>
-      </div>
+      </div>-->
     </div>
 
     <!-- console -->
@@ -207,8 +217,14 @@
       <label for="pegiInputV" class="col-form-label">PEGI</label>
       <input type="number" id="pegiInputV" class="form-control">
 
+
+      <label class="form-check-label" for="rb4a">Plataforma existente</label>
+      <select name="" id="" class="mt-3 fieldSelector">
+        <option disabled selected hidden>Seleccione una opción</option>
+        <option *ngFor="let i of platforms" value="{{ i.id }}">{{ i.name }}</option>
+      </select>
       <!-- DIV de checkbox -->
-      <div class="mt-3">
+      <!--<div class="mt-3">
         <div class="form-check form-check-inline">
           <input class="form-check-input" type="radio" [value]="1" [(ngModel)]="sh4" name="sh4" type="radio" [checked]="rb4" id="rb4a" selec>
           <label class="form-check-label" for="rb4a">Plataforma existente</label>
@@ -229,8 +245,11 @@
             <input type="text" id="colorInputT" class="form-control mt-3">
           </div>
         </div>
-      </div>
+      </div>-->
 
+      <label class="form-check-label" for="rb5a">Género existente</label>
+
+      <!--
       <div class="mt-3">
         <div class="form-check form-check-inline">
           <input class="form-check-input" type="radio" [value]="1" [(ngModel)]="sh5" name="sh5" type="radio" [checked]="rb5" id="rb5a" selec>
@@ -243,14 +262,21 @@
 
         <div>
           <div *ngIf="sh5 == 1">
-            <!-- meter desplegable o swal? -->
           </div>
           <div *ngIf="sh5 == 0">
             <input type="text" id="colorInputT" class="form-control mt-3">
           </div>
         </div>
-      </div>
+      </div>-->
 
+      <label class="form-check-label" for="rb6a">Desarrollador existente</label>
+      <select name="" id="" class="mt-3 fieldSelector">
+        <option disabled selected hidden>Seleccione una opción</option>
+        <option *ngFor="let i of developers" value="{{ i.id }}">{{ i.name }}</option>
+        <option value=""></option>
+      </select>
+
+      <!--
       <div class="mt-3">
         <div class="form-check form-check-inline">
           <input class="form-check-input" type="radio" [value]="1" [(ngModel)]="sh6" name="sh6" type="radio" [checked]="rb6" id="rb6a" selec>
@@ -273,7 +299,7 @@
             <input type="text" id="colorInputT" class="form-control mt-3">
           </div>
         </div>
-      </div>
+      </div>-->
     </div>
 
     <button type="button" class="btn btn-danger" (click)="cancel()">Cancelar</button>

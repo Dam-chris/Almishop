@@ -8,6 +8,9 @@ import { Color } from '../models/color';
 import { Developer } from '../models/developer';
 import { Genre } from '../models/genre';
 import { Platform } from '../models/platform';
+import { Console } from '../models/console';
+import { Smartphone } from '../models/smartphone';
+import { Idk } from '../models/responseAddProd';
 
 const httpOptions = {
   headers: new HttpHeaders({'Content-Type': 'application/json'})
@@ -35,9 +38,26 @@ export class ProductService {
     return null;
   }
 
-  addProduct(type: string, brand: any,product: object)  {
-    if ()
-    return this.httpClient.post<Object>(urlEndPoint + 'product/add', product, httpOptions)
+  async addProduct(/*brand: boolean,  brandName: any,*/ product: Smartphone | Console): Promise<any>  {
+
+    return  new Promise((resolve, reject) => {
+      console.log('he aqui el producto')
+      console.log(product)
+      this.httpClient.post<Idk>(urlEndPoint + 'product/add', product, httpOptions).subscribe(data => {
+        if (data.message != null) {
+          reject(data.message)
+        }
+        console.log('añadido ok')
+        console.log(data)
+        resolve('Producto añadido correctamente.')
+      }, err => {
+        console.warn('error al añadir')
+        console.error(err)
+        reject('No se pudo insertar los datos.')
+      })
+
+    })
+    //this.httpClient.post<Object>(urlEndPoint + 'product/add', product, httpOptions)
   }
 
   getBrands() {
@@ -61,8 +81,10 @@ export class ProductService {
   }
 
   addBrand(brandName: string) {
-
-    return this.httpClient.post<Brand>(urlEndPoint + 'brand/add', brand, httpOptions)
+    var brandObject = {
+      name: brandName
+    }
+    return this.httpClient.post<Brand>(urlEndPoint + 'brand/add', brandObject, httpOptions)
   }
 
   products = [

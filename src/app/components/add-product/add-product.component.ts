@@ -4,6 +4,9 @@ import { Router } from '@angular/router';
 import { data } from 'jquery';
 import { ProductService } from 'src/app/services/product.service';
 import swal from 'sweetalert';
+import { Console } from 'src/app/models/console';
+import { Smartphone } from 'src/app/models/smartphone';
+import { Tablet } from 'src/app/models/tablet';
 
 @Component({
   selector: 'app-add-product',
@@ -16,7 +19,7 @@ export class AddProductComponent implements OnInit {
   tabletSelected: boolean
   consoleSelected: boolean
   videogameSelected: boolean
-
+  /*
   sh1: any = 1
   sh2: any = 1
   sh3: any = 1
@@ -30,6 +33,7 @@ export class AddProductComponent implements OnInit {
   rb4: boolean = true
   rb5: boolean = true
   rb6: boolean = true
+*/
 
   brands: any = []
   colors: any = []
@@ -41,9 +45,9 @@ export class AddProductComponent implements OnInit {
 
   // INPUTS
   nameInput: string
-  brandInput: any
-  priceInput: number
-  stockInput: number
+  brandInput: string
+  priceInput: string
+  stockInput: string
 
   //Smartphone
   storageInputS: string
@@ -62,9 +66,9 @@ export class AddProductComponent implements OnInit {
   sdInputT: boolean = false
   colorInputT: string
   //Console
-  storageInputC: number
+  storageInputC: string
   cdInputC: boolean = false
-  ramInputC: number
+  ramInputC: string
   cpuInputC: string
   gpuInputC: string
 
@@ -84,55 +88,196 @@ export class AddProductComponent implements OnInit {
     //  Cargar Marcas
     this.productService.getBrands().subscribe(data => {
       this.brands = data
+      console.log('Brands Loaded')
     }, err => {
+      console.warn('Brands not loading')
       this.notLoading()
     })
 
     //  Cargar Colores
     this.productService.getColors().subscribe(data => {
       this.colors = data
+      console.log('Colors Loaded')
     }, err => {
+      console.warn('Colors not loading')
       this.notLoading()
     })
 
     //  Cargar Plataformas
     this.productService.getPlatforms().subscribe(data => {
       this.platforms = data
+      console.log('Platforms Loaded')
     }, err => {
+      console.warn('Platforms not loading')
       this.notLoading()
     })
 
     //  Cargar Generos
     this.productService.getGenres().subscribe(data => {
       this.genres = data
+      console.log('Genres Loaded')
     }, err => {
+      console.warn('Genres not loading')
       this.notLoading()
     })
 
     //  Cargar Devs
     this.productService.getDevelopers().subscribe(data => {
       this.developers = data
+      console.log('Developers Loaded')
     }, err => {
+      console.warn('Developers not loading')
       this.notLoading()
     })
   }
 
   async submit(type: string) {
-
-    var product = {}
-    var idBrand: number
+    console.log('tipo de submit: ' + type)
     switch (type) {
       case 'smartphone':
+        if (this.validation(type) >= 1) {
+          this.validationError()
+          break
+        }
 
+        var productSmartphone: Smartphone
+
+        var storageSmartphone: string = this.storageInputS.toString()
+        var ramSmartphone: string = this.ramInputS.toString()
+        var inchesSmartphone: number = parseFloat(this.inchesInputS)
+        var batterySmartphone: number = parseInt(this.batteryInputS)
+        var cameraSmartphone: number = parseFloat(this.cameraInputS)
+        var sdSmartphone: boolean = this.sdInputS
+        var colorSmartphone: number = parseInt(this.colorInputS)
+        var nameSmartphone: string = this.nameInput.toString()
+        var priceSmartphone: number = parseFloat(this.priceInput)
+        var stock_saleSmartphone: number = parseInt(this.stockInput)
+        var brandSmartphone: number = parseInt(this.brandInput)
+
+        productSmartphone = {
+          id_product_type: 1,
+          storage: storageSmartphone,
+          ram: ramSmartphone,
+          inches: inchesSmartphone,
+          battery: batterySmartphone,
+          camera: cameraSmartphone,
+          has_sd: sdSmartphone,
+          id_color: colorSmartphone,
+          name: nameSmartphone,
+          price: priceSmartphone,
+          stock_sale: stock_saleSmartphone,
+          id_brand: brandSmartphone
+        }
+        await this.productService.addProduct(/*brand, brandName,*/ productSmartphone).then(response => {
+          swal({
+            title: 'OK',
+            text: response,
+            icon: 'success'
+          })
+          this.router.navigateByUrl('products')
+        }, reject => {
+          swal({
+            title: 'Error',
+            text: reject,
+            icon: 'error'
+          })
+        })
       break
       case 'tablet':
 
+        if (this.validation(type) >= 1) {
+          this.validationError()
+          break
+        }
+        var productTablet: Tablet
+
+        var storageTablet: string = this.storageInputT.toString()
+        var ramTablet: string = this.ramInputT.toString()
+        var inchesTablet: number = parseFloat(this.inchesInputT)
+        var batteryTablet: number = parseInt(this.batteryInputT)
+        var cameraTablet: number = parseFloat(this.cameraInputT)
+        var sdTablet: boolean = this.sdInputT
+        var colorTablet: number = parseInt(this.colorInputT)
+        var nameTablet: string = this.nameInput.toString()
+        var priceTablet: number = parseFloat(this.priceInput)
+        var stock_saleTablet: number = parseInt(this.stockInput)
+        var brandTablet: number = parseInt(this.brandInput)
+
+        productTablet = {
+          id_product_type: 2,
+          storage: storageTablet,
+          ram: ramTablet,
+          inches: inchesTablet,
+          battery: batteryTablet,
+          camera: cameraTablet,
+          has_sd: sdTablet,
+          id_color: colorTablet,
+          name: nameTablet,
+          price: priceTablet,
+          stock_sale: stock_saleTablet,
+          id_brand: brandTablet
+        }
+
+        await this.productService.addProduct(/*brand, brandName,*/ productTablet).then(response => {
+          swal({
+            title: 'OK',
+            text: response,
+            icon: 'success'
+          })
+          this.router.navigateByUrl('products')
+        }, reject => {
+          swal({
+            title: 'Error',
+            text: reject,
+            icon: 'error'
+          })
+        })
+
       break
+      /*
       case 'console':
         if (this.validation(type) >= 1) {
           this.validationError()
           break
         }
+        //var brand: boolean = false
+        //var brandName: any
+        //brandName = null
+
+        var productConsole: Console
+        var storageC: string = this.storageInputC.toString()
+        var ramC: string = this.ramInputC.toString()
+        var priceC: number = parseFloat(this.priceInput)
+        var idBrandC: number = parseInt(this.brandInput)
+        productConsole = {
+          id_product_type: 4,
+          storage: storageC,
+          has_cd: this.cdInputC,
+          ram: ramC,
+          cpu: this.cpuInputC,
+          gpu: this.gpuInputC,
+          name: this.nameInput,
+          price: priceC,
+          stock_sale: this.stockInput,
+          id_brand: idBrandC
+        }
+
+        await this.productService.addProduct(/*brand, brandName, productConsole).then(response => {
+          swal({
+            title: 'OK',
+            text: response,
+            icon: 'success'
+          })
+          this.router.navigateByUrl('products')
+        }, reject => {
+          swal({
+            title: 'Error',
+            text: reject,
+            icon: 'error'
+          })
+        })
+
+        /*
         if (this.sh1 == 0) {
           //  crear marca y que devuelva la id
           var brandName =  this.brandInput
@@ -142,18 +287,7 @@ export class AddProductComponent implements OnInit {
             var ram = this.ramInputC.toString()
             var price = this.priceInput.toString()
             console.log('idbrand'+idBrand)
-            product = {
-              id_product_type: 4,
-              storage: storage,
-              has_cd: this.cdInputC,
-              ram: ram,
-              cpu: this.cpuInputC,
-              gpu: this.gpuInputC,
-              name: this.nameInput,
-              price: price,
-              stock_sale: this.stockInput,
-              id_brand: idBrand
-            }
+
             this.productService.addProduct(product).subscribe(data => {
               console.log(data)
               swal({
@@ -202,8 +336,13 @@ export class AddProductComponent implements OnInit {
               icon: 'error'
             })
         })
+        */
       break
       case 'videogame':
+        if (this.validation(type) >= 1) {
+          this.validationError()
+          break
+        }
 
       break
       default:
@@ -224,10 +363,14 @@ export class AddProductComponent implements OnInit {
 
     switch (type) {
       case 'smartphone':
-
+        if (this.storageInputS == undefined || this.ramInputS == undefined || this.inchesInputS == undefined || this.batteryInputS == undefined || this.cameraInputS == undefined || this.colorInputS == undefined) {
+          errors++
+        }
       break
       case 'tablet':
-
+        if (this.storageInputT == undefined || this.ramInputT == undefined || this.inchesInputT == undefined || this.batteryInputT == undefined || this.cameraInputT == undefined || this.colorInputT == undefined) {
+          errors++
+        }
       break
       case 'console':
         if (this.storageInputC == undefined || this.ramInputC == undefined || this.cpuInputC == undefined || this.gpuInputC == undefined) {
