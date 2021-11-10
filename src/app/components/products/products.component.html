@@ -1,9 +1,9 @@
 <select (change)="optionChanged(selector.value)" #selector class="form-select form-select-lg mb-3" style="width: 20%;" aria-label=".form-select-lg example" id="cb">
-  <option selected value="all">Todos los productos</option>
-  <option value="smartphone">Smartphone</option>
+  <!--<option selected value="all">Todos los productos</option>-->
+  <option value="smartphone" selected>Smartphone</option>
   <option value="tablet">Tablet</option>
-  <option value="videogame">Videojuego</option>
   <option value="console">Consola</option>
+  <option value="videogame">Videojuego</option>
 </select>
 
 <button routerLink="add" class="btn btn-outline-primary" id="btn">Añadir Producto</button>
@@ -11,7 +11,7 @@
 <table class="table table-striped table-bordered table-sm"  datatable [dtOptions]="dtOptions" cellspacing="0" width="100%">
   <thead>
     <tr>
-      <th scope="col" class="th-sm">#</th>
+      <th scope="col" class="th-sm">Precio</th>
       <th scope="col" class="th-sm">Nombre</th>
       <th scope="col">Editar</th>
       <th scope="col" class="th-sm">Archivar</th>
@@ -19,7 +19,7 @@
   </thead>
   <tbody>
     <tr *ngFor="let i of shownProducts">
-      <td>{{ i.id }}</td>
+      <td>{{ i.price }}</td>
       <td>{{ i.name }}</td>
       <td>
         <a routerLink="edit/{{ i.id }}">

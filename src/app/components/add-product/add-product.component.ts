@@ -429,7 +429,7 @@ export class AddProductComponent implements OnInit {
       text: 'Por favor, inténtelo más tarde.',
       icon: 'error'
     }).then((val) => {
-      //this.router.navigateByUrl('products')
+      this.router.navigateByUrl('products')
     })
   }
 

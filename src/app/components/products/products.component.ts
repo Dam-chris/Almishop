@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ProductService } from 'src/app/services/product.service';
 import { Language_ES } from '../data-tables-config/language_ES';
+import swal from 'sweetalert';
 
 
 @Component({
@@ -12,19 +13,19 @@ import { Language_ES } from '../data-tables-config/language_ES';
 export class ProductsComponent implements OnInit
 {
   dtOptions: DataTables.Settings = {};
-  private language_ES:Language_ES;
+  private language_ES: Language_ES;
 
-  constructor(private router:Router, private productService: ProductService) { }
+  constructor(private router: Router, private productService: ProductService) { }
 
-  allProducts = []
-  shownProducts = []
-  filteredProducts = []
+  //allProducts = []
+  shownProducts: any
+  selector: string
 
-  ngOnInit()
+  async ngOnInit()
   {
     //## LLAMAR A PRODUCTSERVICE ##
-    this.allProducts = this.productService.getAllProducts();
-    this.shownProducts = this.allProducts
+    //this.allProducts = this.productService.getAllProducts();
+    await this.optionChanged(this.selector)
 
     this.dtOptions = {
       pagingType: 'full_numbers',
@@ -38,17 +39,17 @@ export class ProductsComponent implements OnInit
 
   }
 
-  optionChanged(value) {
-    this.shownProducts = []
-    value == 'all' ? this.shownProducts = this.allProducts : this.shownProducts = this.productFilter(value)
-  }
-
-  productFilter(category) {
-    this.filteredProducts = []
-    for (let i = 0; i < this.allProducts.length; i++) {
-      this.allProducts[i].type == category && this.filteredProducts.push(this.allProducts[i])
-    }
-    return this.filteredProducts
+  optionChanged(type: string) {
+    this.productService.getProductByType(type).subscribe(response => {
+      this.shownProducts = response
+    }, error => {
+      console.log(error)
+      swal({
+        title: 'Error',
+        text: 'No se pudieron cargar los datos',
+        icon: 'error'
+      })/*.then(val => this.router.navigateByUrl(''))*/
+    })
   }
 
   archiveProduct(idProduct: number) {
