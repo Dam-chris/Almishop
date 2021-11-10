@@ -1,19 +1,21 @@
 <div class="form-floating">
   <select (change)="optionChanged(selector.value)" #selector id="selector" class="form-select form-select mb-3" style="width: 22%;" aria-label=".form-select-lg example">
-    <option value="smartphone">Smartphone</option>
+    <option value="smartphone" selected>Smartphone</option>
     <option value="tablet">Tablet</option>
-    <option value="videogame" selected>Videojuego</option>
+    <option value="videogame">Videojuego</option>
     <option value="console">Consola</option>
   </select>
   <label for="selector">Selecciona una..</label>
 </div>
 
 <label class="formu">
-  <form >
+  <form>
 
     <label for="nameInput" class="col-form-label">Nombre</label>
-    <input type="text" id="nameInput" class="form-control">
+    <input type="text" id="nameInput" class="form-control" [(ngModel)]="nameInput" name="nameInput">
 
+    <label class="form-check-label" for="rb1a">Marca existente</label>
+    <!--
     <div class="form-check form-check-inline mt-2">
       <input class="form-check-input" type="radio" [value]="1" [(ngModel)]="sh1" name="sh1" type="radio" [checked]="rb1" id="rb1a" checked>
       <label class="form-check-label" for="rb1a">Marca existente</label>
@@ -24,56 +26,68 @@
     </div>
 
     <div>
-      <div *ngIf="sh1 == 1">
-        <select name="" id="" class="mt-2 fieldSelector"></select>
-      </div>
+      <div *ngIf="sh1 == 1">-->
+        <select id="brandInput" class="mt-2 fieldSelector" [(ngModel)]="brandInput" name="brandInput">
+          <option hidden selected>Seleccione una opción</option>
+          <option *ngFor="let i of brands" value="{{ i.id }}">{{ i.name }}</option>
+        </select>
+     <!-- </div>
       <div *ngIf="sh1 == 0">
-        <input type="text" id="brandInput" class="form-control">
+        <input type="text" id="brandInput" class="form-control" [(ngModel)]="brandInput" name="brandInput">
       </div>
-    </div>
+    </div>-->
 
     <label for="stockAInput" class="col-form-label">Stock inicial</label>
-    <input type="number" id="stockAInput" class="form-control">
+    <input type="number" value="0" id="stockAInput" class="form-control" [(ngModel)]="stockInput" name="stockInput">
+
+    <label for="priceInput" class="col-form-label">Precio Inicial</label>
+    <div class="input-group">
+      <input type="number" id="priceInput" class="form-control" [(ngModel)]="priceInput" name="priceInput">
+      <span class="input-group-text">€</span>
+    </div>
 
     <!-- DISTINTOS DIVS PARA DISTINTOS TIPOS DE DATOS -->
     <!-- smartphone -->
     <div *ngIf="smartphoneSelected">
       <label for="storageInputS" class="col-form-label">Capacidad</label>
       <div class="input-group">
-        <input type="number" id="storageInputS" class="form-control">
+        <input type="number" id="storageInputS" class="form-control" name="storageInputS" [(ngModel)]="storageInputS">
         <span class="input-group-text">GB</span>
       </div>
 
       <label for="ramInputS" class="col-form-label">RAM</label>
       <div class="input-group">
-        <input type="number" id="ramInputS" class="form-control">
+        <input type="number" id="ramInputS" class="form-control" name="ramInputS" [(ngModel)]="ramInputS">
         <span class="input-group-text">GB</span>
       </div>
 
       <label for="inchesInputS" class="col-form-label">Tamaño</label>
       <div class="input-group">
-        <input type="text" id="inchesInputS" class="form-control">
+        <input type="number" id="inchesInputS" class="form-control" name="inchesInputS" [(ngModel)]="inchesInputS">
         <span class="input-group-text">"</span>
       </div>
 
       <label for="batteryInputS" class="col-form-label">Batería</label>
       <div class="input-group">
-        <input type="number" id="batteryInputS" class="form-control">
+        <input type="number" id="batteryInputS" class="form-control" name="batteryInputS" [(ngModel)]="batteryInputS">
         <span class="input-group-text">mAH</span>
       </div>
 
       <label for="cameraInputS" class="col-form-label">Cámara</label>
       <div class="input-group">
-        <input type="text" id="cameraInputS" class="form-control">
+        <input type="text" id="cameraInputS" class="form-control" name="cameraInputS" [(ngModel)]="cameraInputS">
         <span class="input-group-text">Mpx</span>
       </div>
 
       <div class="form-check"style="margin-top: 10px;" >
-        <input class="form-check-input" type="checkbox" value="" id="sdInputS">
+        <input class="form-check-input" type="checkbox" value="" id="sdInputS" name="sdInputS" [(ngModel)]="sdInputS">
         <label class="form-check-label user-select-none" for="sdInputS">SD</label>
       </div>
 
-      <div class="form-check form-check-inline mt-2">
+
+      <label class="form-check-label" for="rb2a">Color existente</label>
+
+      <!--<div class="form-check form-check-inline mt-2">
         <input class="form-check-input" type="radio" [value]="1" [(ngModel)]="sh2" name="sh2" type="radio" [checked]="rb2" id="rb2a" checked>
         <label class="form-check-label" for="rb2a">Color existente</label>
       </div>
@@ -83,53 +97,61 @@
       </div>
 
       <div class="mt-2">
-        <div *ngIf="sh2 == 1">
-          <select name="" id="" class="mt-2 fieldSelector"></select>
-        </div>
+        <div *ngIf="sh2 == 1">-->
+          <select name="" id="" class="mt-2 fieldSelector" name="colorInputS" [(ngModel)]="colorInputS">
+            <option disabled selected hidden>Seleccione una opción</option>
+            <option *ngFor="let i of colors" value="{{ i.id }}">{{ i.name }}</option>
+          </select>
+        <!--</div>
         <div *ngIf="sh2 == 0">
-          <input type="text" id="colorInputS" class="form-control mt-3">
+          <input type="text" id="colorInputS" class="form-control mt-3" name="colorInputS" [(ngModel)]="colorInputS">
         </div>
-      </div>
+      </div>-->
     </div>
 
     <!-- tablet -->
     <div *ngIf="tabletSelected">
       <label for="storageInputT" class="col-form-label">Capacidad</label>
       <div class="input-group">
-        <input type="number" id="storageInputT" class="form-control">
+        <input type="number" id="storageInputT" class="form-control" name="storageInputT" [(ngModel)]="storageInputT">
         <span class="input-group-text">GB</span>
       </div>
 
       <label for="ramInputT" class="col-form-label">RAM</label>
       <div class="input-group">
-        <input type="number" id="ramInputT" class="form-control">
+        <input type="number" id="ramInputT" class="form-control" name="ramInputT" [(ngModel)]="ramInputT">
         <span class="input-group-text">GB</span>
       </div>
 
       <label for="inchesInputT" class="col-form-label">Tamaño</label>
       <div class="input-group">
-        <input type="text" id="inchesInputT" class="form-control">
+        <input type="text" id="inchesInputT" class="form-control" name="inchesInputT" [(ngModel)]="inchesInputT">
         <span class="input-group-text">"</span>
       </div>
 
       <label for="batteryInputT" class="col-form-label">Batería</label>
       <div class="input-group">
-        <input type="number" id="batteryInputT" class="form-control">
+        <input type="number" id="batteryInputT" class="form-control" name="batteryInputT" [(ngModel)]="batteryInputT">
         <span class="input-group-text">mAH</span>
       </div>
 
       <label for="cameraInputT" class="col-form-label">Cámara</label>
       <div class="input-group">
-        <input type="text" id="cameraInputT" class="form-control">
+        <input type="text" id="cameraInputT" class="form-control" name="cameraInputT" [(ngModel)]="cameraInputT">
         <span class="input-group-text">Mpx</span>
       </div>
 
       <div class="form-check"style="margin-top: 10px;" >
-        <input class="form-check-input" type="checkbox" value="" id="sdInputT">
+        <input class="form-check-input" type="checkbox" value="" id="sdInputT" name="sdInputT" [(ngModel)]="sdInputT">
         <label class="form-check-label user-select-none" for="sdInputT">SD</label>
       </div>
-
-      <div>
+      <!--Color temporal-->
+      <label class="form-check-label" for="rb3a">Color existente</label>
+      <select name="" id="" name="colorInputT" class="mt-2 fieldSelector" name="colorInput" [(ngModel)]="colorInputT">
+        <option disabled selected hidden>Seleccione una opción</option>
+        <option *ngFor="let i of colors" value="{{ i.id }}">{{ i.name }}</option>
+      </select>
+      <!--<div>
         <div class="form-check form-check-inline mt-2">
           <input class="form-check-input" type="radio" [value]="1" [(ngModel)]="sh3" name="sh3" type="radio" [checked]="rb3" id="rb3a" checked>
           <label class="form-check-label" for="rb3a">Color existente</label>
@@ -141,68 +163,72 @@
 
         <div class="mt-2">
           <div *ngIf="sh2 == 1">
-            <select name="" id="" class="mt-2 fieldSelector"></select>
+
+            <select name="" id="" name="colorInputT" class="mt-2 fieldSelector" name="colorInput" [(ngModel)]="colorInputT">
+              <option disabled selected hidden>Seleccione una opción</option>
+              <option *ngFor="let i of colors" value="{{ i.id }}">{{ i.name }}</option>
+            </select>
           </div>
           <div *ngIf="sh2 == 0">
-            <input type="text" id="colorInputT" class="form-control mt-3">
+            <input type="text" name="colorInputT" id="colorInputT" class="form-control mt-3" name="colorInputT" [(ngModel)]="colorInputT">
           </div>
         </div>
-      </div>
+      </div>-->
     </div>
-
-<!--
-  info: {
-    storage: '',
-    cd: false,
-    ram: '',
-    cpu: '',
-    gpu: ''
-  }
--->
 
     <!-- console -->
     <div *ngIf="consoleSelected">
       <label for="storageInputc" class="col-form-label">Capacidad</label>
       <div class="input-group">
-        <input type="number" id="storageInputc" class="form-control">
+        <input type="number" id="storageInputc" class="form-control" [(ngModel)]="storageInputC" name="storageInputc" >
         <span class="input-group-text">GB</span>
       </div>
 
       <div class="form-check"style="margin-top: 10px;" >
-        <input class="form-check-input" type="checkbox" value="" id="CdInputS">
-        <label class="form-check-label user-select-none" for="CdInputS">CD</label>
+        <input class="form-check-input" type="checkbox" value="" id="cdInputS" [(ngModel)]="cdInputC" name="cdInputC">
+        <label class="form-check-label user-select-none" for="cdInputS">CD</label>
       </div>
 
       <label for="ramInputC" class="col-form-label">RAM</label>
       <div class="input-group">
-        <input type="number" id="ramInputC" class="form-control">
+        <input type="number" id="ramInputC" class="form-control" [(ngModel)]="ramInputC" name="ramInputC">
         <span class="input-group-text">GB</span>
       </div>
 
       <label for="cpuInputC" class="col-form-label">CPU</label>
-      <input type="number" id="cpuInputC" class="form-control">
+      <input type="text" id="cpuInputC" class="form-control" [(ngModel)]="cpuInputC" name="cpuInputC">
 
       <label for="gpuInputC" class="col-form-label">GPU</label>
-      <input type="number" id="gpuInputC" class="form-control">
+      <input type="text" id="gpuInputC" class="form-control" [(ngModel)]="gpuInputC" name="gpuInputC">
 
     </div>
 
     <!-- videogame -->
     <div *ngIf="videogameSelected">
       <label for="stockBInputV" class="col-form-label">Stock de alquiler</label>
-      <input type="text" id="stockBInputV" class="form-control">
+      <input type="text" id="stockRentalInputV" class="form-control" [(ngModel)]="stockRentalInputV" name="stockRentalInputV">
 
-      <label for="descriptionInputC" class="col-form-label">Descripción</label>
-      <input type="text" id="descriptionInputC" class="form-control">
+      <label for="descriptionInputV" class="col-form-label">Descripción</label>
+      <input type="text" id="descriptionInputV" class="form-control" [(ngModel)]="descriptionInputV" name="descriptionInputV">
 
       <label for="dateInputV" class="col-form-label">Fecha de salida</label>
-      <input type="date" id="dateInputV" class="form-control">
+      <input type="date" id="dateInputV" class="form-control" [(ngModel)]="dateInputV" name="dateInputV">
 
       <label for="pegiInputV" class="col-form-label">PEGI</label>
-      <input type="number" id="pegiInputV" class="form-control">
+      <select id="pegiInputV" class="mt-3 fieldSelector" [(ngModel)]="pegiInputV" name="pegiInputV">
+        <option value="3">3</option>
+        <option value="7">7</option>
+        <option value="12">12</option>
+        <option value="16">16</option>
+        <option value="18">18</option>
+      </select>
 
+      <label class="form-check-label" for="rb4a">Plataforma existente</label>
+      <select name="" id="" class="mt-3 fieldSelector" [(ngModel)]="platformInputV" name="platformInputV">
+        <option *ngFor="let i of platforms" value="{{ i.id }}">{{ i.name }}</option>
+      </select>
       <!-- DIV de checkbox -->
-      <div class="mt-3">
+      <!--<div class="mt-3">
         <div class="form-check form-check-inline">
           <input class="form-check-input" type="radio" [value]="1" [(ngModel)]="sh4" name="sh4" type="radio" [checked]="rb4" id="rb4a" selec>
           <label class="form-check-label" for="rb4a">Plataforma existente</label>
@@ -214,14 +240,23 @@
 
         <div>
           <div *ngIf="sh4 == 1">
-            <select name="" id="" class="mt-3 fieldSelector"></select>
+            <select name="" id="" class="mt-3 fieldSelector">
+              <option disabled selected hidden>Seleccione una opción</option>
+              <option *ngFor="let i of platforms" value="{{ i.id }}">{{ i.name }}</option>
+            </select>
           </div>
           <div *ngIf="sh4 == 0">
             <input type="text" id="colorInputT" class="form-control mt-3">
           </div>
         </div>
-      </div>
+      </div>-->
 
+      <label class="form-check-label" for="rb5a">Género existente</label>
+      <select id="genreInputV" class="mt-3 fieldSelector" [(ngModel)]="genreInputV" name="genreInputV">
+        <option *ngFor="let i of genres" value="{{ i.id }}">{{ i.name }}</option>
+      </select>
+
+      <!--
       <div class="mt-3">
         <div class="form-check form-check-inline">
           <input class="form-check-input" type="radio" [value]="1" [(ngModel)]="sh5" name="sh5" type="radio" [checked]="rb5" id="rb5a" selec>
@@ -234,14 +269,19 @@
 
         <div>
           <div *ngIf="sh5 == 1">
-            <select name="" id="" class="mt-3 fieldSelector"></select>
           </div>
           <div *ngIf="sh5 == 0">
             <input type="text" id="colorInputT" class="form-control mt-3">
           </div>
         </div>
-      </div>
+      </div>-->
 
+      <label class="form-check-label" for="rb6a">Desarrollador existente</label>
+      <select id="developerInputV" class="mt-3 fieldSelector" [(ngModel)]="developerInputV" name="developerInputV">
+        <option *ngFor="let i of developers" value="{{ i.id }}">{{ i.name }}</option>
+      </select>
+
+      <!--
       <div class="mt-3">
         <div class="form-check form-check-inline">
           <input class="form-check-input" type="radio" [value]="1" [(ngModel)]="sh6" name="sh6" type="radio" [checked]="rb6" id="rb6a" selec>
@@ -254,17 +294,20 @@
 
         <div>
           <div *ngIf="sh6 == 1">
-            <select name="" id="" class="mt-3 fieldSelector"></select>
+            <select name="" id="" class="mt-3 fieldSelector">
+              <option disabled selected hidden>Seleccione una opción</option>
+              <option *ngFor="let i of developers" value="{{ i.id }}">{{ i.name }}</option>
+              <option value=""></option>
+            </select>
           </div>
           <div *ngIf="sh6 == 0">
             <input type="text" id="colorInputT" class="form-control mt-3">
           </div>
         </div>
-      </div>
-
+      </div>-->
     </div>
 
-    <button type="button" class="btn btn-danger">Cancelar</button>
-    <button type="button" class="btn btn-success">Añadir</button>
+    <button type="button" class="btn btn-danger" (click)="cancel()">Cancelar</button>
+    <button type="button" class="btn btn-success" (click)="submit(selector.value)">Añadir</button>
   </form>
 </label>

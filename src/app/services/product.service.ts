@@ -1,31 +1,90 @@
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Observable, throwError } from 'rxjs';
+import { catchError } from 'rxjs/operators';
+import swal from 'sweetalert';
+import { Brand } from '../models/brand';
+import { Color } from '../models/color';
+import { Developer } from '../models/developer';
+import { Genre } from '../models/genre';
+import { Platform } from '../models/platform';
+import { Console } from '../models/console';
+import { Smartphone } from '../models/smartphone';
+import { Idk } from '../models/responseAddProd';
+import { Videogame } from '../models/videogame';
+import { Tablet } from '../models/tablet';
+
+const httpOptions = {
+  headers: new HttpHeaders({'Content-Type': 'application/json'})
+};
+const urlEndPoint: string = 'https://gatitoz.duckdns.org/'
 
 @Injectable({
   providedIn: 'root'
 })
 export class ProductService {
 
-  /*productObject: object =  {
-    id: 1,
-    type: 'Smartphone',
-    name: 'Movil 1',
-    stock_sale: 120,
-    stock_rent: 15,
-    brand: 'Marca genérica',
-    info: {
-      id: 1,
-      storage: '256',
-      ram: '8',
-      inches: 6.4,
-      battery: 2100,
-      camera: 8.6,
-      sd: true,
-      color: 'Rojo',
-      id_product: 1
-    }
-  }*/
 
-  constructor() { }
+  constructor(private httpClient: HttpClient) { }
+
+  getAllProducts() {
+    return this.products
+  }
+
+  getProductById(id: number) {
+    for (let i = 0; i < this.products.length; i++) {
+      if (this.products[i].id == id) {
+        return this.products[i]
+      }
+    }
+    return null;
+  }
+
+  async addProduct(product: Smartphone | Tablet | Console | Videogame): Promise<any>  {
+
+    return  new Promise((resolve, reject) => {
+      console.log('he aqui el producto')
+      console.log(product)
+      this.httpClient.post<Idk>(urlEndPoint + 'product/add', product, httpOptions).subscribe(data => {
+        if (data.message != null) {
+          reject(data.message)
+        }
+        console.log(data)
+        resolve('Producto añadido correctamente.')
+      }, err => {
+        console.error(err)
+        reject('No se pudo insertar los datos.')
+      })
+
+    })
+  }
+
+  getBrands() {
+    return this.httpClient.get<Brand>(urlEndPoint + 'brand')
+  }
+
+  getColors() {
+    return this.httpClient.get<Color>(urlEndPoint + 'color')
+  }
+
+  getPlatforms () {
+    return this.httpClient.get<Platform>(urlEndPoint + 'platform')
+  }
+
+  getGenres() {
+    return this.httpClient.get<Genre>(urlEndPoint + 'genre')
+  }
+
+  getDevelopers() {
+    return this.httpClient.get<Developer>(urlEndPoint + 'developer')
+  }
+
+  addBrand(brandName: string) {
+    var brandObject = {
+      name: brandName
+    }
+    return this.httpClient.post<Brand>(urlEndPoint + 'brand/add', brandObject, httpOptions)
+  }
 
   products = [
     {
@@ -162,18 +221,7 @@ export class ProductService {
   ]
   filteredProducts = []
 
-  getAllProducts() {
-    return this.products
-  }
 
-  getProductById(id) {
-    for (let i = 0; i < this.products.length; i++) {
-      if (this.products[i].id == id) {
-        return this.products[i]
-      }
-    }
-    return null;
-  }
 }
 
 /*
