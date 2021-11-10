@@ -2,8 +2,8 @@
   <select (change)="optionChanged(selector.value)" #selector id="selector" class="form-select form-select mb-3" style="width: 22%;" aria-label=".form-select-lg example">
     <option value="smartphone" selected>Smartphone</option>
     <option value="tablet">Tablet</option>
-    <option value="console">Consola</option>
     <option value="videogame">Videojuego</option>
+    <option value="console">Consola</option>
   </select>
   <label for="selector">Selecciona una..</label>
 </div>
@@ -206,21 +206,25 @@
     <!-- videogame -->
     <div *ngIf="videogameSelected">
       <label for="stockBInputV" class="col-form-label">Stock de alquiler</label>
-      <input type="text" id="stockBInputV" class="form-control">
+      <input type="text" id="stockRentalInputV" class="form-control" [(ngModel)]="stockRentalInputV" name="stockRentalInputV">
 
-      <label for="descriptionInputC" class="col-form-label">Descripción</label>
-      <input type="text" id="descriptionInputC" class="form-control">
+      <label for="descriptionInputV" class="col-form-label">Descripción</label>
+      <input type="text" id="descriptionInputV" class="form-control" [(ngModel)]="descriptionInputV" name="descriptionInputV">
 
       <label for="dateInputV" class="col-form-label">Fecha de salida</label>
-      <input type="date" id="dateInputV" class="form-control">
+      <input type="date" id="dateInputV" class="form-control" [(ngModel)]="dateInputV" name="dateInputV">
 
       <label for="pegiInputV" class="col-form-label">PEGI</label>
-      <input type="number" id="pegiInputV" class="form-control">
-
+      <select id="pegiInputV" class="mt-3 fieldSelector" [(ngModel)]="pegiInputV" name="pegiInputV">
+        <option value="3">3</option>
+        <option value="7">7</option>
+        <option value="12">12</option>
+        <option value="16">16</option>
+        <option value="18">18</option>
+      </select>
 
       <label class="form-check-label" for="rb4a">Plataforma existente</label>
-      <select name="" id="" class="mt-3 fieldSelector">
-        <option disabled selected hidden>Seleccione una opción</option>
+      <select name="" id="" class="mt-3 fieldSelector" [(ngModel)]="platformInputV" name="platformInputV">
         <option *ngFor="let i of platforms" value="{{ i.id }}">{{ i.name }}</option>
       </select>
       <!-- DIV de checkbox -->
@@ -248,6 +252,9 @@
       </div>-->
 
       <label class="form-check-label" for="rb5a">Género existente</label>
+      <select id="genreInputV" class="mt-3 fieldSelector" [(ngModel)]="genreInputV" name="genreInputV">
+        <option *ngFor="let i of genres" value="{{ i.id }}">{{ i.name }}</option>
+      </select>
 
       <!--
       <div class="mt-3">
@@ -270,10 +277,8 @@
       </div>-->
 
       <label class="form-check-label" for="rb6a">Desarrollador existente</label>
-      <select name="" id="" class="mt-3 fieldSelector">
-        <option disabled selected hidden>Seleccione una opción</option>
+      <select id="developerInputV" class="mt-3 fieldSelector" [(ngModel)]="developerInputV" name="developerInputV">
         <option *ngFor="let i of developers" value="{{ i.id }}">{{ i.name }}</option>
-        <option value=""></option>
       </select>
 
       <!--

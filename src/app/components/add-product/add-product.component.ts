@@ -7,6 +7,7 @@ import swal from 'sweetalert';
 import { Console } from 'src/app/models/console';
 import { Smartphone } from 'src/app/models/smartphone';
 import { Tablet } from 'src/app/models/tablet';
+import { Videogame } from 'src/app/models/videogame';
 
 @Component({
   selector: 'app-add-product',
@@ -71,6 +72,14 @@ export class AddProductComponent implements OnInit {
   ramInputC: string
   cpuInputC: string
   gpuInputC: string
+  //Videogame
+  stockRentalInputV: string
+  descriptionInputV: string
+  dateInputV: any
+  pegiInputV: string
+  platformInputV: string
+  genreInputV: string
+  developerInputV: string
 
 
   constructor(private productService: ProductService, private router: Router) { }
@@ -134,12 +143,14 @@ export class AddProductComponent implements OnInit {
   async submit(type: string) {
     console.log('tipo de submit: ' + type)
     switch (type) {
+
+      //SMARTPHONE
+
       case 'smartphone':
         if (this.validation(type) >= 1) {
           this.validationError()
           break
         }
-
         var productSmartphone: Smartphone
 
         var storageSmartphone: string = this.storageInputS.toString()
@@ -168,7 +179,7 @@ export class AddProductComponent implements OnInit {
           stock_sale: stock_saleSmartphone,
           id_brand: brandSmartphone
         }
-        await this.productService.addProduct(/*brand, brandName,*/ productSmartphone).then(response => {
+        await this.productService.addProduct(productSmartphone).then(response => {
           swal({
             title: 'OK',
             text: response,
@@ -183,6 +194,9 @@ export class AddProductComponent implements OnInit {
           })
         })
       break
+
+      //  TABLET
+
       case 'tablet':
 
         if (this.validation(type) >= 1) {
@@ -218,7 +232,7 @@ export class AddProductComponent implements OnInit {
           id_brand: brandTablet
         }
 
-        await this.productService.addProduct(/*brand, brandName,*/ productTablet).then(response => {
+        await this.productService.addProduct(productTablet).then(response => {
           swal({
             title: 'OK',
             text: response,
@@ -234,35 +248,95 @@ export class AddProductComponent implements OnInit {
         })
 
       break
-      /*
+
+      //  VIDEOGAME
+
+    case 'videogame':
+      if (this.validation(type) >= 1) {
+        this.validationError()
+        break
+      }
+      var productVideogame: Videogame
+
+      var descriptionVideogame: string = this.descriptionInputV.toString()
+      var dateVideogame: string = this.dateInputV.toString()
+      var pegiVideogame: number = parseInt(this.pegiInputV)
+      var platformVideogame: number = parseInt(this.platformInputV)
+      var genreVideogame: number = parseInt(this.genreInputV)
+      var developerVideogame: number = parseInt(this.developerInputV)
+      var nameVideogame: string = this.nameInput.toString()
+      var priceVideogame: number = parseFloat(this.priceInput)
+      var stock_saleVideogame: number = parseInt(this.stockInput)
+      var stock_rentVideogame: number = parseInt(this.stockRentalInputV)
+      var brandVideogame: number = parseInt(this.brandInput)
+      //Dar el formato adecuado a la fecha
+      dateVideogame = dateVideogame.replace('-', '/')
+      dateVideogame = dateVideogame.replace('-', '/')
+
+      productVideogame = {
+        id_product_type: 3,
+        description: descriptionVideogame,
+        release_date: dateVideogame,
+        pegi: pegiVideogame,
+        id_platform: platformVideogame,
+        id_genre: genreVideogame,
+        id_developer: developerVideogame,
+        name: nameVideogame,
+        price: priceVideogame,
+        stock_sale: stock_saleVideogame,
+        stock_rent: stock_rentVideogame,
+        id_brand: brandVideogame,
+      }
+
+      await this.productService.addProduct(productVideogame).then(response => {
+        swal({
+          title: 'OK',
+          text: response,
+          icon: 'success'
+        })
+        this.router.navigateByUrl('products')
+      }, reject => {
+        swal({
+          title: 'Error',
+          text: reject,
+          icon: 'error'
+        })
+      })
+    break
+
+      //  CONSOLE
+
       case 'console':
         if (this.validation(type) >= 1) {
           this.validationError()
           break
         }
-        //var brand: boolean = false
-        //var brandName: any
-        //brandName = null
-
         var productConsole: Console
-        var storageC: string = this.storageInputC.toString()
-        var ramC: string = this.ramInputC.toString()
-        var priceC: number = parseFloat(this.priceInput)
-        var idBrandC: number = parseInt(this.brandInput)
+
+        var storageConsole: string = this.storageInputC.toString()
+        var cdConsole: boolean = this.cdInputC
+        var ramConsole: string = this.ramInputC.toString()
+        var cpuConsole: string = this.cpuInputC.toString()
+        var gpuConsole: string = this.gpuInputC.toString()
+        var nameConsole: string = this.nameInput.toString()
+        var priceConsole: number = parseFloat(this.priceInput)
+        var stockConsole: number = parseInt(this.stockInput)
+        var brandConsole: number = parseInt(this.brandInput)
+
         productConsole = {
           id_product_type: 4,
-          storage: storageC,
-          has_cd: this.cdInputC,
-          ram: ramC,
-          cpu: this.cpuInputC,
-          gpu: this.gpuInputC,
-          name: this.nameInput,
-          price: priceC,
-          stock_sale: this.stockInput,
-          id_brand: idBrandC
+          storage: storageConsole,
+          has_cd: cdConsole,
+          ram: ramConsole,
+          cpu: cpuConsole,
+          gpu: gpuConsole,
+          name: nameConsole,
+          price: priceConsole,
+          stock_sale: stockConsole,
+          id_brand: brandConsole
         }
 
-        await this.productService.addProduct(/*brand, brandName, productConsole).then(response => {
+        await this.productService.addProduct(productConsole).then(response => {
           swal({
             title: 'OK',
             text: response,
@@ -276,75 +350,10 @@ export class AddProductComponent implements OnInit {
             icon: 'error'
           })
         })
-
-        /*
-        if (this.sh1 == 0) {
-          //  crear marca y que devuelva la id
-          var brandName =  this.brandInput
-          await this.productService.addBrand({name: brandName}).subscribe(data => {
-            idBrand = data.id
-            var storage = this.storageInputC.toString()
-            var ram = this.ramInputC.toString()
-            var price = this.priceInput.toString()
-            console.log('idbrand'+idBrand)
-
-            this.productService.addProduct(product).subscribe(data => {
-              console.log(data)
-              swal({
-                title: 'Producto añadido',
-                icon: 'success'
-              })
-            }, error => {
-                swal({
-                  title: 'Error',
-                  text: error,
-                  icon: 'error'
-                })
-            })
-              }, error => {
-                swal('Error', 'Error al añadir marca, ' + error, 'error')
-                return null
-            })
-        } else {idBrand = parseInt(this.brandInput)}
-
-        var storage = this.storageInputC.toString()
-        var ram = this.ramInputC.toString()
-        var price = this.priceInput.toString()
-        console.log('idbrand'+idBrand)
-        product = {
-          id_product_type: 4,
-          storage: storage,
-          has_cd: this.cdInputC,
-          ram: ram,
-          cpu: this.cpuInputC,
-          gpu: this.gpuInputC,
-          name: this.nameInput,
-          price: price,
-          stock_sale: this.stockInput,
-          id_brand: idBrand
-        }
-        this.productService.addProduct(product).subscribe(data => {
-          console.log(data)
-          swal({
-            title: 'Producto añadido',
-            icon: 'success'
-          })
-        }, error => {
-            swal({
-              title: 'Error',
-              text: error,
-              icon: 'error'
-            })
-        })
-        */
       break
-      case 'videogame':
-        if (this.validation(type) >= 1) {
-          this.validationError()
-          break
-        }
 
-      break
+        //  DEFAULT
+
       default:
         swal({
           title: 'Error',

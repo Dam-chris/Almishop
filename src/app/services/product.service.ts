@@ -11,6 +11,8 @@ import { Platform } from '../models/platform';
 import { Console } from '../models/console';
 import { Smartphone } from '../models/smartphone';
 import { Idk } from '../models/responseAddProd';
+import { Videogame } from '../models/videogame';
+import { Tablet } from '../models/tablet';
 
 const httpOptions = {
   headers: new HttpHeaders({'Content-Type': 'application/json'})
@@ -38,7 +40,7 @@ export class ProductService {
     return null;
   }
 
-  async addProduct(/*brand: boolean,  brandName: any,*/ product: Smartphone | Console): Promise<any>  {
+  async addProduct(product: Smartphone | Tablet | Console | Videogame): Promise<any>  {
 
     return  new Promise((resolve, reject) => {
       console.log('he aqui el producto')
@@ -47,17 +49,14 @@ export class ProductService {
         if (data.message != null) {
           reject(data.message)
         }
-        console.log('añadido ok')
         console.log(data)
         resolve('Producto añadido correctamente.')
       }, err => {
-        console.warn('error al añadir')
         console.error(err)
         reject('No se pudo insertar los datos.')
       })
 
     })
-    //this.httpClient.post<Object>(urlEndPoint + 'product/add', product, httpOptions)
   }
 
   getBrands() {

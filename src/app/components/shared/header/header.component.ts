@@ -1,33 +1,22 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-
 
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.css']
 })
-export class HeaderComponent implements OnInit {
-  
+export class HeaderComponent {
 
-  
   constructor(private router: Router) { }
 
-  ngOnInit(): void {
-  };
-
-
-
-
-
-  isSessionStarted(): boolean 
-  {
+  isSessionStarted(): boolean {
     let status = sessionStorage.getItem('role') == 'ROLE_ADMIN';
     return status;
   }
 
   logOut() {
-    console.log('logout')
+    console.log('logOut()')
     sessionStorage.clear()
     this.router.navigateByUrl('/login')
   }
