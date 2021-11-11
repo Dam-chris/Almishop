@@ -17,7 +17,7 @@ export class AuthGuard implements CanActivate
     public isLoggedIn(): boolean {
         let status = false;
         status = sessionStorage.getItem('role') == "ROLE_ADMIN" ? true:false;
-        console.log(status);
+        //console.log(status);
 
         return status;
     }

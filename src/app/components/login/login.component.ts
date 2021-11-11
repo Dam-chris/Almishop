@@ -29,8 +29,8 @@ export class LoginComponent implements OnInit, OnDestroy {
 
   onSubmit() {
     this.loginService.proveLogin(this.userData).then(response => {
-      console.log(response)
-      sessionStorage.setItem('role', 'ROLE_ADMIN')
+      //console.log(response)
+      //sessionStorage.setItem('role', 'ROLE_ADMIN')
       this.router.navigateByUrl('')
     }, reject => {
       swal({

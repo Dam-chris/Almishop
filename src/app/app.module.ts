@@ -21,6 +21,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatDividerModule } from '@angular/material/divider';
 import { SettingsComponent } from './settings/settings.component';
+import { ImageEditorComponent } from './components/image-editor/image-editor.component';
 
 @NgModule({
   declarations: [
@@ -32,7 +33,8 @@ import { SettingsComponent } from './settings/settings.component';
     UsersComponent,
     AddProductComponent,
     EditProductComponent,
-    SettingsComponent
+    SettingsComponent,
+    ImageEditorComponent
   ],
   imports: [
     BrowserModule,

@@ -23,6 +23,7 @@ export class ProductsComponent implements OnInit
 
   async ngOnInit()
   {
+    this.selector = 'smartphone'
     //## LLAMAR A PRODUCTSERVICE ##
     //this.allProducts = this.productService.getAllProducts();
     await this.optionChanged(this.selector)
@@ -43,7 +44,7 @@ export class ProductsComponent implements OnInit
     this.productService.getProductByType(type).subscribe(response => {
       this.shownProducts = response
     }, error => {
-      console.log(error)
+      //console.log(error)
       swal({
         title: 'Error',
         text: 'No se pudieron cargar los datos',

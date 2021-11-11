@@ -1,3 +1,3 @@
-export class Idk {
+export class AddProductResponse {
   message: string
 }

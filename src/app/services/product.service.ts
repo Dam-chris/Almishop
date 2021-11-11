@@ -1,8 +1,5 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, throwError } from 'rxjs';
-import { catchError } from 'rxjs/operators';
-import swal from 'sweetalert';
 import { Brand } from '../models/brand';
 import { Color } from '../models/color';
 import { Developer } from '../models/developer';
@@ -10,7 +7,7 @@ import { Genre } from '../models/genre';
 import { Platform } from '../models/platform';
 import { Console } from '../models/console';
 import { Smartphone } from '../models/smartphone';
-import { Idk } from '../models/responseAddProd';
+import { AddProductResponse } from '../models/responseAddProd';
 import { Videogame } from '../models/videogame';
 import { Tablet } from '../models/tablet';
 
@@ -51,7 +48,7 @@ export class ProductService {
     return  new Promise((resolve, reject) => {
       console.log('he aqui el producto')
       console.log(product)
-      this.httpClient.post<Idk>(urlEndPoint + '/product/add', product, httpOptions).subscribe(data => {
+      this.httpClient.post<AddProductResponse>(urlEndPoint + '/product/add', product, httpOptions).subscribe(data => {
         if (data.message != null) {
           reject(data.message)
         }

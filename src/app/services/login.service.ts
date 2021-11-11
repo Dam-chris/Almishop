@@ -5,7 +5,7 @@ import { Injectable } from '@angular/core';
 //import swal from 'sweetalert';
 import { Login } from '../models/login';
 //import{ catchError } from 'rxjs/operators';
-import { Idk } from '../models/responseAddProd';
+import { LoginResponse } from '../models/responseLogin';
 
 
 const httpOptions = {
@@ -23,17 +23,21 @@ export class LoginService
   proveLogin(user: Login): Promise<any>
   {
     return new Promise((resolve, reject) => {
-      this.httpClient.post<Idk>(urlEndPoint + 'login', user, httpOptions).subscribe(response => {
+      this.httpClient.post<LoginResponse>(urlEndPoint + 'login', user, httpOptions).subscribe(response => {
         if (response.message != null) {
           reject(response.message)
         }
+        if (response.idRol.id != 2) {
+          reject('El usuario introducido no tiene Rol de Administrador.')
+        }
+        sessionStorage.setItem('id_user', response.id.toString())
+        sessionStorage.setItem('role', 'ROLE_ADMIN')
         resolve('login ok')
       }, error => {
         reject('Error interno. por favor, inténtelo más tarde.')
       })
     })
     /*
-    return this.httpClient.post<Login>(urlEndPoint + 'login', user, httpOptions)
     return this.httpClient.post<Login>(urlEndPoint, user, httpOptions)
                           .pipe(
                             catchError(e =>
