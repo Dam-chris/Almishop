@@ -19,5 +19,4 @@ export class EditProductComponent implements OnInit {
     this.id = this.activatedRoute.snapshot.params.id
     console.log(this.id)
   }
-
 }
