@@ -11,17 +11,13 @@ import swal from 'sweetalert';
 export class EditProductComponent implements OnInit {
 
   constructor(private activatedRoute: ActivatedRoute, private productService: ProductService, private router: Router) { }
+
   id: number
   product = {}
+
   ngOnInit(): void {
     this.id = this.activatedRoute.snapshot.params.id
     console.log(this.id)
-
-    this.product = this.productService.getProductById(this.id)
-    if (this.product == null) {
-      swal("Error", "No se ha podido encotrar el producto con id: " + this.id, "error");
-      this.router.navigateByUrl('products')
-    }
   }
 
 }

@@ -39,13 +39,9 @@ export class ProductService {
     }
   }
 
-  getProductById(id) {
-    return 'a'
-  }
-
   async addProduct(product: Smartphone | Tablet | Console | Videogame): Promise<any>  {
 
-    return  new Promise((resolve, reject) => {
+    return new Promise((resolve, reject) => {
       console.log('he aqui el producto')
       console.log(product)
       this.httpClient.post<AddProductResponse>(urlEndPoint + '/product/add', product, httpOptions).subscribe(data => {
