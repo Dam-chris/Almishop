@@ -20,7 +20,7 @@ export class LoginService
 
   constructor(private httpClient: HttpClient/*, private router: Router*/) { }
 
-  proveLogin(user: Login): Promise<any>
+  proveLogin(user: Login): Promise<string>
   {
     return new Promise((resolve, reject) => {
       this.httpClient.post<LoginResponse>(urlEndPoint + 'login', user, httpOptions).subscribe(response => {

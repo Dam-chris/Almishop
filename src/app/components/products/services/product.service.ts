@@ -1,15 +1,17 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { AddProductResponse } from '../../../models/responseAddProd';
+
 import { Brand } from '../models/brand';
-import { Color } from '../models/color';
-import { Developer } from '../models/developer';
-import { Genre } from '../models/genre';
-import { Platform } from '../models/platform';
-import { Console } from '../models/console';
 import { Smartphone } from '../models/smartphone';
-import { AddProductResponse } from '../models/responseAddProd';
-import { Videogame } from '../models/videogame';
 import { Tablet } from '../models/tablet';
+import { Videogame } from '../models/videogame';
+import { Videoconsole } from '../models/videoconsole';
+import { Color } from '../models/color';
+import { Platform } from '../models/platform';
+import { Genre } from '../models/genre';
+import { Developer } from '../models/developer';
+import { Observable } from 'rxjs';
 
 const httpOptions = {
   headers: new HttpHeaders({'Content-Type': 'application/json'})
@@ -24,22 +26,23 @@ export class ProductService {
 
   constructor(private httpClient: HttpClient) { }
 
-  getProductByType(type: string) {
+  getProductByType(type: string):Observable<Smartphone[] | Tablet[] | Videoconsole[] | Videogame[]> 
+  {
     switch (type) {
       case 'smartphone':
-        return this.httpClient.get(urlEndPoint + '/product/smartphones')
+        return this.httpClient.get<Smartphone[]>(urlEndPoint + '/product/smartphones')
       case 'tablet':
-        return this.httpClient.get(urlEndPoint + '/product/tablets')
+        return this.httpClient.get<Tablet[]>(urlEndPoint + '/product/tablets')
       case 'console':
-        return this.httpClient.get(urlEndPoint + '/product/consoles')
+        return this.httpClient.get<Videoconsole[]>(urlEndPoint + '/product/consoles')
       case 'videogame':
-        return this.httpClient.get(urlEndPoint + '/product/videogames')
+        return this.httpClient.get<Videogame[]>(urlEndPoint + '/product/videogames')
       default:
         return null
     }
   }
 
-  async addProduct(product: Smartphone | Tablet | Console | Videogame): Promise<any>  {
+  async addProduct(product: Smartphone | Tablet | Videoconsole | Videogame): Promise<any>  {
 
     return new Promise((resolve, reject) => {
       console.log('he aqui el producto')
@@ -58,28 +61,35 @@ export class ProductService {
     })
   }
 
-  getBrands() {
-    return this.httpClient.get<Brand>(urlEndPoint + '/brand')
+  getBrands():Observable<Brand[]>
+  {
+    return this.httpClient.get<Brand[]>(urlEndPoint + '/brand')
   }
 
-  getColors() {
-    return this.httpClient.get<Color>(urlEndPoint + '/color')
+  getColors():Observable<Color[]>
+  {
+    return this.httpClient.get<Color[]>(urlEndPoint + '/color')
   }
 
-  getPlatforms () {
-    return this.httpClient.get<Platform>(urlEndPoint + '/platform')
+  getPlatforms():Observable<Platform[]> 
+  {
+    return this.httpClient.get<Platform[]>(urlEndPoint + '/platform')
   }
 
-  getGenres() {
-    return this.httpClient.get<Genre>(urlEndPoint + '/genre')
+  getGenres():Observable<Genre[]>
+  {
+    return this.httpClient.get<Genre[]>(urlEndPoint + '/genre')
   }
 
-  getDevelopers() {
-    return this.httpClient.get<Developer>(urlEndPoint + '/developer')
+  getDevelopers():Observable<Developer[]>
+  {
+    return this.httpClient.get<Developer[]>(urlEndPoint + '/developer')
   }
 
-  addBrand(brandName: string) {
-    var brandObject = {
+  addBrand(brandName: string):Observable<Brand> 
+  {
+    var brandObject:Brand = {
+      id: -1,
       name: brandName
     }
     return this.httpClient.post<Brand>(urlEndPoint + '/brand/add', brandObject, httpOptions)

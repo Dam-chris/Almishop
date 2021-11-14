@@ -1,0 +1,182 @@
+<div class="form-floating">
+  <select (change)="optionChanged()" #selector id="selector" class="form-select form-select mb-3"
+    style="width: 22%;" aria-label=".form-select-lg example">
+    <option value="smartphone" selected>Smartphone</option>
+    <option value="tablet">Tablet</option>
+    <option value="videogame">Videojuego</option>
+    <option value="console">Consola</option>
+  </select>
+  <label for="selector">Selecciona una..</label>
+</div>
+
+<label class="formu">
+  <form id="AnyForm" #productsForm="ngForm" (ngSubmit)="submit(productsForm, selector.value)">
+
+    <label for="nameInput" class="col-form-label">Nombre</label>
+    <input type="text" id="nameInput" class="form-control" name="name" [(ngModel)]="smartphone.name" [(ngModel)]="tablet.name"   [(ngModel)]="videoconsole.name" [(ngModel)]="videogame.name" >
+
+    <label class="form-check-label" for="rb1a">Marca existente</label>
+
+    <select id="brandInput" class="mt-2 fieldSelector" name="id_brand" [(ngModel)]="smartphone.id_brand" [(ngModel)]="tablet.id_brand" [(ngModel)]="videoconsole.id_brand" [(ngModel)]="videogame.id_brand">
+      <option value="" selected hidden>Seleccione...</option>
+      <option *ngFor="let i of brands" value="{{ i.id }}">{{ i.name }}</option>
+    </select>
+
+    <label for="stockAInput" class="col-form-label">Stock inicial</label>
+    <input type="number" value="0" id="stockAInput" class="form-control" name="stock_sale" [(ngModel)]="smartphone.stock_sale" [(ngModel)]="tablet.stock_sale" [(ngModel)]="videoconsole.stock_sale" [(ngModel)]="videogame.stock_sale">
+
+    <label for="priceInput" class="col-form-label">Precio Inicial</label>
+    <div class="input-group">
+      <input type="number" id="priceInput" class="form-control" name="price" [(ngModel)]="smartphone.price" [(ngModel)]="tablet.price" [(ngModel)]="videoconsole.price" [(ngModel)]="videogame.price">
+      <span class="input-group-text">€</span>
+    </div>
+
+    <!-- DISTINTOS DIVS PARA DISTINTOS TIPOS DE DATOS -->
+    <!-- smartphone o tablet -->
+    <div *ngIf="selector.value == 'smartphone' || selector.value == 'tablet'">
+      <label for="storageInputS" class="col-form-label">Capacidad</label>
+      <div class="input-group">
+        <input type="number" id="storageInputS" class="form-control" name="storage" [(ngModel)]="smartphone.storage" [(ngModel)]="tablet.storage">
+        <span class="input-group-text">GB</span>
+      </div>
+
+      <label for="ramInputS" class="col-form-label">RAM</label>
+      <div class="input-group">
+        <input type="number" id="ramInputS" class="form-control" name="ram" [(ngModel)]="smartphone.ram" [(ngModel)]="tablet.ram">
+        <span class="input-group-text">GB</span>
+      </div>
+
+      <label for="inchesInputS" class="col-form-label">Tamaño</label>
+      <div class="input-group">
+        <input type="number" id="inchesInputS" class="form-control" name="inches" [(ngModel)]="smartphone.inches" [(ngModel)]="tablet.inches">
+        <span class="input-group-text">"</span>
+      </div>
+
+      <label for="batteryInputS" class="col-form-label">Batería</label>
+      <div class="input-group">
+        <input type="number" id="batteryInputS" class="form-control" name="battery" [(ngModel)]="smartphone.battery" [(ngModel)]="tablet.battery">
+        <span class="input-group-text">mAH</span>
+      </div>
+
+      <label for="cameraInputS" class="col-form-label">Cámara</label>
+      <div class="input-group">
+        <input type="number" id="cameraInputS" class="form-control" name="camera" [(ngModel)]="smartphone.camera" [(ngModel)]="tablet.camera">
+        <span class="input-group-text">Mpx</span>
+      </div>
+
+      <div class="form-check" style="margin-top: 10px;">
+        <input class="form-check-input" type="checkbox" value="" id="sdInputS" name="sd" [(ngModel)]="smartphone.has_sd" [(ngModel)]="tablet.has_sd">
+        <label class="form-check-label user-select-none" for="sdInputS">SD</label>
+      </div>
+
+
+      <label class="form-check-label" for="rb2a">Color existente</label>
+
+      <select  id="" class="mt-2 fieldSelector" name="id_color" [(ngModel)]="smartphone.id_color" [(ngModel)]="tablet.id_color" >
+        <option value="" disabled selected hidden>Seleccione...</option>
+        <option *ngFor="let color of colors" value="{{ color.id }}" >{{ color.name }}</option>
+      </select>
+
+    </div>
+
+
+
+
+    <!-- console -->
+    <div *ngIf="selector.value == 'console'">
+      <label for="storageInputc" class="col-form-label">Capacidad</label>
+      <div class="input-group">
+        <input type="number" id="storageInputc" class="form-control" name="storage" ngModel>
+        <span class="input-group-text">GB</span>
+      </div>
+
+      <div class="form-check" style="margin-top: 10px;">
+        <input class="form-check-input" type="checkbox" value="" id="cdInputS" name="cd" ngModel>
+        <label class="form-check-label user-select-none" for="cdInputS">CD</label>
+      </div>
+
+      <label for="ramInputC" class="col-form-label">RAM</label>
+      <div class="input-group">
+        <input type="number" id="ramInputC" class="form-control" name="ram" ngModel>
+        <span class="input-group-text">GB</span>
+      </div>
+
+      <label for="cpuInputC" class="col-form-label">CPU</label>
+      <input type="text" id="cpuInputC" class="form-control" name="cpu" ngModel>
+
+      <label for="gpuInputC" class="col-form-label">GPU</label>
+      <input type="text" id="gpuInputC" class="form-control" name="gpu" ngModel>
+
+    </div>
+
+    <!-- videogame -->
+    <div *ngIf="selector.value == 'videogame'">
+      <label for="stockBInputV" class="col-form-label">Stock de alquiler</label>
+      <input type="text" id="stockRentalInputV" class="form-control" name="stock_rent" ngModel>
+
+      <label for="descriptionInputV" class="col-form-label">Descripción</label>
+      <input type="text" id="descriptionInputV" class="form-control" name="description" ngModel>
+
+      <label for="dateInputV" class="col-form-label">Fecha de salida</label>
+      <input type="date" id="dateInputV" class="form-control" name="release_date" ngModel>
+
+      <label for="pegiInputV" class="col-form-label">PEGI</label>
+      <select id="pegiInputV" class="mt-3 fieldSelector" name="pegi" ngModel>
+        <option value="" disabled selected hidden>Seleccione...</option>
+        <option value="3">3</option>
+        <option value="7">7</option>
+        <option value="12">12</option>
+        <option value="16">16</option>
+        <option value="18">18</option>
+      </select>
+
+      <label class="form-check-label" for="rb4a">Plataforma existente</label>
+      <select name="" id="" class="mt-3 fieldSelector" name="id_platform" ngModel>
+        <option value="" disabled selected hidden>Seleccione...</option>
+        <option *ngFor="let i of platforms" value="{{ i.id }}">{{ i.name }}</option>
+      </select>
+
+      <label class="form-check-label" for="rb5a">Género existente</label>
+      <select id="genreInputV" class="mt-3 fieldSelector" name="id_genre" ngModel>
+        <option value="" disabled selected hidden>Seleccione...</option>
+        <option *ngFor="let i of genres" value="{{ i.id }}">{{ i.name }}</option>
+      </select>
+
+      <label class="form-check-label" for="rb6a">Desarrollador existente</label>
+      <select id="developerInputV" class="mt-3 fieldSelector" name="id_developer" ngModel>
+        <option value="" disabled selected hidden>Seleccione...</option>
+        <option *ngFor="let i of developers" value="{{ i.id }}">{{ i.name }}</option>
+      </select>
+
+    </div>
+    
+    <div class="my-2" id="imagesProduct">
+      
+      <label class="form-check-label my-2" for="rb6a">Imagen de portada</label>
+      <input (change)="onFileChangeCover($event)" class="form-control" type="file" accept="image/*"/>
+      <br>
+      <div class="card" *ngIf="imageCover">
+        <div class="card-header">Portada de producto</div>
+        <div class="card-body text-center">
+          <img [src]="imageCover" height="200px" width="200px">
+        </div>
+      </div>
+
+      <label class="form-check-label my-2" for="rb6a">Imagenes del producto</label>
+      <input (change)="onFileChange($event)" class="form-control" type="file" accept="image/*" multiple />
+      <br>
+      <div class="card" *ngIf="images.length > 0">
+        <div class="card-header">Lista de imagenes</div>
+        <div class="card-body text-center">
+          <img *ngFor='let url of images' [src]="url" height="90px" width="90px" style="margin: 3px;">
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <input type="submit" class="btn btn-success" name="Aceptar" value="Aceptar" />
+      <input type="button" class="btn btn-danger my-3" (click)="cancel" value="Cancelar" />
+    </div>
+    <!--<button type="button" class="btn btn-success" (click)="submit(selector.value)">Añadir</button>-->
+  </form>
+</label>

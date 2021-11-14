@@ -1,13 +1,18 @@
-  import { ThrowStmt } from '@angular/compiler';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { data } from 'jquery';
-import { ProductService } from 'src/app/services/product.service';
+import { ProductService } from '../services/product.service'; 
 import swal from 'sweetalert';
-import { Console } from 'src/app/models/console';
-import { Smartphone } from 'src/app/models/smartphone';
-import { Tablet } from 'src/app/models/tablet';
-import { Videogame } from 'src/app/models/videogame';
+import { NgForm } from '@angular/forms';
+import { Smartphone } from '../models/smartphone';
+import { Brand } from '../models/brand';
+import { Color } from '../models/color';
+import { Platform } from '../models/platform';
+import { Genre } from '../models/genre';
+import { Developer } from '../models/developer';
+import { Product } from '../models/product';
+import { Tablet } from '../models/tablet';
+import { Videogame } from '../models/videogame';
+import { Videoconsole } from '../models/videoconsole';
 
 @Component({
   selector: 'app-add-product',
@@ -16,37 +21,50 @@ import { Videogame } from 'src/app/models/videogame';
 })
 export class AddProductComponent implements OnInit {
 
-  smartphoneSelected: boolean
-  tabletSelected: boolean
-  consoleSelected: boolean
-  videogameSelected: boolean
   /*
+  smartphoneSelected: boolean = false;
+  tabletSelected: boolean = false;
+  consoleSelected: boolean = false;
+  videogameSelected: boolean = false;
+  
   sh1: any = 1
   sh2: any = 1
   sh3: any = 1
   sh4: any = 1
   sh5: any = 1
   sh6: any = 1
-
+  
   rb1: boolean = true
   rb2: boolean = true
   rb3: boolean = true
   rb4: boolean = true
   rb5: boolean = true
   rb6: boolean = true
-*/
+  */
+ 
+ brands: Brand[] = [];
+ colors: Color[] = [];
+ platforms: Platform[] = [];
+ genres: Genre[] = [];
+ developers: Developer[] = [];
 
-  brands: any = []
-  colors: any = []
-  platforms: any = []
-  genres: any = []
-  developers: any = []
+ product: Product = new Product();
+ smartphone: Smartphone = new Smartphone();
+ tablet: Tablet = new Tablet();
+ videogame: Videogame = new Videogame();
+ videoconsole: Videoconsole = new Videoconsole();
 
-  errorString: string
+ //errorString: string;
+ 
+ images:File[] = [];
 
-  // INPUTS
+ imageCover: File;
+
+  
+ /*
+ // INPUTS
   nameInput: string
-  brandInput: string
+  brandInput: string 
   priceInput: string
   stockInput: string
 
@@ -80,17 +98,15 @@ export class AddProductComponent implements OnInit {
   platformInputV: string
   genreInputV: string
   developerInputV: string
+  */
 
 
   constructor(private productService: ProductService, private router: Router) { }
 
-  ngOnInit(): void {
-    this.smartphoneSelected = true
-    this.tabletSelected = false
-    this.consoleSelected = false
-    this.videogameSelected = false
-    this.loadData()
-    this.errorString = ''
+  ngOnInit(): void 
+  {
+    this.loadData();
+    //this.errorString = '';
   }
 
   loadData() {
@@ -140,7 +156,81 @@ export class AddProductComponent implements OnInit {
     })
   }
 
-  async submit(type: string) {
+  submit(data:NgForm, type:string)
+  {
+    console.log(type);
+
+    const { name, price, stock_sale, stock_rent, id_brand } = this.product;
+    const { ram, has_sd, id_color, storage, inches, battery, camera } = this.smartphone || this.tablet;
+   
+    let tablet = {
+      name: name,
+      price: price,
+      stock_sale: stock_sale,
+      id_brand: id_brand,
+      id_product_type: 2,
+      storage: storage,
+      ram: ram,
+      inches: inches,
+      battery: battery,
+      camera: camera,
+      has_sd: has_sd,
+      id_color: id_color,
+      images: this.images
+    };
+  
+    console.log(this.tablet);
+    
+    
+
+   /* let videogame = {
+      name: name,
+      price: price,
+      stock_sale: stock_sale,
+      stock_rent: stock_rent,
+      id_brand: id_brand,
+      id_product_type: 3,
+      description: description,
+      release_date: release_date,
+      pegi: pegi,
+      id_platform: id_platform,
+      id_genre: id_genre,
+      id_developer: id_developer,
+      images: this.images
+    };
+
+    let videoconsole = {
+      name: name,
+      price: price,
+      stock_sale: stock_sale,
+      id_brand: id_brand,
+      id_product_type: 4,
+      storage: storage,
+      has_cd: cd,
+      ram: ram,
+      cpu: cpu,
+      gpu: gpu,
+      images: this.images
+    };*/
+
+    switch (type) 
+    {
+      case 'smartphone':
+       
+        break;
+      case 'tablet':
+        console.log(tablet);
+        break;
+      case 'videogame':
+        console.log();
+        break;
+      case 'console':
+        console.log();
+        break;
+    }
+    
+  }
+  /*async submit(type: string) {
     console.log('tipo de submit: ' + type)
     switch (type) {
 
@@ -362,9 +452,9 @@ export class AddProductComponent implements OnInit {
         })
       break
     }
-  }
+  }*/
 
-  validation(type: string): number {
+ /*validation(type: string): number {
     var errors = 0
     if (this.nameInput == undefined || this.brandInput == undefined || this.priceInput == undefined || this.stockInput == undefined) {
       errors++
@@ -391,35 +481,15 @@ export class AddProductComponent implements OnInit {
       break
     }
     return errors
-  }
+  }*/
 
-  optionChanged(value: string) {
-    switch (value) {
-      case 'smartphone':
-        this.smartphoneSelected = true
-        this.tabletSelected = false
-        this.consoleSelected = false
-        this.videogameSelected = false
-      break
-      case 'tablet':
-        this.smartphoneSelected = false
-        this.tabletSelected = true
-        this.consoleSelected = false
-        this.videogameSelected = false
-      break
-      case 'console':
-        this.smartphoneSelected = false
-        this.tabletSelected = false
-        this.consoleSelected = true
-        this.videogameSelected = false
-      break
-      case 'videogame':
-        this.smartphoneSelected = false
-        this.tabletSelected = false
-        this.consoleSelected = false
-        this.videogameSelected = true
-      break
-    }
+  optionChanged() 
+  {
+    //se vacian las imagenes al cambio de formualrio
+    this.images = [];
+    this.imageCover = null;
+    //reset del formulario
+    (document.getElementById('AnyForm') as HTMLFormElement).reset();
   }
 
   notLoading() {
@@ -455,4 +525,54 @@ export class AddProductComponent implements OnInit {
       }
     });
   }
+//para las imagenes
+  onFileChange( event:any ) 
+  {
+    if (event.target.files && event.target.files[0]) 
+    {
+      
+      var filesAmount = event.target.files.length;
+      
+      for (let i = 0; i < filesAmount; i++) 
+      {
+        
+        var reader = new FileReader();
+        
+        reader.onload = (event:any) => 
+        {
+          
+          console.log(event.target.result);
+          
+          this.images.push(event.target.result); 
+          
+        }
+        
+        reader.readAsDataURL(event.target.files[i]);
+      }
+    }
+  }
+  //imagen de portada
+  onFileChangeCover( event:any ) 
+  {
+    if (event.target.files && event.target.files[0]) 
+    {
+
+      var reader = new FileReader();
+        
+      reader.onload = (event:any) => 
+      {
+          
+        console.log(event.target.result);
+          
+        this.imageCover = event.target.result;
+          
+      }
+        
+      reader.readAsDataURL(event.target.files[0]);
+      
+    }
+  }
+
+  
+  
 }

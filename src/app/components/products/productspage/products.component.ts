@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { ProductService } from 'src/app/services/product.service';
-import { Language_ES } from '../data-tables-config/language_ES';
+import { ProductService } from '../services/product.service'; 
+import { Language_ES } from '../../data-tables-config/language_ES'; 
 import swal from 'sweetalert';
 
 
@@ -18,7 +18,7 @@ export class ProductsComponent implements OnInit
   constructor(private router: Router, private productService: ProductService) { }
 
   //allProducts = []
-  shownProducts: any
+  shownProducts: any [] = [];
   selector: string
 
   async ngOnInit()
@@ -42,6 +42,8 @@ export class ProductsComponent implements OnInit
 
   optionChanged(type: string) {
     this.productService.getProductByType(type).subscribe(response => {
+      console.log(response);
+      
       this.shownProducts = response
     }, error => {
       //console.log(error)
@@ -49,8 +51,9 @@ export class ProductsComponent implements OnInit
         title: 'Error',
         text: 'No se pudieron cargar los datos',
         icon: 'error'
-      })/*.then(val => this.router.navigateByUrl(''))*/
-    })
+      })//.then(val => this.router.navigateByUrl(''))
+    });
+
   }
 
   archiveProduct(idProduct: number) {
