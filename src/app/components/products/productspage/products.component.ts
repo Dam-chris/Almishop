@@ -3,6 +3,8 @@ import { Router } from '@angular/router';
 import { ProductService } from '../services/product.service'; 
 import { Language_ES } from '../../data-tables-config/language_ES'; 
 import swal from 'sweetalert';
+import Swal from 'sweetalert2/dist/sweetalert2.js';
+import { Subject } from 'rxjs';
 
 
 @Component({
@@ -13,6 +15,9 @@ import swal from 'sweetalert';
 export class ProductsComponent implements OnInit
 {
   dtOptions: DataTables.Settings = {};
+
+  dtTrigger: Subject<any> = new Subject<any>();
+
   private language_ES: Language_ES;
 
   constructor(private router: Router, private productService: ProductService) { }
@@ -21,13 +26,13 @@ export class ProductsComponent implements OnInit
   shownProducts: any [] = [];
   selector: string
 
-  async ngOnInit()
+  ngOnInit()
   {
     this.selector = 'smartphone'
     //## LLAMAR A PRODUCTSERVICE ##
     //this.allProducts = this.productService.getAllProducts();
-    await this.optionChanged(this.selector)
-
+    this.optionChanged(this.selector)
+  
     this.dtOptions = {
       pagingType: 'full_numbers',
       pageLength: 25,
@@ -35,28 +40,83 @@ export class ProductsComponent implements OnInit
       ordering:false,
       processing: true,
       language:this.language_ES,
-      lengthChange:true
+      lengthChange:true,
+      data: [],
+      columns: [
+        { data: 'name' },
+        { data: 'stock_sale' },
+        { data: 'price' }
+      ],
+      destroy: true
     };
-
+    
   }
+  ngOnDestroy(): void {
+    this.dtTrigger.unsubscribe();
+  }
+  
+  optionChanged(type: string) 
+  {
+    this.productService.getProductByType(type)
+      .subscribe(response => 
+      {
+        console.log(response);
+        this.dtOptions.data = response;
+        this.dtTrigger.next();
 
-  optionChanged(type: string) {
-    this.productService.getProductByType(type).subscribe(response => {
-      console.log(response);
-      
-      this.shownProducts = response
-    }, error => {
+      }, error => 
+      {
       //console.log(error)
-      swal({
-        title: 'Error',
-        text: 'No se pudieron cargar los datos',
-        icon: 'error'
-      })//.then(val => this.router.navigateByUrl(''))
-    });
-
+        swal({
+          title: 'Error',
+          text: 'No se pudieron cargar los datos',
+          icon: 'error'
+        })//.then(val => this.router.navigateByUrl(''))
+      });
   }
 
-  archiveProduct(idProduct: number) {
+  archiveProduct(idProduct: number) 
+  {
     console.log('Archived: ' + idProduct)
   }
+
+  selectType()
+  {
+  
+    const inputOptions = {
+          smartphone: 'Smartphone',
+          tablet: 'Tablet',
+          videoconsole: 'Consola',
+          videogame: 'Videojuego'
+        };
+
+    
+    Swal.fire({
+      title: '¿Selecciona que producto quieres crear?',
+      input: 'radio',
+      inputOptions: inputOptions,
+      confirmButtonColor: '#0275d8',
+      inputValidator:(res) => 
+      { 
+        console.log(res);
+        if(res)
+        {
+          localStorage.setItem('productType', res);
+          this.router.navigate(['/products/add'], { state:{ type: res } });
+          Swal.close();
+        }
+       return 'Debes seleccionar uno!!' 
+      }
+
+    });
+    
+    /*   
+      recibirlo
+      constructor(private router: Router) {
+      console.log(this.router.getCurrentNavigation().extras.state.example); // should log out 'bar'
+    }
+  */
+    
+  }
+  
 }

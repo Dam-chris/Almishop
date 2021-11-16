@@ -17,7 +17,7 @@ export class LoginComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void
   {
-    sessionStorage.setItem('role', 'ROLE_ADMIN');
+    //sessionStorage.setItem('role', 'ROLE_ADMIN')
     sessionStorage.getItem('role') == 'ROLE_ADMIN' && this.router.navigateByUrl('/home')
   }
 

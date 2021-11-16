@@ -1,8 +1,6 @@
-export class LoginResponse {
-    id: number
-    message: string
-    idRol: {
-      id: number
-      name: string
-    }
+export class LoginResponse 
+{
+    id: number;
+    message: string;
+    id_rol: number;
 }
