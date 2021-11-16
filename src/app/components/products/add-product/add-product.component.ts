@@ -19,29 +19,9 @@ import { Videoconsole } from '../models/videoconsole';
   templateUrl: './add-product.component.html',
   styleUrls: ['./add-product.component.css']
 })
-export class AddProductComponent implements OnInit {
+export class AddProductComponent implements OnInit 
+{
 
-  /*
-  smartphoneSelected: boolean = false;
-  tabletSelected: boolean = false;
-  consoleSelected: boolean = false;
-  videogameSelected: boolean = false;
-  
-  sh1: any = 1
-  sh2: any = 1
-  sh3: any = 1
-  sh4: any = 1
-  sh5: any = 1
-  sh6: any = 1
-  
-  rb1: boolean = true
-  rb2: boolean = true
-  rb3: boolean = true
-  rb4: boolean = true
-  rb5: boolean = true
-  rb6: boolean = true
-  */
- 
  brands: Brand[] = [];
  colors: Color[] = [];
  platforms: Platform[] = [];
@@ -56,56 +36,25 @@ export class AddProductComponent implements OnInit {
 
  //errorString: string;
  
- images:File[] = [];
+ images: File[] = [];
 
  imageCover: File;
 
+ productType: string;
+
+ productSubmited:any;
   
- /*
- // INPUTS
-  nameInput: string
-  brandInput: string 
-  priceInput: string
-  stockInput: string
-
-  //Smartphone
-  storageInputS: string
-  ramInputS: string
-  inchesInputS: string
-  batteryInputS: string
-  cameraInputS: string
-  sdInputS: boolean = false
-  colorInputS: string
-  //Tablet
-  storageInputT: string
-  ramInputT: string
-  inchesInputT: string
-  batteryInputT: string
-  cameraInputT: string
-  sdInputT: boolean = false
-  colorInputT: string
-  //Console
-  storageInputC: string
-  cdInputC: boolean = false
-  ramInputC: string
-  cpuInputC: string
-  gpuInputC: string
-  //Videogame
-  stockRentalInputV: string
-  descriptionInputV: string
-  dateInputV: any
-  pegiInputV: string
-  platformInputV: string
-  genreInputV: string
-  developerInputV: string
-  */
 
 
-  constructor(private productService: ProductService, private router: Router) { }
+  constructor( private productService: ProductService, private router: Router ) { }
 
   ngOnInit(): void 
   {
     this.loadData();
+    
+    (document.getElementById('productForm') as HTMLFormElement).reset();
+    this.productType = localStorage.getItem('productType');
+    
     //this.errorString = '';
   }
 
@@ -156,80 +105,137 @@ export class AddProductComponent implements OnInit {
     })
   }
 
-  submit(data:NgForm, type:string)
+  submit(data:NgForm)
   {
-    console.log(type);
-
-    const { name, price, stock_sale, stock_rent, id_brand } = this.product;
-    const { ram, has_sd, id_color, storage, inches, battery, camera } = this.smartphone || this.tablet;
-   
-    let tablet = {
-      name: name,
-      price: price,
-      stock_sale: stock_sale,
-      id_brand: id_brand,
-      id_product_type: 2,
-      storage: storage,
-      ram: ram,
-      inches: inches,
-      battery: battery,
-      camera: camera,
-      has_sd: has_sd,
-      id_color: id_color,
-      images: this.images
-    };
-  
-    console.log(this.tablet);
     
-    
-
-   /* let videogame = {
-      name: name,
-      price: price,
-      stock_sale: stock_sale,
-      stock_rent: stock_rent,
-      id_brand: id_brand,
-      id_product_type: 3,
-      description: description,
-      release_date: release_date,
-      pegi: pegi,
-      id_platform: id_platform,
-      id_genre: id_genre,
-      id_developer: id_developer,
-      images: this.images
-    };
-
-    let videoconsole = {
-      name: name,
-      price: price,
-      stock_sale: stock_sale,
-      id_brand: id_brand,
-      id_product_type: 4,
-      storage: storage,
-      has_cd: cd,
-      ram: ram,
-      cpu: cpu,
-      gpu: gpu,
-      images: this.images
-    };*/
-
-    switch (type) 
+    switch (this.productType) 
     {
       case 'smartphone':
-       
+          this.smartphone.images = this.images;
+          this.smartphone.cover = this.imageCover;
+          this.productSubmited = this.smartphone;
         break;
+
       case 'tablet':
-        console.log(tablet);
+          this.tablet.images = this.images;
+          this.tablet.cover = this.imageCover;
+          this.productSubmited = this.tablet;
         break;
+
       case 'videogame':
-        console.log();
+          this.videogame.images = this.images;
+          this.videogame.cover = this.imageCover;
+          this.productSubmited = this.videogame;
         break;
-      case 'console':
-        console.log();
+
+      case 'videoconsole':
+          this.videoconsole.images = this.images;
+          this.videoconsole.cover = this.imageCover;
+          this.productSubmited = this.videoconsole;
+          console.log(this.videoconsole);
+          
         break;
     }
+    console.log('este es el producto qaue estoy enviando',this.productSubmited);
+    
+    this.productService.addProduct(this.productSubmited).then(response => {
+      swal({
+        title: 'OK',
+        text: response,
+        icon: 'success'
+      })
+      this.router.navigateByUrl('products')
+    }, reject => {
+      swal({
+        title: 'Error',
+        text: reject,
+        icon: 'error'
+      })
+    });
     
   }
+  notLoading() {
+    console.warn('01 - Cannot load product data.')
+    swal({
+      title: 'Error al cargar datos',
+      text: 'Por favor, inténtelo más tarde.',
+      icon: 'error'
+    }).then((val) => {
+      this.router.navigateByUrl('products')
+    })
+  }
+
+  validationError() {
+    swal({
+      title: 'Error de datos',
+      text: 'Revise los datos y vuelva a insertarlos.',
+      icon: 'error'
+    })
+  }
+
+  cancel() {
+    swal({
+      title: '¿Estás seguro?',
+      text: 'Todos los campos escritos se borrarán',
+      icon: 'warning',
+      buttons: ['Cancelar', true],
+      dangerMode: true,
+    })
+    .then((willDelete) => {
+      if (willDelete) {
+        this.router.navigateByUrl('products')
+      }
+    });
+  }
+//para las imagenes
+  onFileChange( event:any ) 
+  {
+    if (event.target.files && event.target.files[0]) 
+    {
+      
+      var filesAmount = event.target.files.length;
+      
+      for (let i = 0; i < filesAmount; i++) 
+      {
+        
+        var reader = new FileReader();
+        
+        reader.onload = (event:any) => 
+        {
+          
+          console.log(event.target.result);
+          
+          this.images.push(event.target.result); 
+          
+        }
+        
+        reader.readAsDataURL(event.target.files[i]);
+      }
+    }
+  }
+  //imagen de portada
+  onFileChangeCover( event:any ) 
+  {
+    if (event.target.files && event.target.files[0]) 
+    {
+
+      var reader = new FileReader();
+        
+      reader.onload = (event:any) => 
+      {
+          
+        console.log(event.target.result);
+          
+        this.imageCover = event.target.result;
+          
+      }
+        
+      reader.readAsDataURL(event.target.files[0]);
+      
+    }
+  }
+
+
   /*async submit(type: string) {
     console.log('tipo de submit: ' + type)
     switch (type) {
@@ -483,7 +489,7 @@ export class AddProductComponent implements OnInit {
     return errors
   }*/
 
-  optionChanged() 
+  /*optionChanged() 
   {
     //se vacian las imagenes al cambio de formualrio
     this.images = [];
@@ -491,87 +497,7 @@ export class AddProductComponent implements OnInit {
     //reset del formulario
     (document.getElementById('AnyForm') as HTMLFormElement).reset();
   }
-
-  notLoading() {
-    console.warn('01 - Cannot load product data.')
-    swal({
-      title: 'Error al cargar datos',
-      text: 'Por favor, inténtelo más tarde.',
-      icon: 'error'
-    }).then((val) => {
-      this.router.navigateByUrl('products')
-    })
-  }
-
-  validationError() {
-    swal({
-      title: 'Error de datos',
-      text: 'Revise los datos y vuelva a insertarlos.',
-      icon: 'error'
-    })
-  }
-
-  cancel() {
-    swal({
-      title: '¿Estás seguro?',
-      text: 'Todos los campos escritos se borrarán',
-      icon: 'warning',
-      buttons: ['Cancelar', true],
-      dangerMode: true,
-    })
-    .then((willDelete) => {
-      if (willDelete) {
-        this.router.navigateByUrl('products')
-      }
-    });
-  }
-//para las imagenes
-  onFileChange( event:any ) 
-  {
-    if (event.target.files && event.target.files[0]) 
-    {
-      
-      var filesAmount = event.target.files.length;
-      
-      for (let i = 0; i < filesAmount; i++) 
-      {
-        
-        var reader = new FileReader();
-        
-        reader.onload = (event:any) => 
-        {
-          
-          console.log(event.target.result);
-          
-          this.images.push(event.target.result); 
-          
-        }
-        
-        reader.readAsDataURL(event.target.files[i]);
-      }
-    }
-  }
-  //imagen de portada
-  onFileChangeCover( event:any ) 
-  {
-    if (event.target.files && event.target.files[0]) 
-    {
-
-      var reader = new FileReader();
-        
-      reader.onload = (event:any) => 
-      {
-          
-        console.log(event.target.result);
-          
-        this.imageCover = event.target.result;
-          
-      }
-        
-      reader.readAsDataURL(event.target.files[0]);
-      
-    }
-  }
+*/
 
   
   

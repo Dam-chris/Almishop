@@ -1,7 +1,7 @@
 import { Product } from './product';
 export class Videogame extends Product
 {
-    id_product_type: number;
+    id_product_type: number = 3;
     description: string;
     release_date: Date;
     pegi: number;

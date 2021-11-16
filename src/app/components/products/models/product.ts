@@ -6,7 +6,7 @@ export class Product
     stock_sale: number;
     stock_rent?: number;
     id_brand: number;
-    coverImage: File;
+    cover: File;
     images: File[];
 
     constructor() {}

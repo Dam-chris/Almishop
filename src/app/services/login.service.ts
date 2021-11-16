@@ -11,7 +11,7 @@ import { LoginResponse } from '../models/responseLogin';
 const httpOptions = {
   headers: new HttpHeaders({'Content-Type': 'application/json'})
 };
-const urlEndPoint: string = 'https://gatitoz.duckdns.org/'
+const urlEndPoint: string = 'https://gatitoz.duckdns.org/user/'
 @Injectable({
   providedIn: 'root'
 })
@@ -24,12 +24,16 @@ export class LoginService
   {
     return new Promise((resolve, reject) => {
       this.httpClient.post<LoginResponse>(urlEndPoint + 'login', user, httpOptions).subscribe(response => {
-        if (response.message != null) {
+        if (response.message != null) 
+        {
           reject(response.message)
         }
-        if (response.idRol.id != 2) {
+        if (response.id_rol != 2) 
+        {
           reject('El usuario introducido no tiene Rol de Administrador.')
         }
+        console.log(response.id);
+        
         sessionStorage.setItem('id_user', response.id.toString())
         sessionStorage.setItem('role', 'ROLE_ADMIN')
         resolve('login ok')

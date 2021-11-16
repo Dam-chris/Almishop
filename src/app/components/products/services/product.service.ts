@@ -94,6 +94,7 @@ export class ProductService {
     }
     return this.httpClient.post<Brand>(urlEndPoint + '/brand/add', brandObject, httpOptions)
   }
+
 }
 
 /*

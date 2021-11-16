@@ -1,4 +1,4 @@
-<div class="form-floating">
+<!--<div class="form-floating">
   <select (change)="optionChanged()" #selector id="selector" class="form-select form-select mb-3"
     style="width: 22%;" aria-label=".form-select-lg example">
     <option value="smartphone" selected>Smartphone</option>
@@ -7,17 +7,17 @@
     <option value="console">Consola</option>
   </select>
   <label for="selector">Selecciona una..</label>
-</div>
+</div>-->
 
 <label class="formu">
-  <form id="AnyForm" #productsForm="ngForm" (ngSubmit)="submit(productsForm, selector.value)">
+  <form id="productForm" #productsForm="ngForm" (ngSubmit)="submit(productsForm)">
 
     <label for="nameInput" class="col-form-label">Nombre</label>
     <input type="text" id="nameInput" class="form-control" name="name" [(ngModel)]="smartphone.name" [(ngModel)]="tablet.name"   [(ngModel)]="videoconsole.name" [(ngModel)]="videogame.name" >
 
     <label class="form-check-label" for="rb1a">Marca existente</label>
 
-    <select id="brandInput" class="mt-2 fieldSelector" name="id_brand" [(ngModel)]="smartphone.id_brand" [(ngModel)]="tablet.id_brand" [(ngModel)]="videoconsole.id_brand" [(ngModel)]="videogame.id_brand">
+    <select id="brandInput" class="mt-2 fieldSelector" name="id_brand" [ngModel]="'seleccione'" [(ngModel)]="smartphone.id_brand" [(ngModel)]="tablet.id_brand" [(ngModel)]="videoconsole.id_brand" [(ngModel)]="videogame.id_brand">
       <option value="" selected hidden>Seleccione...</option>
       <option *ngFor="let i of brands" value="{{ i.id }}">{{ i.name }}</option>
     </select>
@@ -33,7 +33,7 @@
 
     <!-- DISTINTOS DIVS PARA DISTINTOS TIPOS DE DATOS -->
     <!-- smartphone o tablet -->
-    <div *ngIf="selector.value == 'smartphone' || selector.value == 'tablet'">
+    <div *ngIf="productType == 'smartphone' || productType == 'tablet'">
       <label for="storageInputS" class="col-form-label">Capacidad</label>
       <div class="input-group">
         <input type="number" id="storageInputS" class="form-control" name="storage" [(ngModel)]="smartphone.storage" [(ngModel)]="tablet.storage">
@@ -65,7 +65,7 @@
       </div>
 
       <div class="form-check" style="margin-top: 10px;">
-        <input class="form-check-input" type="checkbox" value="" id="sdInputS" name="sd" [(ngModel)]="smartphone.has_sd" [(ngModel)]="tablet.has_sd">
+        <input class="form-check-input" type="checkbox"  value="0" id="sdInputS" name="sd" [(ngModel)]="smartphone.has_sd" [(ngModel)]="tablet.has_sd">
         <label class="form-check-label user-select-none" for="sdInputS">SD</label>
       </div>
 
@@ -83,45 +83,45 @@
 
 
     <!-- console -->
-    <div *ngIf="selector.value == 'console'">
+    <div *ngIf="productType == 'videoconsole'">
       <label for="storageInputc" class="col-form-label">Capacidad</label>
       <div class="input-group">
-        <input type="number" id="storageInputc" class="form-control" name="storage" ngModel>
+        <input type="number" id="storageInputc" class="form-control" name="storage" [(ngModel)]="videoconsole.storage">
         <span class="input-group-text">GB</span>
       </div>
 
       <div class="form-check" style="margin-top: 10px;">
-        <input class="form-check-input" type="checkbox" value="" id="cdInputS" name="cd" ngModel>
+        <input class="form-check-input" type="checkbox" value="" id="cdInputS" name="cd" [(ngModel)]="videoconsole.has_cd">
         <label class="form-check-label user-select-none" for="cdInputS">CD</label>
       </div>
 
       <label for="ramInputC" class="col-form-label">RAM</label>
       <div class="input-group">
-        <input type="number" id="ramInputC" class="form-control" name="ram" ngModel>
+        <input type="number" id="ramInputC" class="form-control" name="ram" [(ngModel)]="videoconsole.ram">
         <span class="input-group-text">GB</span>
       </div>
 
       <label for="cpuInputC" class="col-form-label">CPU</label>
-      <input type="text" id="cpuInputC" class="form-control" name="cpu" ngModel>
+      <input type="text" id="cpuInputC" class="form-control" name="cpu" [(ngModel)]="videoconsole.cpu">
 
       <label for="gpuInputC" class="col-form-label">GPU</label>
-      <input type="text" id="gpuInputC" class="form-control" name="gpu" ngModel>
+      <input type="text" id="gpuInputC" class="form-control" name="gpu" [(ngModel)]="videoconsole.gpu">
 
     </div>
 
     <!-- videogame -->
-    <div *ngIf="selector.value == 'videogame'">
+    <div *ngIf="productType == 'videogame'">
       <label for="stockBInputV" class="col-form-label">Stock de alquiler</label>
-      <input type="text" id="stockRentalInputV" class="form-control" name="stock_rent" ngModel>
+      <input type="number" id="stockRentalInputV" class="form-control" name="stock_rent" [(ngModel)]="videogame.stock_rent">
 
       <label for="descriptionInputV" class="col-form-label">Descripción</label>
-      <input type="text" id="descriptionInputV" class="form-control" name="description" ngModel>
+      <input type="text" id="descriptionInputV" class="form-control" name="description" [(ngModel)]="videogame.description">
 
       <label for="dateInputV" class="col-form-label">Fecha de salida</label>
-      <input type="date" id="dateInputV" class="form-control" name="release_date" ngModel>
+      <input type="date" id="dateInputV" class="form-control" name="release_date" [(ngModel)]="videogame.release_date">
 
       <label for="pegiInputV" class="col-form-label">PEGI</label>
-      <select id="pegiInputV" class="mt-3 fieldSelector" name="pegi" ngModel>
+      <select id="pegiInputV" class="mt-3 fieldSelector" name="pegi" [(ngModel)]="videogame.pegi">
         <option value="" disabled selected hidden>Seleccione...</option>
         <option value="3">3</option>
         <option value="7">7</option>
@@ -131,19 +131,19 @@
       </select>
 
       <label class="form-check-label" for="rb4a">Plataforma existente</label>
-      <select name="" id="" class="mt-3 fieldSelector" name="id_platform" ngModel>
+      <select name="" id="" class="mt-3 fieldSelector" name="id_platform" [(ngModel)]="videogame.id_platform">
         <option value="" disabled selected hidden>Seleccione...</option>
         <option *ngFor="let i of platforms" value="{{ i.id }}">{{ i.name }}</option>
       </select>
 
       <label class="form-check-label" for="rb5a">Género existente</label>
-      <select id="genreInputV" class="mt-3 fieldSelector" name="id_genre" ngModel>
+      <select id="genreInputV" class="mt-3 fieldSelector" name="id_genre" [(ngModel)]="videogame.id_genre">
         <option value="" disabled selected hidden>Seleccione...</option>
         <option *ngFor="let i of genres" value="{{ i.id }}">{{ i.name }}</option>
       </select>
 
       <label class="form-check-label" for="rb6a">Desarrollador existente</label>
-      <select id="developerInputV" class="mt-3 fieldSelector" name="id_developer" ngModel>
+      <select id="developerInputV" class="mt-3 fieldSelector" name="id_developer" [(ngModel)]="videogame.id_developer">
         <option value="" disabled selected hidden>Seleccione...</option>
         <option *ngFor="let i of developers" value="{{ i.id }}">{{ i.name }}</option>
       </select>
