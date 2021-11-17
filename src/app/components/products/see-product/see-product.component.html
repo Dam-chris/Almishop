@@ -1,1 +1,38 @@
-<p>see-product works!</p>
+<div *ngIf="!product; else divProduct" class="alert alert-info text-center">
+    <div>
+        Ups, parece que ha ocurrido un error, intentelo mas tarde ...
+    </div>    
+    <a href="products" class="btn btn-outline-info">volver atras</a>
+</div>
+
+
+<ng-template #divProduct>
+    <div class="row">
+        <div class="col-12">
+            <h1>Producto: <small>{{ product.name }}</small> </h1>
+        </div>
+
+    </div>
+
+    <div class="row">
+
+        <div class="col-4">
+            <h3>Portada</h3>
+            <img [src]="product.cover" class="img-thumbnail">
+        </div>
+
+        <div class="col">
+            <h3>Informacion</h3>
+            <ul class="list-group">
+                <li class="list-group-item"><strong>Nombre: </strong> {{ product.name }}</li>
+            </ul>
+            <ul class="list-group">
+                <li class="list-group-item"><strong>Marca: </strong> {{ product.id_brand }}</li>
+            </ul>
+            <ul class="list-group">
+                <li class="list-group-item"><strong>algo: </strong>asdasdasd</li>
+            </ul>
+        </div>
+
+    </div>
+</ng-template>

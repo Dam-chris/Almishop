@@ -52,10 +52,7 @@ export class AddProductComponent implements OnInit
   ngOnInit(): void 
   {
     this.loadData();
-    
-    (document.getElementById('productForm') as HTMLFormElement).reset();
     this.productType = localStorage.getItem('productType');
-    
     //this.errorString = '';
   }
 
@@ -108,6 +105,26 @@ export class AddProductComponent implements OnInit
 
   submit(data:NgForm)
   {
+    console.log(data.form.status);
+    
+    if (data.untouched) 
+    {
+      swal({
+        title: 'No pueden haber campos vacios!',
+        text: 'Revise los datos y vuelva a intentarlo.',
+        icon: 'info'
+      });
+      return;
+    }
+    if(data.form.status == 'INVALID')
+    {
+      swal({
+        title: 'Error al insertar',
+        text: 'Revise los datos y vuelva a intentarlo.',
+        icon: 'error'
+      });
+     return;
+    }
     switch (this.productType) 
     {
       case 'smartphone':
@@ -153,6 +170,7 @@ export class AddProductComponent implements OnInit
         icon: 'error'
       })
     });
+    //(document.getElementById(data.value) as HTMLFormElement).reset();
     
   }
   notLoading() {
@@ -166,15 +184,8 @@ export class AddProductComponent implements OnInit
     })
   }
 
-  validationError() {
-    swal({
-      title: 'Error de datos',
-      text: 'Revise los datos y vuelva a insertarlos.',
-      icon: 'error'
-    })
-  }
-
-  cancel() {
+  cancel() 
+  {
     swal({
       title: '¿Estás seguro?',
       text: 'Todos los campos escritos se borrarán',
@@ -183,7 +194,8 @@ export class AddProductComponent implements OnInit
       dangerMode: true,
     })
     .then((willDelete) => {
-      if (willDelete) {
+      if (willDelete) 
+      {
         this.router.navigateByUrl('products')
       }
     });

@@ -42,18 +42,18 @@ export class ProductService {
     }
   }
 
-  getProduct(id: number, id_type:number):Observable<Smartphone | Tablet | Videoconsole | Videogame> 
+  getProduct( id: number, id_type:number ):Observable<Smartphone | Tablet | Videogame | Videoconsole> 
   {
     switch (id_type) 
     {
       case 1:
-        return this.httpClient.get<Smartphone>(urlEndPoint + '/product/smartphones/'+id+'/'+id_type)
+        return this.httpClient.get<Smartphone>(urlEndPoint + `/product/smartphones/${ id }`);
       case 2:
-        return this.httpClient.get<Tablet>(urlEndPoint + '/product/tablets/'+id+'/'+id_type)
-      case 4:
-        return this.httpClient.get<Videoconsole>(urlEndPoint + '/product/consoles/'+id+'/'+id_type)
+        return this.httpClient.get<Tablet>(urlEndPoint +  `/product/tablets/${ id }`);
       case 3:
-        return this.httpClient.get<Videogame>(urlEndPoint + '/product/videogames/'+id+'/'+id_type)
+          return this.httpClient.get<Videogame>(urlEndPoint +  `/product/videogames/${ id }`);
+      case 4:
+        return this.httpClient.get<Videoconsole>(urlEndPoint +  `/product/consoles/${ id }`);
       default:
         return null
     }
