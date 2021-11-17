@@ -13,6 +13,7 @@ import { Product } from '../models/product';
 import { Tablet } from '../models/tablet';
 import { Videogame } from '../models/videogame';
 import { Videoconsole } from '../models/videoconsole';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-add-product',
@@ -42,11 +43,11 @@ export class AddProductComponent implements OnInit
 
  productType: string;
 
- productSubmited:any;
+ productSubmited:Smartphone | Tablet | Videoconsole | Videogame;
   
 
 
-  constructor( private productService: ProductService, private router: Router ) { }
+  constructor( private productService: ProductService, private router: Router, private datepipe: DatePipe ) { }
 
   ngOnInit(): void 
   {
@@ -107,7 +108,6 @@ export class AddProductComponent implements OnInit
 
   submit(data:NgForm)
   {
-    
     switch (this.productType) 
     {
       case 'smartphone':
@@ -124,7 +124,8 @@ export class AddProductComponent implements OnInit
 
       case 'videogame':
           this.videogame.images = this.images;
-          this.videogame.cover = this.imageCover;
+          this.videogame.cover = this.imageCover;   
+          this.videogame.release_date = (this.videogame.release_date).replace(/-/g, '/');
           this.productSubmited = this.videogame;
         break;
 

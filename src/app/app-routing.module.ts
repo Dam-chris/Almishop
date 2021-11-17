@@ -7,6 +7,7 @@ import { ProductsComponent } from './components/products/productspage/products.c
 import { UsersComponent } from './users/users.component';
 import { AddProductComponent } from './components/products/add-product/add-product.component';
 import { EditProductComponent } from './components/products/edit-product/edit-product.component';
+import { SeeProductComponent } from './components/products/see-product/see-product.component';
 
 const routes: Routes = [
   {path:'', redirectTo:'/home', pathMatch:'full'},
@@ -15,7 +16,8 @@ const routes: Routes = [
   {path:'products', component:ProductsComponent, canActivate:[AuthGuard]},
   {path:'users', component:UsersComponent, canActivate:[AuthGuard]},
   {path:'products/add', component:AddProductComponent, canActivate:[AuthGuard]},
-  {path:'products/edit/:id', component:EditProductComponent, canActivate:[AuthGuard]}
+  {path:'products/edit/:id', component:EditProductComponent, canActivate:[AuthGuard]},
+  {path:'products/:id/:id_product_type', component:SeeProductComponent, canActivate:[AuthGuard]}
 ];
 
 @NgModule({

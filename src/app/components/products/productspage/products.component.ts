@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ProductService } from '../services/product.service'; 
 import swal from 'sweetalert';
@@ -63,11 +63,13 @@ export class ProductsComponent implements OnInit
       .subscribe(response => 
       {
         console.log(response);
-
+        
+        
         response.forEach(
           function (element: any) 
           {
-            element.ver_mas = `<a href='products/${ element.id }' >mas...</a>`;
+            //let id = btoa(element.id)
+            element.ver_mas = `<a href='products/${ element.id }/${ element.id_product_type }' >mas...</a>`;
           }
         );
 

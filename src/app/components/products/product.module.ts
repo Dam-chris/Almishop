@@ -1,11 +1,12 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, DatePipe } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { AddProductComponent } from './add-product/add-product.component';
 import { EditProductComponent } from './edit-product/edit-product.component';
 import { ProductsComponent } from './productspage/products.component';
 import { RouterModule } from '@angular/router';
 import { DataTablesModule } from 'angular-datatables';
+import { SeeProductComponent } from './see-product/see-product.component';
 
 
 
@@ -13,7 +14,9 @@ import { DataTablesModule } from 'angular-datatables';
   declarations: [
     ProductsComponent,
     AddProductComponent,
-    EditProductComponent
+    EditProductComponent,
+    SeeProductComponent,
+    SeeProductComponent
   ],
   imports: [
     CommonModule,
@@ -24,7 +27,9 @@ import { DataTablesModule } from 'angular-datatables';
   exports:[
     ProductsComponent,
     AddProductComponent,
-    EditProductComponent
-  ]
+    EditProductComponent,
+    SeeProductComponent
+  ],
+  providers:[DatePipe]
 })
 export class ProductModule { }
