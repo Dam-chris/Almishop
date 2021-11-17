@@ -65,7 +65,7 @@ export class ProductsComponent implements OnInit
         console.log(response);
 
         response.forEach(
-          function (element) 
+          function (element: any) 
           {
             element.ver_mas = `<a href='products/${ element.id }' >mas...</a>`;
           }
