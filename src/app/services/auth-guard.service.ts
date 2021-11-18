@@ -6,15 +6,18 @@ export class AuthGuard implements CanActivate
 {
     constructor(private router: Router) { }
 
-    canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {
-       if (this.isLoggedIn()) {
+    canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean 
+    {
+       if (this.isLoggedIn()) 
+       {
            return true;
        }
        //ir a pagina de login si el usurio no esta autentiticado
         this.router.navigate(['/login']);
         return false;
     }
-    public isLoggedIn(): boolean {
+    public isLoggedIn(): boolean 
+    {
         let status = false;
         status = sessionStorage.getItem('role') == "ROLE_ADMIN" ? true:false;
         //console.log(status);

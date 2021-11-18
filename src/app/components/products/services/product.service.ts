@@ -12,6 +12,7 @@ import { Platform } from '../models/platform';
 import { Genre } from '../models/genre';
 import { Developer } from '../models/developer';
 import { Observable } from 'rxjs';
+import { Router } from '@angular/router';
 
 const httpOptions = {
   headers: new HttpHeaders({'Content-Type': 'application/json'})
@@ -24,7 +25,7 @@ const urlEndPoint: string = 'https://gatitoz.duckdns.org'
 export class ProductService {
 
 
-  constructor(private httpClient: HttpClient) { }
+  constructor(private httpClient: HttpClient, private router: Router) { }
 
   getProductByType(type: string):Observable<Smartphone[] | Tablet[] | Videoconsole[] | Videogame[]> 
   {
@@ -42,20 +43,20 @@ export class ProductService {
     }
   }
 
-  getProduct(id: number, id_type:number):Observable<Smartphone | Tablet | Videoconsole | Videogame> 
+  getProduct( id: number, id_type:number ):Observable<Smartphone | Tablet | Videogame | Videoconsole> 
   {
     switch (id_type) 
     {
       case 1:
-        return this.httpClient.get<Smartphone>(urlEndPoint + '/product/smartphones/'+id+'/'+id_type)
+        return this.httpClient.get<Smartphone>(urlEndPoint + `/product/smartphones/${ id }`);
       case 2:
-        return this.httpClient.get<Tablet>(urlEndPoint + '/product/tablets/'+id+'/'+id_type)
-      case 4:
-        return this.httpClient.get<Videoconsole>(urlEndPoint + '/product/consoles/'+id+'/'+id_type)
+        return this.httpClient.get<Tablet>(urlEndPoint +  `/product/tablets/${ id }`);
       case 3:
-        return this.httpClient.get<Videogame>(urlEndPoint + '/product/videogames/'+id+'/'+id_type)
+          return this.httpClient.get<Videogame>(urlEndPoint +  `/product/videogames/${ id }`);
+      case 4:
+        return this.httpClient.get<Videoconsole>(urlEndPoint +  `/product/consoles/${ id }`);
       default:
-        return null
+        return null;
     }
   }
 

@@ -1,1 +1,57 @@
-<p>see-product works!</p>
+
+<div *ngIf="!product; else divProduct" class="alert alert-info text-center">
+    <div>
+        Ups, parece que ha ocurrido un error, intentelo mas tarde ...
+    </div>    
+    <a href="products" class="btn btn-outline-info">volver atras</a>
+</div>
+
+
+<ng-template #divProduct>
+    <div class="row">
+        <div class="col-12 py-4">
+            <h1>{{ type | titlecase }}: <small>{{ product.name | titlecase }} - {{ product.name_brand | titlecase }}</small> </h1>
+        </div>
+
+    </div>
+
+    <div class="row">
+
+        <div class="col-4">
+            <h3>Portada</h3>
+            <img [src]="product.cover" class="img-thumbnail">
+        </div>
+
+        <div class="col">
+            <h3>Información</h3>
+            <ul class="list-group">
+                <li class="list-group-item"><strong>Nombre: </strong>{{ product.name | titlecase }}</li>
+            </ul>
+            <ul class="list-group">
+                <li class="list-group-item"><strong>Marca: </strong>{{ product.name_brand | titlecase }}</li>
+            </ul>
+            <ul class="list-group">
+                <li class="list-group-item"><strong>Almacenamiento: </strong>{{ product.storage | titlecase }}</li>
+            </ul>
+            <ul class="list-group">
+                <li class="list-group-item"><strong>Stock: </strong> {{ product.stock_sale }}</li>
+            </ul>
+            <ul class="list-group">
+                <li class="list-group-item"><strong>RAM: </strong> {{ product.ram }}</li>
+            </ul>
+            <ul class="list-group">
+                <li class="list-group-item"><strong>CPU: </strong> {{ product.cpu }}</li>
+            </ul>
+            <ul class="list-group">
+                <li class="list-group-item"><strong>GPU: </strong> {{ product.gpu }}</li>
+            </ul>
+            <ul class="list-group">
+                <li class="list-group-item"><strong>Tiene CD: </strong> {{ product.has_cd == 1 ? 'Si':'No' }}</li>
+            </ul>
+            <ul class="list-group">
+                <li class="list-group-item"><strong>Tiene SD: </strong> {{ product.has_sd == 1 ? 'Si':'No' }}</li>
+            </ul>
+        </div>
+
+    </div>
+</ng-template>

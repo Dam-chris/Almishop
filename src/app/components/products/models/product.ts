@@ -8,6 +8,7 @@ export class Product
     id_brand: number;
     cover: File;
     images: File[];
-
+    discount: number;
+    
     constructor() {}
 }

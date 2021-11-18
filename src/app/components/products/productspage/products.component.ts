@@ -5,7 +5,8 @@ import swal from 'sweetalert';
 import Swal from 'sweetalert2/dist/sweetalert2.js';
 import { Subject } from 'rxjs';
 import language_ES from "../../../../assets/language_ES.json";
-
+import * as CryptoJS from 'crypto-js';
+import * as sha1 from 'js-sha1';
 @Component({
   selector: 'app-products',
   templateUrl: './products.component.html',
@@ -50,8 +51,26 @@ export class ProductsComponent implements OnInit
       ],
       destroy: true
     };
+   //encriptacion, se usara mas adelante en el login...
+    let encrypt = this.encryptData('1');
+    console.log(encrypt);
+
+
     
   }
+
+  encryptData(data) 
+  {
+
+    try 
+    {
+      return CryptoJS.AES.encrypt(JSON.stringify(data), 'Almi123').toString();
+    } catch (e) 
+    {
+      console.log(e);
+    }
+  }
+
   ngOnDestroy(): void 
   {
     this.dtTrigger.unsubscribe();
@@ -66,10 +85,12 @@ export class ProductsComponent implements OnInit
         
         
         response.forEach(
-          function (element) 
+          function (element: any) 
           {
             //let id = btoa(element.id)
-            element.ver_mas = `<a href='products/${ element.id }/${ element.id_product_type }' >mas...</a>`;
+            //var id = sha1(element.id);
+
+            element.ver_mas = `<a href='products/${ element.id }/${ element.id_product_type }' >mas...</a> `;
           }
         );
 
@@ -88,6 +109,12 @@ export class ProductsComponent implements OnInit
           icon: 'error'
         })//.then(val => this.router.navigateByUrl(''))
       });
+  }
+
+  hashCode(str) 
+  {
+    return str.split('').reduce((prevHash, currVal) =>
+      ((prevHash << 5) - prevHash) + currVal.charCodeAt(0), 0);
   }
 
   archiveProduct(idProduct: number) 
