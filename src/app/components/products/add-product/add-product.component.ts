@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { ProductService } from '../services/product.service'; 
 import swal from 'sweetalert';
@@ -13,7 +13,8 @@ import { Product } from '../models/product';
 import { Tablet } from '../models/tablet';
 import { Videogame } from '../models/videogame';
 import { Videoconsole } from '../models/videoconsole';
-import { DatePipe } from '@angular/common';
+import { DatePipe, NgTemplateOutlet } from '@angular/common';
+import { TaggedTemplateExpr } from '@angular/compiler';
 
 @Component({
   selector: 'app-add-product',
@@ -44,8 +45,8 @@ export class AddProductComponent implements OnInit
  productType: string;
 
  productSubmited:Smartphone | Tablet | Videoconsole | Videogame;
-  
 
+ defaultValue: any = null;
 
   constructor( private productService: ProductService, private router: Router, private datepipe: DatePipe ) { }
 
@@ -53,6 +54,7 @@ export class AddProductComponent implements OnInit
   {
     this.loadData();
     this.productType = localStorage.getItem('productType');
+    
     //this.errorString = '';
   }
 
@@ -105,7 +107,8 @@ export class AddProductComponent implements OnInit
 
   submit(data:NgForm)
   {
-    console.log(data.form.status);
+    console.log(data.value.target.id_color);
+    
     
     if (data.untouched) 
     {

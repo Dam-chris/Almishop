@@ -1,11 +1,27 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild, NgModule } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ProductService } from '../services/product.service';
+
 
 @Component({
   selector: 'app-see-product',
   templateUrl: './see-product.component.html',
-  styleUrls: ['./see-product.component.css']
+  styles: [`
+      a 
+      {
+        margin-right: 15px;
+      }
+      th
+      {
+        background-color: rgba(0, 0, 0, 0.05);
+        width:30%;
+        height: 40px;
+      }
+      td
+      {
+        padding-left: 2%;
+      }
+  `]
 })
 export class SeeProductComponent implements OnInit 
   {
@@ -14,8 +30,9 @@ export class SeeProductComponent implements OnInit
     public id: number;
     public id_type: number;
     type: string;
+    @ViewChild('myModal') modal: ElementRef;
 
-  constructor( private activatedRoute: ActivatedRoute, private productService: ProductService, private router: Router ) { }
+  constructor( private activatedRoute: ActivatedRoute, private productService: ProductService, private router: Router, /*private modalService:NgbModal*/  ) { }
 
   ngOnInit(): void 
   {
@@ -38,13 +55,19 @@ export class SeeProductComponent implements OnInit
          this.type = 'tablet';
          break;
        case 3:
-         this.type = 'videogame';
+         this.type = 'videojuego';
          break;
        case 4:
-         this.type = 'console';
+         this.type = 'consola';
          break;
    }
 
+  }
+
+  showModal( modal)
+  {
+    //this.modalService.open(modal);
+    
   }
 
   loadProduct()

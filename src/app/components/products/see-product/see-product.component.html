@@ -1,31 +1,105 @@
-
 <div *ngIf="!product; else divProduct" class="alert alert-info text-center">
     <div>
         Ups, parece que ha ocurrido un error, intentelo mas tarde ...
-    </div>    
+    </div>
     <a href="products" class="btn btn-outline-info">volver atras</a>
 </div>
 
-
 <ng-template #divProduct>
+    <!----modal starts here--->
+<ng-template #myModal let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title">
+            <span>asdasd</span>
+        </h4>
+        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+            <span aria-hidden="true">&times;</span>
+          </button>
+    </div>
+    <div class="modal-body">
+        <p> <span>asdasd</span></p>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Save</button>
+
+    </div>
+</ng-template>   
+<!--Modal ends here--->
     <div class="row">
         <div class="col-12 py-4">
             <h1>{{ type | titlecase }}: <small>{{ product.name | titlecase }} - {{ product.name_brand | titlecase }}</small> </h1>
         </div>
-
     </div>
 
     <div class="row">
 
         <div class="col-4">
-            <h3>Portada</h3>
-            <img [src]="product.cover" class="img-thumbnail">
+            <h3 class="py-3">Portada</h3>
+
+            <div class="bg-image text-center">
+                <img [src]="product.cover" class="img-fluid img-thumbnail">
+                <div class="d-flex justify-content-center align-items-center h-100">
+                    <button type="button" class="btn btn-outline-primary" style="width: 100%;" (click)="showModal(myModal)">Ver galeria</button>
+                </div>
+            </div>
         </div>
 
         <div class="col">
-            <h3>Información</h3>
-            <ul class="list-group">
-                <li class="list-group-item"><strong>Nombre: </strong>{{ product.name | titlecase }}</li>
+            <h3 class="py-3">Información</h3>
+            <table class="table table-bordered table-hover table-sm">
+                <tbody>
+                    <tr>
+                        <th>Nombre:</th>
+                        <td>{{ product.name | titlecase }}</td>
+                    </tr>
+                    <tr>
+                        <th>Marca:</th>
+                        <td>{{ product.name_brand | titlecase }}</td>
+                    </tr>
+                    <tr *ngIf="product.storage">
+                        <th>Almacenamiento:</th>
+                        <td>{{ product.storage | titlecase }}</td>
+                    </tr>
+                    <tr *ngIf="product.developer">
+                        <th>Desarollador:</th>
+                        <td>{{ product.developer | titlecase }}</td>
+                    </tr>
+                    <tr *ngIf="product.release_date">
+                        <th>Fecha de publicacion:</th>
+                        <td>{{ product.release_date | titlecase }}</td>
+                    </tr>
+                    <tr *ngIf="product.ram">
+                        <th>RAM:</th>
+                        <td>{{ product.ram | titlecase }}</td>
+                    </tr>
+                    <tr *ngIf="product.cpu">
+                        <th>CPU:</th>
+                        <td>{{ product.cpu | titlecase }}</td>
+                    </tr>
+                    <tr *ngIf="product.gpu">
+                        <th>GPU:</th>
+                        <td>{{ product.gpu | titlecase }}</td>
+                    </tr>
+                    <tr *ngIf="product.has_cd">
+                        <th>Tiene CD:</th>
+                        <td>{{ product.has_cd == 1 ? 'Si':'No'}}</td>
+                    </tr>
+                    <tr *ngIf="product.has_sd">
+                        <th>Tiene SD:</th>
+                        <td>{{ product.has_sd == 1 ? 'Si':'No' }}</td>
+                    </tr>
+                    <tr>
+                        <th>Stock Venta:</th>
+                        <td>{{ product.stock_sale | titlecase }}</td>
+                    </tr>
+                    <tr *ngIf="product.stock_rent != 0">
+                        <th>Stock Alquiler:</th>
+                        <td>{{ product.stock_rent | titlecase }}</td>
+                    </tr>
+                </tbody>
+            </table>
+            <!-- <ul class="list-group">
+                <li class="list-group-item bg-light"><strong>Nombre: </strong>{{ product.name | titlecase }}</li>
             </ul>
             <ul class="list-group">
                 <li class="list-group-item"><strong>Marca: </strong>{{ product.name_brand | titlecase }}</li>
@@ -34,7 +108,16 @@
                 <li class="list-group-item"><strong>Almacenamiento: </strong>{{ product.storage | titlecase }}</li>
             </ul>
             <ul class="list-group">
-                <li class="list-group-item"><strong>Stock: </strong> {{ product.stock_sale }}</li>
+                <li class="list-group-item"><strong>Desarrolador: </strong> {{ product.developer }}</li>
+            </ul>
+            <ul class="list-group">
+                <li class="list-group-item"><strong>Fecha de Publicacion: </strong> {{ product.release_date }}</li>
+            </ul>
+            <ul class="list-group">
+                <li class="list-group-item"><strong>Stock Venta: </strong> {{ product.stock_sale }}</li>
+            </ul>
+            <ul class="list-group">
+                <li class="list-group-item"><strong>Stock Alquiler: </strong> {{ product.stock_rent }}</li>
             </ul>
             <ul class="list-group">
                 <li class="list-group-item"><strong>RAM: </strong> {{ product.ram }}</li>
@@ -50,7 +133,12 @@
             </ul>
             <ul class="list-group">
                 <li class="list-group-item"><strong>Tiene SD: </strong> {{ product.has_sd == 1 ? 'Si':'No' }}</li>
-            </ul>
+            </ul>-->
+            <div class="col py-3 my-3 text-center">
+                <a href="" class="btn btn-primary">Editar Producto</a>
+                <a href="" class="btn btn-warning">Aplicar Descuento</a>
+                <a href="" class="btn btn-secondary">Archivar Producto</a>
+            </div>
         </div>
 
     </div>

@@ -95,6 +95,8 @@ export class ProductsComponent implements OnInit
         );
 
         this.dtOptions.data = response;
+
+        this.shownProducts = response;
        
         this.dtOptions.paging = (response.length > 30) ? true: false;
 

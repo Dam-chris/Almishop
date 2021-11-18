@@ -1,31 +1,33 @@
-<div *ngIf="!dtOptions.data;" class="alert alert-info text-center">
-  <div>
-      Ups, parece que ha ocurrido un error, intentelo mas tarde ...
-  </div>    
-  <a href="products" class="btn btn-outline-info">volver atras</a>
-</div>
-
-
-<select (change)="optionChanged(selector.value)" #selector class="form-select form-select-lg mb-3" style="width: 20%;"
-    aria-label=".form-select-lg example" id="cb">
-    <!--<option selected value="all">Todos los productos</option>-->
-    <option value="smartphone" selected>Smartphone</option>
-    <option value="tablet">Tablet</option>
-    <option value="console">Consola</option>
-    <option value="videogame">Videojuego</option>
-</select>
-
-<button (click)="selectType()" class="btn btn-outline-primary" id="btn">Añadir Producto</button>
-<button class="btn btn-outline-secondary" id="btn">Productos Archivados</button>
-
-<table class="table table-striped table-bordered table-hover table-sm" datatable [dtOptions]="dtOptions"
-   [dtTrigger]="dtTrigger" >
-    <thead>
-        <tr>
-            <th>Nombre</th>
-            <th>Stock</th>
-            <th>Precio</th>
-            <th>#</th>
-        </tr>
-    </thead>
-</table>
+<div *ngIf="!shownProducts else divTable" class="alert alert-info text-center">
+    <div>
+        Ups, parece que ha ocurrido un error, intentelo mas tarde ...
+    </div>    
+    <a href="home" class="btn btn-outline-info">volver atras</a>
+  </div>
+  
+  <ng-template #divTable>
+  
+      <select (change)="optionChanged(selector.value)" #selector class="form-select form-select-lg mb-3" style="width: 20%;"
+          aria-label=".form-select-lg example" id="cb">
+          <!--<option selected value="all">Todos los productos</option>-->
+          <option value="smartphone" selected>Smartphone</option>
+          <option value="tablet">Tablet</option>
+          <option value="console">Consola</option>
+          <option value="videogame">Videojuego</option>
+      </select>
+      
+      <button (click)="selectType()" class="btn btn-outline-primary" id="btn">Añadir Producto</button>
+      <button class="btn btn-outline-secondary" id="btn">Productos Archivados</button>
+      
+      <table class="table table-striped table-bordered table-hover table-sm" datatable [dtOptions]="dtOptions"
+         [dtTrigger]="dtTrigger" >
+          <thead>
+              <tr>
+                  <th>Nombre</th>
+                  <th>Stock</th>
+                  <th>Precio</th>
+                  <th>#</th>
+              </tr>
+          </thead>
+      </table>
+  </ng-template>
