@@ -28,7 +28,7 @@ export class SeeProductComponent implements OnInit
         console.log(id, id_product_type);
 
       });
-
+      
   }
 
 }
