@@ -13,8 +13,7 @@ import { Product } from '../models/product';
 import { Tablet } from '../models/tablet';
 import { Videogame } from '../models/videogame';
 import { Videoconsole } from '../models/videoconsole';
-import { DatePipe, NgTemplateOutlet } from '@angular/common';
-import { TaggedTemplateExpr } from '@angular/compiler';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-add-product',
