@@ -104,12 +104,12 @@ export class ProductsComponent implements OnInit
 
       }, error => 
       {
-      //console.log(error)
-        swal({
+      console.log(error)
+        /*swal({
           title: 'Error',
           text: 'No se pudieron cargar los datos',
           icon: 'error'
-        })//.then(val => this.router.navigateByUrl(''))
+        })//.then(val => this.router.navigateByUrl(''))*/
       });
   }
 

@@ -46,7 +46,12 @@ export class AddProductComponent implements OnInit
 
  productSubmited:Smartphone | Tablet | Videoconsole | Videogame;
 
- defaultValue: any = null;
+ defaultValueBrand: any = null;
+ defaultValueColor: any = null;
+ defaultValueDeveloper: any = null;
+ defaultValueGenre: any = null;
+ defaultValuePegi: any = null;
+ defaultValuePlatform: any = null;
 
   constructor( private productService: ProductService, private router: Router, private datepipe: DatePipe ) { }
 
@@ -107,7 +112,7 @@ export class AddProductComponent implements OnInit
 
   submit(data:NgForm)
   {
-    console.log(data.value.target.id_color);
+    console.log(data.value.id_color);
     
     
     if (data.untouched) 
@@ -133,28 +138,40 @@ export class AddProductComponent implements OnInit
       case 'smartphone':
           this.smartphone.images = this.images;
           this.smartphone.cover = this.imageCover;
+          this.smartphone.id_color = data.value.id_color;
+          this.smartphone.id_brand = data.value.id_brand;
           this.productSubmited = this.smartphone;
+          console.log(this.smartphone);
         break;
 
       case 'tablet':
           this.tablet.images = this.images;
           this.tablet.cover = this.imageCover;
+          this.tablet.id_color = data.value.id_color;
+          this.tablet.id_brand = data.value.id_brand;
           this.productSubmited = this.tablet;
+          console.log(this.tablet);
         break;
 
       case 'videogame':
           this.videogame.images = this.images;
           this.videogame.cover = this.imageCover;   
           this.videogame.release_date = (this.videogame.release_date).replace(/-/g, '/');
+          this.videogame.id_brand = data.value.id_brand;
+          this.videogame.id_developer = data.value.id_developer;
+          this.videogame.id_platform = data.value.id_platform;
+          this.videogame.id_genre = data.value.id_genre;
+          this.videogame.pegi = data.value.pegi;
           this.productSubmited = this.videogame;
+          console.log(this.videogame);
         break;
 
       case 'videoconsole':
           this.videoconsole.images = this.images;
           this.videoconsole.cover = this.imageCover;
+          this.videoconsole.id_brand = data.value.id_brand;
           this.productSubmited = this.videoconsole;
           console.log(this.videoconsole);
-          
         break;
     }
     console.log('este es el producto qaue estoy enviando',this.productSubmited);
