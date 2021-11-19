@@ -140,7 +140,6 @@ export class SeeProductComponent implements OnInit
   //editar producto
   editProduct()
   {
-    console.log('editar');
     
   }
 
