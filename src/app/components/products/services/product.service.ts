@@ -60,7 +60,8 @@ export class ProductService {
     }
   }
 
-  async addProduct(product: Smartphone | Tablet | Videoconsole | Videogame): Promise<any>  {
+  async addProduct(product: Smartphone | Tablet | Videoconsole | Videogame): Promise<any>  
+  {
 
     return new Promise((resolve, reject) => {
       console.log('he aqui el producto')
@@ -111,6 +112,29 @@ export class ProductService {
       name: brandName
     }
     return this.httpClient.post<Brand>(urlEndPoint + '/brand/add', brandObject, httpOptions)
+  }
+
+  editProduct(product: Smartphone | Tablet | Videoconsole | Videogame): Promise<any> 
+  {
+    return new Promise((resolve, reject) => 
+    {
+      console.log('he aqui el producto')
+      console.log(product)
+      this.httpClient.put<AddProductResponse>(urlEndPoint + '/product/edit', product, httpOptions)
+      .subscribe(data => 
+        {
+          if (data.message != null) 
+          {
+            reject(data.message)
+          }
+          console.log(data)
+          resolve('Editado correctamente.')
+        }, err => 
+        {
+          console.error(err)
+          reject('No se pudo editar.')
+        });
+    });
   }
 
 }

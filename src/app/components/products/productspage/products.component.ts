@@ -104,7 +104,11 @@ export class ProductsComponent implements OnInit
 
       }, error => 
       {
-      console.log(error)
+        console.log(error)
+        if(error)
+        {
+          this.shownProducts = null;
+        }
         /*swal({
           title: 'Error',
           text: 'No se pudieron cargar los datos',

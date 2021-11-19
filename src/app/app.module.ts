@@ -18,8 +18,6 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatDividerModule } from '@angular/material/divider';
 import { SettingsComponent } from './settings/settings.component';
 import { ProductModule } from './components/products/product.module';
-import { SeeProductComponent } from './components/products/see-product/see-product.component';
-import { DatePipe } from '@angular/common';
 
 
 @NgModule({
@@ -45,7 +43,7 @@ import { DatePipe } from '@angular/common';
     MatSidenavModule,
     MatButtonModule,
     MatIconModule,
-    MatDividerModule
+    MatDividerModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

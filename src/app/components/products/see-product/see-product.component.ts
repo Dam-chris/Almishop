@@ -1,15 +1,16 @@
-import { Component, ElementRef, OnInit, ViewChild, NgModule } from '@angular/core';
+import { Component, OnInit} from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { NgbCarousel, NgbCarouselConfig, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ProductService } from '../services/product.service';
-
-
+import swal from 'sweetalert';
 @Component({
   selector: 'app-see-product',
   templateUrl: './see-product.component.html',
   styles: [`
-      a 
+      button 
       {
         margin-right: 15px;
+        margin-bottom: 15px;
       }
       th
       {
@@ -21,7 +22,8 @@ import { ProductService } from '../services/product.service';
       {
         padding-left: 2%;
       }
-  `]
+  `],
+  providers: [NgbCarouselConfig] 
 })
 export class SeeProductComponent implements OnInit 
   {
@@ -30,9 +32,16 @@ export class SeeProductComponent implements OnInit
     public id: number;
     public id_type: number;
     type: string;
-    @ViewChild('myModal') modal: ElementRef;
+   /* @ViewChild('myModal') modal: ElementRef;
+    @ViewChild('ngcarousel', { static: true }) ngCarousel: NgbCarousel;*/
 
-  constructor( private activatedRoute: ActivatedRoute, private productService: ProductService, private router: Router, /*private modalService:NgbModal*/  ) { }
+  constructor( private activatedRoute: ActivatedRoute, private productService: ProductService, private router: Router, private modalService:NgbModal, config: NgbCarouselConfig ) 
+  {
+    config.interval = 10000;
+    config.wrap = false;
+    config.keyboard = false;
+    config.pauseOnHover = false;
+  }
 
   ngOnInit(): void 
   {
@@ -64,9 +73,9 @@ export class SeeProductComponent implements OnInit
 
   }
 
-  showModal( modal)
+  showModal( modal: any)
   {
-    //this.modalService.open(modal);
+    this.modalService.open(modal);
     
   }
 
@@ -88,6 +97,51 @@ export class SeeProductComponent implements OnInit
           err => console.log(err)
           ); 
     }
+  }
+
+  // Move to previous slide
+  getToPrev( data: NgbCarousel ) 
+  {
+    data.prev();
+  }
+
+  // Move to next slide
+  goToNext( data: NgbCarousel ) 
+  {
+    data.next();
+  }
+
+  //archivar productos
+  archiveProduct()
+  {
+    console.log('archivado');
+    this.product.is_archived = true;
+    console.log(this.product);
+    
+    swal({
+      title: '¿Estás seguro de que quieres archivar este producto?',
+      icon: 'warning',
+      buttons: ['Cancelar', true],
+      dangerMode: true,
+    })
+    .then((willDelete) => {
+      if (willDelete) 
+      {
+        this.productService.editProduct(this.product);
+        swal({
+          title:'Producto archivado!',
+          icon:'success',
+        }).then((archived) => archived && this.router.navigateByUrl('products'));
+      }
+    });
+  
+  }
+
+  //editar producto
+  editProduct()
+  {
+    console.log('editar');
+    
   }
 
 }

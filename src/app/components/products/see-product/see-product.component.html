@@ -6,28 +6,10 @@
 </div>
 
 <ng-template #divProduct>
-    <!----modal starts here--->
-<ng-template #myModal let-modal>
-    <div class="modal-header">
-        <h4 class="modal-title">
-            <span>asdasd</span>
-        </h4>
-        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
-            <span aria-hidden="true">&times;</span>
-          </button>
-    </div>
-    <div class="modal-body">
-        <p> <span>asdasd</span></p>
-    </div>
-    <div class="modal-footer">
-        <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Save</button>
-
-    </div>
-</ng-template>   
-<!--Modal ends here--->
     <div class="row">
         <div class="col-12 py-4">
-            <h1>{{ type | titlecase }}: <small>{{ product.name | titlecase }} - {{ product.name_brand | titlecase }}</small> </h1>
+            <h1>{{ type | titlecase }}: <small>{{ product.name | titlecase }} - {{ product.name_brand | titlecase
+                    }}</small> </h1>
         </div>
     </div>
 
@@ -39,7 +21,8 @@
             <div class="bg-image text-center">
                 <img [src]="product.cover" class="img-fluid img-thumbnail">
                 <div class="d-flex justify-content-center align-items-center h-100">
-                    <button type="button" class="btn btn-outline-primary" style="width: 100%;" (click)="showModal(myModal)">Ver galeria</button>
+                    <button type="button" class="btn btn-outline-primary" style="width: 100%;"
+                        (click)="showModal(myModal)">Ver galeria</button>
                 </div>
             </div>
         </div>
@@ -135,11 +118,34 @@
                 <li class="list-group-item"><strong>Tiene SD: </strong> {{ product.has_sd == 1 ? 'Si':'No' }}</li>
             </ul>-->
             <div class="col py-3 my-3 text-center">
-                <a href="" class="btn btn-primary">Editar Producto</a>
-                <a href="" class="btn btn-warning">Aplicar Descuento</a>
-                <a href="" class="btn btn-secondary">Archivar Producto</a>
+                <button href="" class="btn btn-primary" (click)="editProduct()">Editar Producto</button>
+                <button href="" class="btn btn-warning">Aplicar Descuento</button>
+                <button href="" class="btn btn-secondary" (click)="archiveProduct()">Archivar Producto</button>
             </div>
         </div>
 
     </div>
 </ng-template>
+<!----modal starts here--->
+<ng-template #myModal let-modal>
+
+    <div class="modal-header">
+        <p></p>
+        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')"><span
+                aria-hidden="true">&times;</span></button>
+    </div>
+    <div class="modal-body my-3">
+        <ngb-carousel #ngcarousel>
+            <ng-template ngbSlide *ngFor="let image of product.images; let i = index;" id="{{ i + 1 }}">
+              <div class="img-thumbnail">
+                <img width="450" [src]="image" >
+              </div>
+            </ng-template>
+        </ngb-carousel>
+          <div class="text-center">
+            <button (click)="getToPrev(ngcarousel)">Prev</button>
+            <button (click)="goToNext(ngcarousel)">Next</button>
+          </div>
+    </div>
+</ng-template>
+<!--Modal ends here--->

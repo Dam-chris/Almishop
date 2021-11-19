@@ -17,6 +17,7 @@
 
 <ng-template #divForm >
   <label class="formu">
+    <h2>{{ productType  | titlecase }}</h2>
     <form  #productsForm="ngForm" (ngSubmit)="submit(productsForm)">
   
       <label for="nameInput" class="col-form-label">Nombre</label>

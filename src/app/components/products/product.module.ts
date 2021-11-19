@@ -7,7 +7,7 @@ import { ProductsComponent } from './productspage/products.component';
 import { RouterModule } from '@angular/router';
 import { DataTablesModule } from 'angular-datatables';
 import { SeeProductComponent } from './see-product/see-product.component';
-
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 
 @NgModule({
@@ -16,13 +16,13 @@ import { SeeProductComponent } from './see-product/see-product.component';
     AddProductComponent,
     EditProductComponent,
     SeeProductComponent,
-    SeeProductComponent
   ],
   imports: [
     CommonModule,
     FormsModule,
     RouterModule,
-    DataTablesModule
+    DataTablesModule,
+    NgbModule
   ],
   exports:[
     ProductsComponent,
