@@ -8,8 +8,7 @@
 <ng-template #divProduct>
     <div class="row">
         <div class="col-12 py-4">
-            <h1>{{ type | titlecase }}: <small>{{ product.name | titlecase }} - {{ product.name_brand | titlecase
-                    }}</small> </h1>
+            <h1>{{ type | titlecase }}: <small>{{ product.name | titlecase }} - {{ product.name_brand | titlecase }}</small> </h1>
         </div>
     </div>
 
@@ -20,7 +19,7 @@
 
             <div class="bg-image text-center">
                 <img [src]="product.cover" class="img-fluid img-thumbnail">
-                <div class="d-flex justify-content-center align-items-center h-100">
+                <div class="d-flex justify-content-center align-items-center">
                     <button type="button" class="btn btn-outline-primary" style="width: 100%;"
                         (click)="showModal(myModal)">Ver galeria</button>
                 </div>
@@ -41,7 +40,7 @@
                     </tr>
                     <tr *ngIf="product.storage">
                         <th>Almacenamiento:</th>
-                        <td>{{ product.storage | titlecase }}</td>
+                        <td>{{ product.storage | titlecase }} gb</td>
                     </tr>
                     <tr *ngIf="product.developer">
                         <th>Desarollador:</th>
@@ -49,11 +48,11 @@
                     </tr>
                     <tr *ngIf="product.release_date">
                         <th>Fecha de publicacion:</th>
-                        <td>{{ product.release_date | titlecase }}</td>
+                        <td>{{ product.release_date }}</td>
                     </tr>
                     <tr *ngIf="product.ram">
                         <th>RAM:</th>
-                        <td>{{ product.ram | titlecase }}</td>
+                        <td>{{ product.ram | titlecase }} gb</td>
                     </tr>
                     <tr *ngIf="product.cpu">
                         <th>CPU:</th>
@@ -73,11 +72,29 @@
                     </tr>
                     <tr>
                         <th>Stock Venta:</th>
-                        <td>{{ product.stock_sale | titlecase }}</td>
+                        <td>{{ product.stock_sale | titlecase }} uds</td>
                     </tr>
                     <tr *ngIf="product.stock_rent != 0">
                         <th>Stock Alquiler:</th>
-                        <td>{{ product.stock_rent | titlecase }}</td>
+                        <td>{{ product.stock_rent | titlecase }} uds</td>
+                    </tr>
+                    <tr>
+                        <th>Precio:</th>
+                        <td>
+                            <span *ngIf="!product.discount">
+                                <div class="actual">
+                                    {{  product.price_discounted - product.price_discounted * 0.2 | number }} €
+                                </div>
+                                <div class="price-layered">
+                                    <div class="old">
+                                        {{ product.price | number}} € 
+                                    </div>
+                                    <div class="badge bg-danger" >
+                                        20%
+                                    </div>
+                                </div>
+                            </span>
+                        </td>
                     </tr>
                 </tbody>
             </table>
@@ -117,10 +134,10 @@
             <ul class="list-group">
                 <li class="list-group-item"><strong>Tiene SD: </strong> {{ product.has_sd == 1 ? 'Si':'No' }}</li>
             </ul>-->
-            <div class="col py-3 my-3 text-center">
-                <button href="" class="btn btn-primary" (click)="editProduct()">Editar Producto</button>
-                <button href="" class="btn btn-warning">Aplicar Descuento</button>
-                <button href="" class="btn btn-secondary" (click)="archiveProduct()">Archivar Producto</button>
+            <div class="d-flex justify-content-center align-items-center" style="padding-top: 8vh;">
+                <button href="" class="btn btn-primary btnConfigs" (click)="editProduct( product )">Editar Producto</button>
+                <button href="" class="btn btn-warning btnConfigs">Aplicar Descuento</button>
+                <button href="" class="btn btn-secondary btnConfigs" (click)="archiveProduct()">Archivar Producto</button>
             </div>
         </div>
 
@@ -128,24 +145,28 @@
 </ng-template>
 <!----modal starts here--->
 <ng-template #myModal let-modal>
-
     <div class="modal-header">
-        <p></p>
-        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')"><span
-                aria-hidden="true">&times;</span></button>
+        <h2>Galeria</h2>
+        <a (click)="modal.close()" style="cursor: pointer;"><mat-icon>cancel</mat-icon></a>
     </div>
-    <div class="modal-body my-3">
-        <ngb-carousel #ngcarousel>
+    <div class="modal-body text-center">
+        <ngb-carousel 
+            #ngcarousel
+            [showNavigationArrows]="false" 
+            [showNavigationIndicators]="true"
+            [interval]="12000"
+            [keyboard]="true"
+            [pauseOnHover]="true"
+            [wrap]="true"
+            >
             <ng-template ngbSlide *ngFor="let image of product.images; let i = index;" id="{{ i + 1 }}">
               <div class="img-thumbnail">
                 <img width="450" [src]="image" >
               </div>
             </ng-template>
         </ngb-carousel>
-          <div class="text-center">
-            <button (click)="getToPrev(ngcarousel)">Prev</button>
-            <button (click)="goToNext(ngcarousel)">Next</button>
-          </div>
+        <button class="carousel-control-prev" (click)="ngcarousel.prev()"><span class="carousel-control-prev-icon"></span></button>
+        <button class="carousel-control-next" (click)="ngcarousel.next()"><span class="carousel-control-next-icon"></span></button>
     </div>
 </ng-template>
 <!--Modal ends here--->

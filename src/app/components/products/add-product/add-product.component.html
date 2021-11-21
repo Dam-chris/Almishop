@@ -17,11 +17,11 @@
 
 <ng-template #divForm >
   <label class="formu">
-    <h2>{{ productType  | titlecase }}</h2>
+    <h2>{{ (productType == 'smartphone') ? 'Smartphone':(productType == 'tablet') ? 'Tablet':(productType == 'videogame') ? 'Videojuego': (productType == 'videoconsole') && 'Consola' }}</h2>
     <form  #productsForm="ngForm" (ngSubmit)="submit(productsForm)">
   
       <label for="nameInput" class="col-form-label">Nombre</label>
-      <input type="text" id="nameInput" class="form-control" name="name" [(ngModel)]="smartphone.name" [(ngModel)]="tablet.name"   [(ngModel)]="videoconsole.name" [(ngModel)]="videogame.name" [placeholder]="'nombre producto...'" >
+      <input type="text" id="nameInput" class="form-control" name="name"  [(ngModel)]="smartphone.name" [(ngModel)]="tablet.name"   [(ngModel)]="videoconsole.name" [(ngModel)]="videogame.name" [placeholder]="'nombre producto...'" >
   
       <label class="form-check-label" for="rb1a">Marca existente</label>
   
@@ -128,26 +128,26 @@
         <label for="dateInputV" class="col-form-label">Fecha de salida</label>
         <input type="date" id="dateInputV" class="form-control" name="release_date" [(ngModel)]="videogame.release_date" required>
   
-        <label for="pegiInputV" class="col-form-label">PEGI</label>
-        <select id="pegiInputV" class="mt-3 fieldSelector" name="pegi" [(ngModel)]="defaultValuePegi" required>
+        <label class="my-2 form-check-label">PEGI</label>
+        <select id="pegiInputV" class="fieldSelector" name="pegi" [(ngModel)]="defaultValuePegi" required>
           <option [value]="null" hidden> Selecciona...</option>
           <option *ngFor="let pegi of [ 3, 7, 12, 16, 18 ]" value="{{ pegi }}" >{{ pegi }}</option>
         </select>
-  
-        <label class="form-check-label" for="rb4a">Plataforma existente</label>
-        <select name="" id="" class="mt-3 fieldSelector" name="id_platform" [(ngModel)]="defaultValuePlatform" required>
+
+        <label class="my-2 form-check-label">Plataforma existente</label>
+        <select name="" id="" class="fieldSelector" name="id_platform" [(ngModel)]="defaultValuePlatform" required>
           <option [value]="null" hidden> Selecciona...</option>
           <option *ngFor="let i of platforms" value="{{ i.id }}">{{ i.name }}</option>
         </select>
   
-        <label class="form-check-label" for="rb5a">Género existente</label>
-        <select id="genreInputV" class="mt-3 fieldSelector" name="id_genre" [(ngModel)]="defaultValueGenre" required>
+        <label class="my-2 form-check-label">Género existente</label>
+        <select id="genreInputV" class="fieldSelector" name="id_genre" [(ngModel)]="defaultValueGenre" required>
           <option [value]="null" hidden> Selecciona...</option>
           <option *ngFor="let i of genres" value="{{ i.id }}">{{ i.name }}</option>
         </select>
   
-        <label class="form-check-label" for="rb6a">Desarrollador existente</label>
-        <select id="developerInputV" class="mt-3 fieldSelector" name="id_developer" [(ngModel)]="defaultValueDeveloper" required>
+        <label class="my-2 form-check-label">Desarrollador existente</label>
+        <select id="developerInputV" class="fieldSelector" name="id_developer" [(ngModel)]="defaultValueDeveloper" required>
           <option [value]="null" hidden> Selecciona...</option>
           <option *ngFor="let i of developers" value="{{ i.id }}">{{ i.name }}</option>
         </select>
@@ -179,7 +179,7 @@
   
       <div class="row">
         <input type="submit" class="btn btn-success" name="Aceptar" value="Aceptar" />
-        <input type="button" class="btn btn-danger my-3" (click)="cancel" value="Cancelar" />
+        <input type="button" class="btn btn-danger my-3" (click)="cancel()" value="Cancelar" />
       </div>
       <!--<button type="button" class="btn btn-success" (click)="submit(selector.value)">Añadir</button>-->
     </form>

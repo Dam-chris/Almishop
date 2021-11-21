@@ -8,6 +8,7 @@ import { RouterModule } from '@angular/router';
 import { DataTablesModule } from 'angular-datatables';
 import { SeeProductComponent } from './see-product/see-product.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { MatIconModule } from '@angular/material/icon';
 
 
 @NgModule({
@@ -22,7 +23,8 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     FormsModule,
     RouterModule,
     DataTablesModule,
-    NgbModule
+    NgbModule,
+    MatIconModule,
   ],
   exports:[
     ProductsComponent,

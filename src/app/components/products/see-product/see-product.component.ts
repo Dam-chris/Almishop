@@ -6,23 +6,7 @@ import swal from 'sweetalert';
 @Component({
   selector: 'app-see-product',
   templateUrl: './see-product.component.html',
-  styles: [`
-      button 
-      {
-        margin-right: 15px;
-        margin-bottom: 15px;
-      }
-      th
-      {
-        background-color: rgba(0, 0, 0, 0.05);
-        width:30%;
-        height: 40px;
-      }
-      td
-      {
-        padding-left: 2%;
-      }
-  `],
+  styleUrls: ['./see-product.component.css'],
   providers: [NgbCarouselConfig] 
 })
 export class SeeProductComponent implements OnInit 
@@ -35,13 +19,7 @@ export class SeeProductComponent implements OnInit
    /* @ViewChild('myModal') modal: ElementRef;
     @ViewChild('ngcarousel', { static: true }) ngCarousel: NgbCarousel;*/
 
-  constructor( private activatedRoute: ActivatedRoute, private productService: ProductService, private router: Router, private modalService:NgbModal, config: NgbCarouselConfig ) 
-  {
-    config.interval = 10000;
-    config.wrap = false;
-    config.keyboard = false;
-    config.pauseOnHover = false;
-  }
+  constructor( private activatedRoute: ActivatedRoute, private productService: ProductService, private router: Router, private modalService:NgbModal ) { }
 
   ngOnInit(): void 
   {
@@ -87,7 +65,7 @@ export class SeeProductComponent implements OnInit
     }
     else
     {
-      this.productService.getProduct( this.id, this.id_type )
+      this.productService.getProductById( this.id, this.id_type )
         .subscribe(
           res => 
           {
@@ -98,19 +76,6 @@ export class SeeProductComponent implements OnInit
           ); 
     }
   }
-
-  // Move to previous slide
-  getToPrev( data: NgbCarousel ) 
-  {
-    data.prev();
-  }
-
-  // Move to next slide
-  goToNext( data: NgbCarousel ) 
-  {
-    data.next();
-  }
-
   //archivar productos
   archiveProduct()
   {
@@ -121,25 +86,31 @@ export class SeeProductComponent implements OnInit
     swal({
       title: '¿Estás seguro de que quieres archivar este producto?',
       icon: 'warning',
-      buttons: ['Cancelar', true],
+      buttons: ['Cancelar', 'Aceptar'],
       dangerMode: true,
     })
-    .then((willDelete) => {
-      if (willDelete) 
+    .then((res) => {
+      if (res) 
       {
         this.productService.editProduct(this.product);
         swal({
           title:'Producto archivado!',
+          text:' ',
           icon:'success',
-        }).then((archived) => archived && this.router.navigateByUrl('products'));
+          buttons: [false],
+          timer: 2000,
+        });
+        this.router.navigateByUrl('products')
       }
     });
   
   }
 
   //editar producto
-  editProduct()
+  editProduct( product: any)
   {
+    console.log(product);
+    this.router.navigateByUrl('/products/edit',{ state: product });
     
   }
 

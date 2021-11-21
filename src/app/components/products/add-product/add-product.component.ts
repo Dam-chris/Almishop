@@ -192,7 +192,8 @@ export class AddProductComponent implements OnInit
     //(document.getElementById(data.value) as HTMLFormElement).reset();
     
   }
-  notLoading() {
+  notLoading() 
+  {
     console.warn('01 - Cannot load product data.')
     swal({
       title: 'Error al cargar datos',
@@ -209,7 +210,7 @@ export class AddProductComponent implements OnInit
       title: '¿Estás seguro?',
       text: 'Todos los campos escritos se borrarán',
       icon: 'warning',
-      buttons: ['Cancelar', true],
+      buttons: ['Cancelar', 'Aceptar'],
       dangerMode: true,
     })
     .then((willDelete) => {
