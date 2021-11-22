@@ -2,7 +2,6 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { HeaderComponent } from './components/shared/header/header.component';
 import { LoginComponent } from './components/login/login.component';
 import { HomeComponent } from './components/home/home.component';
 import { FormsModule } from '@angular/forms';
@@ -16,18 +15,17 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatDividerModule } from '@angular/material/divider';
-import { SettingsComponent } from './settings/settings.component';
 import { ProductModule } from './components/products/product.module';
+import { SeeUserComponent } from './users/see-user/see-user.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
-    HeaderComponent,
     LoginComponent,
     HomeComponent,
     UsersComponent,
-    SettingsComponent
+    SeeUserComponent
   ],
   imports: [
     BrowserModule,

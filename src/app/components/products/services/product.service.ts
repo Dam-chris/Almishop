@@ -153,6 +153,10 @@ export class ProductService {
         });
     });
   }
+  addDiscount( discount: any ):Observable<any>
+  {
+    return this.httpClient.post<any>( `${ urlEndPoint }/product/discount/add`, discount);
+  }
 
 }
 

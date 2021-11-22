@@ -3,6 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { NgbCarousel, NgbCarouselConfig, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ProductService } from '../services/product.service';
 import swal from 'sweetalert';
+import { NgForm } from '@angular/forms';
 @Component({
   selector: 'app-see-product',
   templateUrl: './see-product.component.html',
@@ -79,11 +80,6 @@ export class SeeProductComponent implements OnInit
   //archivar productos
   archiveProduct()
   {
-    console.log('archivado');
-    this.product.is_archived = true;
-    this.product.release_date = null;
-    this.product.cover = null;
-    console.log(this.product);
     
     swal({
       title: '¿Estás seguro de que quieres archivar este producto?',
@@ -94,6 +90,11 @@ export class SeeProductComponent implements OnInit
     .then((res) => {
       if (res) 
       {
+        this.product.is_archived = true;
+        this.product.release_date = null;
+        this.product.cover = null;
+        console.log(this.product);
+        
         this.productService.editProduct(this.product);
         swal({
           title:'Producto archivado!',
@@ -118,16 +119,48 @@ export class SeeProductComponent implements OnInit
 
   addDiscount( modal:any )
   {
-   this.modalService.open(modal);
+   this.modalService.open(modal, { backdrop:'static', keyboard:false });
 
   }
-  submitDiscount( data:any )
+  submitDiscount( data:NgForm )
   {
-    //data.value.end_date = data.value.end_date.toLocaleDateString();
-    data.value.start_date = new Date(Date.now());
+    if(data.form.status == 'INVALID')
+    {
+      swal({
+        title: 'Error al aplicar descuento',
+        text: 'Revise los datos y vuelva a intentarlo.',
+        icon: 'error'
+      });
+     return;
+    }
+    let start_date: Date = new Date();    
+    data.value.start_date = this.formatDate( start_date );
+    data.value.end_date = this.formatDate( new Date(data.value.end_date) );
+
+    data.value.id_product = this.product.id;
 
     console.log(data.value);
     
+    this.productService.addDiscount( data.value )
+    .subscribe( 
+      res => 
+      {
+        if(res)
+        {
+          swal({
+            title: 'Descuento Aplicado Correctamente',
+            text: '',
+            icon: 'success'
+          });
+        }
+      },
+      err => console.log(err));
+    
+  }
+
+  formatDate( date: Date)
+  {
+    return `${ date.getFullYear() }/${ date.getMonth() }/${ date.getDay() }`
   }
 
 }

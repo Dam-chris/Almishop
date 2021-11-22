@@ -19,7 +19,7 @@
 
             <div class="bg-image text-center">
                 <img [src]="product.cover" class="img-fluid img-thumbnail">
-                <div class="d-flex justify-content-center align-items-center">
+                <div *ngIf="product.images.length > 0" class="d-flex justify-content-center align-items-center">
                     <button type="button" class="btn btn-outline-primary" style="width: 100%;"
                         (click)="showModal(myModal)">Ver galeria</button>
                 </div>
@@ -45,6 +45,18 @@
                     <tr *ngIf="product.developer">
                         <th>Desarollador:</th>
                         <td>{{ product.developer | titlecase }}</td>
+                    </tr>
+                    <tr *ngIf="product.platform">
+                        <th>Plataforma:</th>
+                        <td>{{ product.platform | uppercase }}</td>
+                    </tr>
+                    <tr *ngIf="product.genre">
+                        <th>Genero:</th>
+                        <td>{{ product.genre | titlecase }}</td>
+                    </tr>
+                    <tr *ngIf="product.description">
+                        <th>Descripción:</th>
+                        <td>{{ product.description | titlecase }}</td>
                     </tr>
                     <tr *ngIf="product.release_date">
                         <th>Fecha de publicacion:</th>
@@ -81,20 +93,27 @@
                     <tr>
                         <th>Precio:</th>
                         <td>
-                            <span *ngIf="!product.discount">
+                            <span *ngIf="product.discount; else withoutDiscount">
                                 <div class="actual">
-                                    {{  product.price_discounted - product.price_discounted * 0.2 | number }} €
+                                    {{  product.price_discounted | number }} €
                                 </div>
                                 <div class="price-layered">
                                     <div class="old">
                                         {{ product.price | number}} € 
                                     </div>
                                     <div class="badge bg-danger" >
-                                        20%
+                                        {{ product.discount }} % 
                                     </div>
                                 </div>
                             </span>
+                            <ng-template #withoutDiscount>
+                                {{ product.price | number}} € 
+                            </ng-template>
                         </td>
+                    </tr>
+                    <tr *ngIf="product.discount">
+                        <th>Descuento valido hasta</th>
+                        <td>2021/12/23</td>
                     </tr>
                 </tbody>
             </table>
@@ -136,7 +155,7 @@
             </ul>-->
             <div class="d-flex justify-content-center align-items-center" style="padding-top: 8vh;">
                 <button href="" class="btn btn-primary btnConfigs" (click)="editProduct( product )">Editar Producto</button>
-                <button href="" class="btn btn-warning btnConfigs" (click)="addDiscount( modalDiscount )">Aplicar Descuento</button>
+                <button *ngIf="!product.discount" href="" class="btn btn-warning btnConfigs" (click)="addDiscount( modalDiscount )">Aplicar Descuento</button>
                 <button href="" class="btn btn-secondary btnConfigs" (click)="archiveProduct()">Archivar Producto</button>
             </div>
         </div>
@@ -170,25 +189,30 @@
     </div>
 </ng-template>
 <!--modal descuento--->
-<!----modal starts here--->
 <ng-template #modalDiscount let-modal>
     <div class="modal-header">
         <h2>Aplicar Descuento</h2>
         <a (click)="modal.close()" style="cursor: pointer;"><mat-icon>cancel</mat-icon></a>
     </div>
-    <div class="modal-body text-center">
+    <div class="modal-body">
         <form #discountForm="ngForm" (ngSubmit)="submitDiscount(discountForm)" >
 
+            <label for="discountInput" class="my-2">Porcentaje a descontar</label>
             <div class="input-group">
-                <input type="number" id="ramInputC" class="form-control" name="priceDiscounted" [value]="product.ram" [placeholder]="0" ngModel>
+                <input type="number" id="discountInput" class="form-control" name="priceDiscounted" [placeholder]="0" ngModel required>
                 <span class="input-group-text">%</span>
             </div>
-            <br>
-            <input type="date" id="ramInputC" class="form-control" name="end_date" ngModel>
-            <br>
-            <button type="submit" class="btn btn-success form-control my-3">Enviar</button>
-            <br>
-            <button class="btn btn-danger form-control">Cancelar</button>
+
+            <label for="discountInput" class="my-2">Fecha fin del descuento</label>
+            <div class="input-group">
+                <input type="date" id="Input_date_end" class="form-control" name="end_date" ngModel required>
+            </div>
+
+            <div class="text-center my-3">
+                <button type="submit" class="btn btn-success my-3 btnConfigs">Enviar</button>
+                <button type="button" class="btn btn-danger my-3 btnConfigs" (click)="modal.close()">Cancelar</button>
+            </div>
+
         </form>
     </div>
     <div class="modal-footer">

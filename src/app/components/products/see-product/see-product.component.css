@@ -59,12 +59,6 @@ ngb-carousel
 {
     z-index: 20;
 }
-.btnConfigs 
-{
-  margin-right: 15px;
-  margin-bottom: 15px;
-  width:180px;
-} 
 th
 {
   background-color: rgba(0, 0, 0, 0.05);

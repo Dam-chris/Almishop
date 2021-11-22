@@ -69,7 +69,7 @@ export class ProductsComponent implements OnInit, OnDestroy
       columns: [
         { data: 'name' },
         { data: 'stock_sale' },
-        { data: 'price' },
+        { data: 'price_discounted' },
         { data: 'ver_mas'}
       ],
       destroy: true
@@ -145,7 +145,7 @@ export class ProductsComponent implements OnInit, OnDestroy
 
         this.shownProducts = response;
        
-        this.dtOptions.paging = (response.length > 30) ? true: false;
+        this.dtOptions.paging = (response.length > 20) ? true: false;
 
         this.dtTrigger.next();
 

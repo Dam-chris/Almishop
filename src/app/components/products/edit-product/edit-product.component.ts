@@ -147,6 +147,7 @@ export class EditProductComponent implements OnInit {
       this.notLoading()
     })
   }
+  
   notLoading() 
   {
     console.warn('01 - Cannot load product data.')
@@ -158,6 +159,7 @@ export class EditProductComponent implements OnInit {
       this.router.navigateByUrl('products')
     })
   }
+
   cancel() 
   {
     swal({
