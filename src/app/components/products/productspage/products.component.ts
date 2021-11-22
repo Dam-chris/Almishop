@@ -82,6 +82,7 @@ export class ProductsComponent implements OnInit, OnDestroy
     
     product.is_archived = false;
     product.release_date = null;
+    product.cover = null;
     console.log('desarchive', product);
     
     this.productService.editProduct(product)

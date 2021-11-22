@@ -82,6 +82,7 @@ export class SeeProductComponent implements OnInit
     console.log('archivado');
     this.product.is_archived = true;
     this.product.release_date = null;
+    this.product.cover = null;
     console.log(this.product);
     
     swal({
@@ -113,6 +114,12 @@ export class SeeProductComponent implements OnInit
     console.log(product);
     this.router.navigateByUrl('/products/edit',{ state: product });
     
+  }
+
+  addDiscount( modal:any )
+  {
+   this.modalService.open(modal);
+
   }
 
 }

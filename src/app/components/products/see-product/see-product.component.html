@@ -136,7 +136,7 @@
             </ul>-->
             <div class="d-flex justify-content-center align-items-center" style="padding-top: 8vh;">
                 <button href="" class="btn btn-primary btnConfigs" (click)="editProduct( product )">Editar Producto</button>
-                <button href="" class="btn btn-warning btnConfigs">Aplicar Descuento</button>
+                <button href="" class="btn btn-warning btnConfigs" (click)="addDiscount( modalDiscount )">Aplicar Descuento</button>
                 <button href="" class="btn btn-secondary btnConfigs" (click)="archiveProduct()">Archivar Producto</button>
             </div>
         </div>
@@ -171,17 +171,28 @@
 </ng-template>
 <!--modal descuento--->
 <!----modal starts here--->
-<ng-template #myModal let-modal>
+<ng-template #modalDiscount let-modal>
     <div class="modal-header">
         <h2>Aplicar Descuento</h2>
         <a (click)="modal.close()" style="cursor: pointer;"><mat-icon>cancel</mat-icon></a>
     </div>
     <div class="modal-body text-center">
         <form action="">
-            <input type="number" name="priceDiscounted" >
+
+            <div class="input-group">
+                <input type="number" id="ramInputC" class="form-control" name="priceDiscounted" [value]="product.ram" [placeholder]="0">
+                <span class="input-group-text">%</span>
+            </div>
             <br>
-            <input type="date" name="">
+            <input type="date" id="ramInputC" class="form-control" name="">
+            <br>
+            <button type="submit" class="btn btn-success form-control my-3">Enviar</button>
+            <br>
+            <button type="submit" class="btn btn-danger form-control">Cancelar</button>
         </form>
+    </div>
+    <div class="modal-footer">
+        <h2></h2>
     </div>
 </ng-template>
 <!--Modal ends here--->
