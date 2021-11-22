@@ -177,18 +177,18 @@
         <a (click)="modal.close()" style="cursor: pointer;"><mat-icon>cancel</mat-icon></a>
     </div>
     <div class="modal-body text-center">
-        <form action="">
+        <form #discountForm="ngForm" (ngSubmit)="submitDiscount(discountForm)" >
 
             <div class="input-group">
-                <input type="number" id="ramInputC" class="form-control" name="priceDiscounted" [value]="product.ram" [placeholder]="0">
+                <input type="number" id="ramInputC" class="form-control" name="priceDiscounted" [value]="product.ram" [placeholder]="0" ngModel>
                 <span class="input-group-text">%</span>
             </div>
             <br>
-            <input type="date" id="ramInputC" class="form-control" name="">
+            <input type="date" id="ramInputC" class="form-control" name="end_date" ngModel>
             <br>
             <button type="submit" class="btn btn-success form-control my-3">Enviar</button>
             <br>
-            <button type="submit" class="btn btn-danger form-control">Cancelar</button>
+            <button class="btn btn-danger form-control">Cancelar</button>
         </form>
     </div>
     <div class="modal-footer">

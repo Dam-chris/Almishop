@@ -121,5 +121,13 @@ export class SeeProductComponent implements OnInit
    this.modalService.open(modal);
 
   }
+  submitDiscount( data:any )
+  {
+    //data.value.end_date = data.value.end_date.toLocaleDateString();
+    data.value.start_date = new Date(Date.now());
+
+    console.log(data.value);
+    
+  }
 
 }
