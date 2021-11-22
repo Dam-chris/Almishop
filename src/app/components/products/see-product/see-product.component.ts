@@ -81,6 +81,7 @@ export class SeeProductComponent implements OnInit
   {
     console.log('archivado');
     this.product.is_archived = true;
+    this.product.release_date = null;
     console.log(this.product);
     
     swal({

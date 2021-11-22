@@ -9,6 +9,7 @@ import { Genre } from '../models/genre';
 import { Developer } from '../models/developer';
 import { Product } from '../models/product';
 import { toBase64String } from '@angular/compiler/src/output/source_map';
+import { NgForm } from '@angular/forms';
 
 @Component({
   selector: 'app-edit-product',
@@ -33,7 +34,7 @@ export class EditProductComponent implements OnInit {
   productType:number;
 
   images: File[] = [];
-  imageCover: string;
+  imageCover: File;
   product: any;
 
   has_sd:boolean;
@@ -46,9 +47,9 @@ export class EditProductComponent implements OnInit {
       this.product = this.router.getCurrentNavigation().extras.state;
       this.productType = this.product.id_product_type;
       this.imageCover = this.product.cover;
-      this.images = this.product.images;
       this.has_sd = (this.product.has_sd == 1)? true:false;
     }
+
   }
 
 
@@ -57,18 +58,46 @@ export class EditProductComponent implements OnInit {
     this.loadData();
     
   }
-  submit( data: any )
+  submit( data: NgForm )
   {
-   
-    data.value.cover = this.imageCover;
-    data.value.images = this.images;
-    
-   console.log(/^(?:[A-Za-z0-9+/]{4})*(?:[A-Za-z0-9+/]{2}==|[A-Za-z0-9+/]{3}=)?$/.test(this.imageCover));
+    if(data.form.status == 'INVALID')
+    {
+      swal({
+        title: 'Error al insertar',
+        text: 'Revise los datos y vuelva a intentarlo.',
+        icon: 'error'
+      });
+     return;
+    }
+    data.value.id = this.product.id;
+    data.value.id_product_type = this.product.id_product_type;
+    (this.comproveImage(this.imageCover)) ? (data.value.cover = this.imageCover, data.value.images = this.images):(data.value.cover = null, data.value.images = null);
+    (data.value.release_date) && (data.value.release_date = data.value.release_date.replace(/-/g, '/'));
 
-   console.log(btoa(this.imageCover));
-   
-   
-    
+    console.log(data.value);
+
+    swal({
+      title:'¿Esta seguro de esta edcion?',
+      text:'Una vez aplicados los cambios no podran ser revertidos',
+      icon:'info',
+      buttons:['Cancelar','Aceptar']
+    })
+    .then((res)=> 
+    { 
+      if(res)
+      {
+        this.router.navigateByUrl('products');
+        this.productService.editProduct(data.value);
+        swal({
+          title:'Producto editado correctamente!',
+          icon:'success'
+        });
+      }
+    });
+  }
+  comproveImage(image:File)
+  {
+    return /^(?:[A-Za-z0-9+/]{4})*(?:[A-Za-z0-9+/]{2}==|[A-Za-z0-9+/]{3}=|[A-Za-z0-9+/]{4})$/.test(image.toString().split(',')[1]);
   }
 
   loadData() 
@@ -144,32 +173,6 @@ export class EditProductComponent implements OnInit {
         this.router.navigateByUrl('products')
       }
     });
-  }
-  //para las imagenes
-  onFileChange( event:any ) 
-  {
-    if (event.target.files && event.target.files[0]) 
-    {
-      
-      var filesAmount = event.target.files.length;
-      
-      for (let i = 0; i < filesAmount; i++) 
-      {
-        
-        var reader = new FileReader();
-        
-        reader.onload = (event:any) => 
-        {
-          
-          console.log(event.target.result);
-          
-          this.images.push(event.target.result); 
-          
-        }
-        
-        reader.readAsDataURL(event.target.files[i]);
-      }
-    }
   }
   //imagen de portada
   onFileChangeCover( event:any ) 

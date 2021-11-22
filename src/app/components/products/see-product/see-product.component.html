@@ -143,7 +143,7 @@
 
     </div>
 </ng-template>
-<!----modal starts here--->
+<!----modal galeria--->
 <ng-template #myModal let-modal>
     <div class="modal-header">
         <h2>Galeria</h2>
@@ -167,6 +167,21 @@
         </ngb-carousel>
         <button class="carousel-control-prev" (click)="ngcarousel.prev()"><span class="carousel-control-prev-icon"></span></button>
         <button class="carousel-control-next" (click)="ngcarousel.next()"><span class="carousel-control-next-icon"></span></button>
+    </div>
+</ng-template>
+<!--modal descuento--->
+<!----modal starts here--->
+<ng-template #myModal let-modal>
+    <div class="modal-header">
+        <h2>Aplicar Descuento</h2>
+        <a (click)="modal.close()" style="cursor: pointer;"><mat-icon>cancel</mat-icon></a>
+    </div>
+    <div class="modal-body text-center">
+        <form action="">
+            <input type="number" name="priceDiscounted" >
+            <br>
+            <input type="date" name="">
+        </form>
     </div>
 </ng-template>
 <!--Modal ends here--->

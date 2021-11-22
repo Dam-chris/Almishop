@@ -162,15 +162,6 @@
             </div>
           </div>
     
-          <label class="form-check-label my-2" for="rb6a">Imagenes del producto</label>
-          <input (change)="onFileChange($event)" class="form-control" type="file" accept="image/*" multiple />
-          <br>
-          <div class="card" *ngIf="images.length > 0">
-            <div class="card-header">Lista de imagenes</div>
-            <div class="card-body text-center">
-              <img *ngFor='let url of images' [src]="url" height="90px" width="90px" style="margin: 3px;">
-            </div>
-          </div>
         </div>
     
         <div class="row">
