@@ -111,10 +111,6 @@
                             </ng-template>
                         </td>
                     </tr>
-                    <tr *ngIf="product.discount">
-                        <th>Descuento valido hasta</th>
-                        <td>2021/12/23</td>
-                    </tr>
                 </tbody>
             </table>
             <!-- <ul class="list-group">
@@ -199,7 +195,7 @@
 
             <label for="discountInput" class="my-2">Porcentaje a descontar</label>
             <div class="input-group">
-                <input type="number" id="discountInput" class="form-control" name="priceDiscounted" [placeholder]="0" ngModel required>
+                <input type="number" id="discountInput" class="form-control" name="discount" [placeholder]="0" ngModel required>
                 <span class="input-group-text">%</span>
             </div>
 

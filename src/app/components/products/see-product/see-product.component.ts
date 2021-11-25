@@ -147,11 +147,13 @@ export class SeeProductComponent implements OnInit
       {
         if(res)
         {
+          this.loadProduct();
           swal({
             title: 'Descuento Aplicado Correctamente',
             text: '',
             icon: 'success'
           });
+          this.modalService.dismissAll();
         }
       },
       err => console.log(err));
