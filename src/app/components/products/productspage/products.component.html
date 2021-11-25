@@ -6,7 +6,7 @@
   </div>
   
   <ng-template #divTable>
-    <h2><abbr title="Pagina de gestion y administracion de productos">Productos</abbr></h2>
+   <h2><abbr title="Pagina de gestion y administracion de productos">Productos</abbr></h2> 
   
       <select (change)="optionChanged(selector.value)" #selector class="form-select form-select-lg mb-3" style="width: 20%;"
           aria-label=".form-select-lg example" id="cb">
@@ -19,7 +19,8 @@
       
       <button (click)="selectType()" class="btn btn-outline-primary btnConfigs" id="btn">Añadir Producto</button>
       <button *ngIf="archivedData.length > 0" class="btn btn-outline-secondary btnConfigs" id="btn" (click)="archivedProducts(myModal)">Archivados</button>
-      
+      <a id="btn" (click)="optionChanged(selector.value)"><mat-icon>refresh</mat-icon></a>
+
       <table class="table table-striped table-bordered table-hover table-sm" datatable [dtOptions]="dtOptions"
          [dtTrigger]="dtTrigger" >
           <thead>

@@ -17,6 +17,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatDividerModule } from '@angular/material/divider';
 import { ProductModule } from './components/products/product.module';
 import { SeeUserComponent } from './users/see-user/see-user.component';
+import { NgxChartsModule } from '@swimlane/ngx-charts';
 
 
 @NgModule({
@@ -42,6 +43,7 @@ import { SeeUserComponent } from './users/see-user/see-user.component';
     MatButtonModule,
     MatIconModule,
     MatDividerModule,
+    NgxChartsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

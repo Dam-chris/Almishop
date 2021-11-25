@@ -28,7 +28,10 @@ export class ProductsComponent implements OnInit, OnDestroy
   
   selector: string = 'smartphone';
 
-  constructor( private router: Router, private productService: ProductService,private modalService:NgbModal ) { }
+  constructor( private router: Router, private productService: ProductService,private modalService:NgbModal ) 
+  {
+    this.optionChanged( this.selector );
+  }
 
 
   ngOnInit()
@@ -36,7 +39,7 @@ export class ProductsComponent implements OnInit, OnDestroy
     //## LLAMAR A PRODUCTSERVICE ##
     //this.allProducts = this.productService.getAllProducts();
    
-    this.optionChanged( this.selector );
+    //this.optionChanged( this.selector );
     this.initDtOptions();
 
    //encriptacion, se usara mas adelante en el login...
