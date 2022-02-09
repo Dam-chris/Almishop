@@ -1,1 +1,24 @@
-/* You can add global styles to this file, and also import other style files */
+  .swal-footer 
+  {
+  text-align: center;
+  }
+
+  html 
+  {
+    position: relative;
+    min-height: 100%;
+  }
+  footer 
+  {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    height: 60px;
+    width: 100%;
+    overflow:hidden;
+    background: #004a9f;
+  }
+
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }

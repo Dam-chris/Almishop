@@ -1,0 +1,87 @@
+ngb-carousel 
+{
+    max-width: 700px;
+    margin: 50px auto;
+}
+
+ngb-carousel img 
+{
+    width: 100%;
+    outline: none;
+}
+
+ngb-carousel 
+{
+    width: inherit;
+    height: inherit;
+}
+.carousel-inner 
+{
+    overflow: visible;
+}
+
+.carousel-item 
+{
+    display: flex !important;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 1.2s ease-in-out, visibility 1.2s;
+    z-index: -1;
+}
+.carousel-control-prev-icon
+{
+    background-image: url('/../assets/img/prev.png');
+ }
+.carousel-control-next-icon
+ {
+   background-image: url('/../assets/img/next.png');
+ }
+
+.carousel-item.active
+{
+    opacity: 1;
+    visibility: visible;
+    z-index: 10;
+}
+
+.carousel-control-prev 
+{
+     z-index: 20;
+}
+
+
+.carousel-control-next 
+{
+     z-index: 20;
+}
+
+.carousel-indicators
+{
+    z-index: 20;
+}
+th
+{
+  background-color: rgba(0, 0, 0, 0.05);
+  width:30%;
+  height: 40px;
+}
+td
+{
+  padding-left: 2%;
+}
+/*para los descuentos*/
+.actual
+{
+  display: inline-block; 
+  margin-right: 15px;
+}
+.price-layered
+{
+  display: inline-flex;
+}
+.old
+{
+  margin-right: 15px; 
+  color:#989898;
+  text-decoration: line-through;
+}

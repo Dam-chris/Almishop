@@ -1,1 +1,50 @@
-<p>HOLA ASIER!!</p>
+<mat-toolbar class="mat-elevation-z8">
+  <button mat-icon-button *ngIf="sidenav.mode === 'over'" (click)="sidenav.toggle()" [disabled]="isDisabledMenu()">
+      <mat-icon *ngIf="!sidenav.opened">
+          menu
+      </mat-icon>
+      <mat-icon *ngIf="sidenav.opened">
+          close
+      </mat-icon>
+  </button>
+    <a class="py-6 my-6 d-none d-md-inline-block" routerLink="home">
+      <img class="logoAlmi" src="assets/img/almicuadrado.png">
+    </a>
+</mat-toolbar>
+<mat-sidenav-container>
+  <mat-sidenav #sidenav="matSidenav" class="mat-elevation-z8">
+      
+      <img class="avatar mat-elevation-z8" src="assets/img/shitfuck.jpeg" />
+      
+      <h4 class="name">Alberto (ShitFuck)</h4>
+      <p class="designation">Esclavo De AlmiShop</p>
+
+      <mat-divider></mat-divider>
+
+      <button mat-button class="menu-button" routerLink="home">
+          <mat-icon>home</mat-icon>
+          <span>Inicio</span>
+      </button>
+      <button mat-button class="menu-button" routerLink="products">
+          <mat-icon>shopping_cart</mat-icon>
+          <span>Productos</span>
+      </button>
+      <button mat-button class="menu-button" routerLink="users">
+          <mat-icon>supervisor_account</mat-icon>
+          <span>Usuarios</span>
+      </button>
+
+      <mat-divider></mat-divider>
+
+      <button mat-button class="menu-button" (click)="logOut(sidenav)">
+          <mat-icon>exit_to_app</mat-icon>
+          <span>Cerrar Session</span>
+      </button>
+
+  </mat-sidenav>
+  <mat-sidenav-content>
+    <div class="container my-3 pb-5 ">
+      <router-outlet></router-outlet>
+    </div>
+</mat-sidenav-content>
+</mat-sidenav-container>

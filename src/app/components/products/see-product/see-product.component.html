@@ -1,0 +1,218 @@
+<div *ngIf="!product; else divProduct" class="alert alert-info text-center">
+    <div>
+        Ups, parece que ha ocurrido un error, intentelo mas tarde ...
+    </div>
+    <a href="products" class="btn btn-outline-info">volver atras</a>
+</div>
+
+<ng-template #divProduct>
+    <div class="row">
+        <div class="col-12 py-4">
+            <h1>{{ type | titlecase }}: <small>{{ product.name | titlecase }} - {{ product.name_brand | titlecase }}</small> </h1>
+        </div>
+    </div>
+
+    <div class="row">
+
+        <div class="col-4">
+            <h3 class="py-3">Portada</h3>
+
+            <div class="bg-image text-center">
+                <img [src]="product.cover" class="img-fluid img-thumbnail">
+                <div *ngIf="product.images.length > 0" class="d-flex justify-content-center align-items-center">
+                    <button type="button" class="btn btn-outline-primary" style="width: 100%;"
+                        (click)="showModal(myModal)">Ver galeria</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="col">
+            <h3 class="py-3">Información</h3>
+            <table class="table table-bordered table-hover table-sm">
+                <tbody>
+                    <tr>
+                        <th>Nombre:</th>
+                        <td>{{ product.name | titlecase }}</td>
+                    </tr>
+                    <tr>
+                        <th>Marca:</th>
+                        <td>{{ product.name_brand | titlecase }}</td>
+                    </tr>
+                    <tr *ngIf="product.storage">
+                        <th>Almacenamiento:</th>
+                        <td>{{ product.storage | titlecase }} gb</td>
+                    </tr>
+                    <tr *ngIf="product.developer">
+                        <th>Desarollador:</th>
+                        <td>{{ product.developer | titlecase }}</td>
+                    </tr>
+                    <tr *ngIf="product.platform">
+                        <th>Plataforma:</th>
+                        <td>{{ product.platform | uppercase }}</td>
+                    </tr>
+                    <tr *ngIf="product.genre">
+                        <th>Genero:</th>
+                        <td>{{ product.genre | titlecase }}</td>
+                    </tr>
+                    <tr *ngIf="product.description">
+                        <th>Descripción:</th>
+                        <td>{{ product.description | titlecase }}</td>
+                    </tr>
+                    <tr *ngIf="product.release_date">
+                        <th>Fecha de publicacion:</th>
+                        <td>{{ product.release_date }}</td>
+                    </tr>
+                    <tr *ngIf="product.ram">
+                        <th>RAM:</th>
+                        <td>{{ product.ram | titlecase }} gb</td>
+                    </tr>
+                    <tr *ngIf="product.cpu">
+                        <th>CPU:</th>
+                        <td>{{ product.cpu | titlecase }}</td>
+                    </tr>
+                    <tr *ngIf="product.gpu">
+                        <th>GPU:</th>
+                        <td>{{ product.gpu | titlecase }}</td>
+                    </tr>
+                    <tr *ngIf="product.has_cd">
+                        <th>Tiene CD:</th>
+                        <td>{{ product.has_cd == 1 ? 'Si':'No'}}</td>
+                    </tr>
+                    <tr *ngIf="product.has_sd">
+                        <th>Tiene SD:</th>
+                        <td>{{ product.has_sd == 1 ? 'Si':'No' }}</td>
+                    </tr>
+                    <tr>
+                        <th>Stock Venta:</th>
+                        <td>{{ product.stock_sale | titlecase }} uds</td>
+                    </tr>
+                    <tr *ngIf="product.stock_rent != 0">
+                        <th>Stock Alquiler:</th>
+                        <td>{{ product.stock_rent | titlecase }} uds</td>
+                    </tr>
+                    <tr>
+                        <th>Precio:</th>
+                        <td>
+                            <span *ngIf="product.discount; else withoutDiscount">
+                                <div class="actual">
+                                    {{  product.price_discounted | number }} €
+                                </div>
+                                <div class="price-layered">
+                                    <div class="old">
+                                        {{ product.price | number}} € 
+                                    </div>
+                                    <div class="badge bg-danger" >
+                                        {{ product.discount }} % 
+                                    </div>
+                                </div>
+                            </span>
+                            <ng-template #withoutDiscount>
+                                {{ product.price | number}} € 
+                            </ng-template>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <!-- <ul class="list-group">
+                <li class="list-group-item bg-light"><strong>Nombre: </strong>{{ product.name | titlecase }}</li>
+            </ul>
+            <ul class="list-group">
+                <li class="list-group-item"><strong>Marca: </strong>{{ product.name_brand | titlecase }}</li>
+            </ul>
+            <ul class="list-group">
+                <li class="list-group-item"><strong>Almacenamiento: </strong>{{ product.storage | titlecase }}</li>
+            </ul>
+            <ul class="list-group">
+                <li class="list-group-item"><strong>Desarrolador: </strong> {{ product.developer }}</li>
+            </ul>
+            <ul class="list-group">
+                <li class="list-group-item"><strong>Fecha de Publicacion: </strong> {{ product.release_date }}</li>
+            </ul>
+            <ul class="list-group">
+                <li class="list-group-item"><strong>Stock Venta: </strong> {{ product.stock_sale }}</li>
+            </ul>
+            <ul class="list-group">
+                <li class="list-group-item"><strong>Stock Alquiler: </strong> {{ product.stock_rent }}</li>
+            </ul>
+            <ul class="list-group">
+                <li class="list-group-item"><strong>RAM: </strong> {{ product.ram }}</li>
+            </ul>
+            <ul class="list-group">
+                <li class="list-group-item"><strong>CPU: </strong> {{ product.cpu }}</li>
+            </ul>
+            <ul class="list-group">
+                <li class="list-group-item"><strong>GPU: </strong> {{ product.gpu }}</li>
+            </ul>
+            <ul class="list-group">
+                <li class="list-group-item"><strong>Tiene CD: </strong> {{ product.has_cd == 1 ? 'Si':'No' }}</li>
+            </ul>
+            <ul class="list-group">
+                <li class="list-group-item"><strong>Tiene SD: </strong> {{ product.has_sd == 1 ? 'Si':'No' }}</li>
+            </ul>-->
+            <div class="d-flex justify-content-center align-items-center" style="padding-top: 8vh;">
+                <button href="" class="btn btn-primary btnConfigs" (click)="editProduct( product )">Editar Producto</button>
+                <button *ngIf="!product.discount" href="" class="btn btn-warning btnConfigs" (click)="addDiscount( modalDiscount )">Aplicar Descuento</button>
+                <button href="" class="btn btn-secondary btnConfigs" (click)="archiveProduct()">Archivar Producto</button>
+            </div>
+        </div>
+
+    </div>
+</ng-template>
+<!----modal galeria--->
+<ng-template #myModal let-modal>
+    <div class="modal-header">
+        <h2>Galeria</h2>
+        <a (click)="modal.close()" style="cursor: pointer;"><mat-icon>cancel</mat-icon></a>
+    </div>
+    <div class="modal-body text-center">
+        <ngb-carousel 
+            #ngcarousel
+            [showNavigationArrows]="false" 
+            [showNavigationIndicators]="true"
+            [interval]="12000"
+            [keyboard]="true"
+            [pauseOnHover]="true"
+            [wrap]="true"
+            >
+            <ng-template ngbSlide *ngFor="let image of product.images; let i = index;" id="{{ i + 1 }}">
+              <div class="img-thumbnail">
+                <img width="450" [src]="image" >
+              </div>
+            </ng-template>
+        </ngb-carousel>
+        <button class="carousel-control-prev" (click)="ngcarousel.prev()"><span class="carousel-control-prev-icon"></span></button>
+        <button class="carousel-control-next" (click)="ngcarousel.next()"><span class="carousel-control-next-icon"></span></button>
+    </div>
+</ng-template>
+<!--modal descuento--->
+<ng-template #modalDiscount let-modal>
+    <div class="modal-header">
+        <h2>Aplicar Descuento</h2>
+        <a (click)="modal.close()" style="cursor: pointer;"><mat-icon>cancel</mat-icon></a>
+    </div>
+    <div class="modal-body">
+        <form #discountForm="ngForm" (ngSubmit)="submitDiscount(discountForm)" >
+
+            <label for="discountInput" class="my-2">Porcentaje a descontar</label>
+            <div class="input-group">
+                <input type="number" id="discountInput" class="form-control" name="discount" [placeholder]="0" ngModel required>
+                <span class="input-group-text">%</span>
+            </div>
+
+            <label for="discountInput" class="my-2">Fecha fin del descuento</label>
+            <div class="input-group">
+                <input type="date" id="Input_date_end" class="form-control" name="end_date" ngModel required>
+            </div>
+
+            <div class="text-center my-3">
+                <button type="submit" class="btn btn-success my-3 btnConfigs">Enviar</button>
+                <button type="button" class="btn btn-danger my-3 btnConfigs" (click)="modal.close()">Cancelar</button>
+            </div>
+
+        </form>
+    </div>
+    <div class="modal-footer">
+        <h2></h2>
+    </div>
+</ng-template>
+<!--Modal ends here--->
