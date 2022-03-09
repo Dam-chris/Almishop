@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { ProductService } from '../services/product.service';
 import swal from 'sweetalert';
 import { Brand } from '../models/brand';
@@ -7,8 +7,6 @@ import { Color } from '../models/color';
 import { Platform } from '../models/platform';
 import { Genre } from '../models/genre';
 import { Developer } from '../models/developer';
-import { Product } from '../models/product';
-import { toBase64String } from '@angular/compiler/src/output/source_map';
 import { NgForm } from '@angular/forms';
 
 @Component({
@@ -16,7 +14,8 @@ import { NgForm } from '@angular/forms';
   templateUrl: './edit-product.component.html',
   styleUrls: ['./edit-product.component.css']
 })
-export class EditProductComponent implements OnInit {
+export class EditProductComponent implements OnInit 
+{
 
   brands: Brand[] = [];
   colors: Color[] = [];
@@ -39,7 +38,7 @@ export class EditProductComponent implements OnInit {
 
   has_sd:boolean;
   
-  constructor(private activatedRoute: ActivatedRoute, private productService: ProductService, private router: Router) 
+  constructor(private productService: ProductService, private router: Router) 
   {
     console.log('este es el objecto que recibo en edit',this.router.getCurrentNavigation().extras.state);
     if(this.router.getCurrentNavigation().extras.state)
@@ -53,10 +52,9 @@ export class EditProductComponent implements OnInit {
   }
 
 
-  ngOnInit(): void 
+  ngOnInit()
   {
     this.loadData();
-    
   }
   submit( data: NgForm )
   {
@@ -182,19 +180,15 @@ export class EditProductComponent implements OnInit {
     if (event.target.files && event.target.files[0]) 
     {
 
-      var reader = new FileReader();
-        
+      let reader = new FileReader();
+
       reader.onload = (event:any) => 
       {
-          
-        console.log(event.target.result);
-          
+        //console.log(event.target.result);   
         this.imageCover = event.target.result;
-          
       }
-        
+
       reader.readAsDataURL(event.target.files[0]);
-      
     }
   }
 
