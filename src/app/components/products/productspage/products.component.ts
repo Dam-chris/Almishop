@@ -5,8 +5,8 @@ import swal from 'sweetalert';
 import Swal from 'sweetalert2/dist/sweetalert2.js';
 import { Subject,} from 'rxjs';
 import language_ES from "../../../../assets/language_ES.json";
-import * as CryptoJS from 'crypto-js';
-import * as sha1 from 'js-sha1';
+// import * as CryptoJS from 'crypto-js';
+// import * as sha1 from 'js-sha1';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { event } from 'jquery';
 
