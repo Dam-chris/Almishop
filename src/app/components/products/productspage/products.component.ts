@@ -8,7 +8,7 @@ import language_ES from "../../../../assets/language_ES.json";
 // import * as CryptoJS from 'crypto-js';
 // import * as sha1 from 'js-sha1';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { event } from 'jquery';
+// import { event } from 'jquery';
 
 @Component({
   selector: 'app-products',
